@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  benchmark:
+    build: .
+    image: compiler-benchmark:latest
+    volumes:
+      - ./Informes:/app/Informes
+      - ./Gráficas:/app/Gráficas
+      - ./programs:/app/programs
+      - ./scripts:/app/scripts
+    working_dir: /app
+
+volumes:
+  informes:
+  graficas:
+  programs:
+  scripts:

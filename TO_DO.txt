@@ -1,0 +1,105 @@
+Consumo de memoria
+Herramienta NM
+Convertir JSON
+
+Clang
+gcc
+Visual c++
+Meter Rust
+
+Grafica cuantitativa y cualitativa (ver que protecciones tiene cada compilador)
+Usar radar chart
+
+8-4-2025
+radar chart solo opciones seguridad
+
+Activar una opcion seguridad a la vez y que sea combinatoria con rendimiento
+
+Graficas rendimineto comun donde se evalue para ese -O el rendimiento de los compiladores con cada flag de seguridad
+
+Gráfico cuantitativo con % de fortified
+
+Hacer gráfico de la pipeline
+
+11-4-2025
+
+---
+from matplotlib import rc
+import matplotlib
+
+rc('font',**{'family':'serif','serif':['Times'], 'size':16})
+matplotlib.rcParams['text.usetex'] = True
+---
+
+---
+plt.savefig(output_file, format="pdf", bbox_inches="tight")
+---
+
+pdfcrop
+
+https://raymondltremblay.github.io/Visualizacion_Datos/G9_Facet_Grid.html
+
+
+Cambiar dibujo pipeline
+
+Quitar grid, titulo y que este, esté en el eje Y en ingles, en el eje X la leyenda de color de cada compilador, quitar barras discontinuas que separan barra
+
+Hacer grafica para cada flag donde se pongan todos los compiladores y niveles de optimización.
+
+Cambiar las medidas de todas las graficas a %, creando una tabla externa de los valores de default en cada caso
+
+Investigar facet_grid
+
+Rellenar propuesta tfg
+
+
+---
+¡Buena gráfica! Para hacer que el análisis del impacto en rendimiento de los mecanismos de seguridad y opciones de optimización sea más interesante y comprensible, puedes trabajar en la representación visual y el contexto analítico. Aquí van algunas recomendaciones para enriquecer tu estudio visualmente y conceptualmente:
+🧩 1. Agrupación Visual por Tipo de Mecanismo
+
+Agrupa las barras por categorías, usando colores o subgráficos:
+
+    Protecciones a nivel de compilador (FORTIFY_SOURCE, stack pr
+🧩 1. Agrupación Visual por Tipo de Mecanismo
+
+Agrupa las barras por categorías, usando colores o subgráficos:
+
+    Protecciones a nivel de compilador (FORTIFY_SOURCE, stack protector, etc.)
+
+    Protecciones del sistema (PIE, NX, execstack, relro, etc.)
+
+    Sanitizers (ASAN, UBSAN, LeakSanitizer, etc.)
+
+    Optimizaciones (-Oz, -O2, -O3, -Ofast, etc.)
+
+📌 Cómo mostrarlo:
+
+    Usar facet grids (subgráficos por tipo).
+
+    O bien, colores distintos por categoría y un orden lógico en el eje X.
+📊 2. Escalado y Métricas Complementarias
+
+Actualmente solo tienes el tiempo (en segundos). Puedes enriquecerlo con:
+
+    Ratio de overhead: (tiempo con protección) / (tiempo base) para tener una perspectiva relativa.
+
+    Gráfica de calor (heatmap) si tienes muchos compiladores y flags.
+
+📈 3. Ordenamiento Relevante
+
+Ordena las configuraciones por:
+
+    Tiempo de ejecución (descendente).
+
+    O bien, por tipo de flag y luego por rendimiento dentro del grupo.
+
+Esto hace mucho más fácil identific
+Esto hace mucho más fácil identificar qué configuraciones penalizan más el rendimiento.
+🧠 4. Incorporar Comparaciones Cruzadas
+
+Si tienes varios compiladores como clang++, g++, y rustc:
+
+    Haz una comparación por cada uno, con las mismas protecciones.
+
+    Usa gráficas de líneas o de barras agrupadas para ver las diferencias por compilador bajo las mismas condiciones.
+---
