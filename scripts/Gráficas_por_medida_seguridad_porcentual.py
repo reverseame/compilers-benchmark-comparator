@@ -6,7 +6,7 @@ from matplotlib import rc
 import matplotlib
 
 # Configuración tipográfica profesional
-rc('font',**{'family':'serif','serif':['Times'], 'size':16})
+rc('font',**{'family':'serif','serif':['Times'], 'size':14})
 matplotlib.rcParams['text.usetex'] = True
 
 # Configuración estética
@@ -14,6 +14,11 @@ try:
     plt.style.use('seaborn-v0_8')
 except:
     plt.style.use('ggplot')
+
+plt.rcParams['axes.grid'] = True
+plt.rcParams['grid.linestyle'] = '--'
+plt.rcParams['grid.alpha'] = 0.3
+plt.rcParams['grid.color'] = 'gray'
 
 COLORS = ['#4C72B0', '#DD8452', '#55A868']  # Azul, Naranja, Verde
 COMPILERS = ['clang++', 'g++', 'rustc']
@@ -276,7 +281,8 @@ def get_default_values(data):
 
 def create_security_percentage_chart(data, metric, category_name, variant_name, subvariant_name, default_values, output_dir):
     """Crea un gráfico de porcentaje respecto a los valores por defecto para una medida de seguridad"""
-    fig, ax = plt.subplots(figsize=(14, 10))
+    # Aumentar el tamaño de la figura
+    fig, ax = plt.subplots(figsize=(14, 12))
     ax.set_facecolor('white')
     fig.patch.set_facecolor('white')
     
@@ -308,7 +314,7 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
                 elif metric == 'Memory usage (KB)':
                     default_value = default_values[compiler][opt_level]['memory_usage']
                     value = int(config.get('memory_usage', 0))
-                elif metric == 'Memory size (KB)':
+                elif metric == 'File size (KB)':
                     default_value = default_values[compiler][opt_level]['file_size']
                     value = int(config.get('file_size', 0)) / 1024
                 elif metric == 'Fortified Functions (%)':
@@ -348,7 +354,7 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
     
     # Determinar límites del eje Y
     if metric == 'Fortified Functions (%)' and use_absolute_values:
-        y_min, y_max = 0, 100  # Rango fijo 0-100% para valores absolutos
+        y_min, y_max = 0, 100
     else:
         max_abs_value = max(abs(min(all_values)), abs(max(all_values))) if all_values else 100
         y_min = -max_abs_value * 1.1  # 10% más de margen
@@ -360,7 +366,7 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
     colors = []
     labels = []
     
-    bar_width = 0.25
+    bar_width = 0.7
     group_spacing = 1.5
     
     current_pos = 0
@@ -373,7 +379,7 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
                 not compiler_data[compiler][optimization]):
                 x_positions.append(current_pos)
                 values.append(0)
-                colors.append('red')
+                colors.append('black')
                 labels.append('N/A')
             else:
                 # Calcular promedio de los valores porcentuales
@@ -396,31 +402,31 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
     bars = ax.bar(x_positions, values, width=bar_width, color=colors, alpha=0.8,
                  edgecolor='black', linewidth=0.7)
     
-    # Añadir etiquetas N/A en rojo donde corresponda
+    # Añadir etiquetas N/A
     for bar, label in zip(bars, labels):
         height = bar.get_height()
         if height <= 0 and label == 'N/A':
             ax.text(bar.get_x() + bar.get_width()/2., y_min * 0.05,
                     'N/A', ha='center', va='bottom', fontsize=12, 
-                    rotation=90, color='red', fontweight='bold')
+                    rotation=90, color='black', fontweight='bold')
     
     # Configurar ejes y leyenda
-    ax.set_ylabel(ylabel_suffix, fontweight='bold')
+    ax.set_ylabel(ylabel_suffix, fontweight='bold', labelpad=10)
     
-    # Crear leyenda personalizada
+    # Crear leyenda personalizada con tamaño reducido
     legend_elements = [
         plt.Rectangle((0,0), 1, 1, color=COLORS[0], label='clang++'),
         plt.Rectangle((0,0), 1, 1, color=COLORS[1], label='g++'),
         plt.Rectangle((0,0), 1, 1, color=COLORS[2], label='rustc')
     ]
     ax.legend(handles=legend_elements, loc='upper left', 
-              bbox_to_anchor=(1.02, 1), framealpha=0.9)
+              bbox_to_anchor=(1.02, 1), framealpha=0.9, fontsize=12)
     
-    # Configurar ticks del eje X
+    # Configurar ticks del eje X con rotación
     xtick_positions = []
     xtick_labels = []
     
-    pos = (len(COMPILERS) - 1) / 2.0  # Posición central del primer grupo
+    pos = (len(COMPILERS) - 1) / 2.0
     
     for optimization in OPTIMIZATIONS.keys():
         xtick_positions.append(pos)
@@ -428,7 +434,7 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
         pos += len(COMPILERS) + group_spacing
     
     ax.set_xticks(xtick_positions)
-    ax.set_xticklabels(xtick_labels)
+    ax.set_xticklabels(xtick_labels, rotation=45, ha='right')
     
     # Solo mantener la línea central en 0%
     ax.axhline(0, color='black', linewidth=0.8, linestyle='--')
@@ -440,7 +446,11 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
                 ha='center', va='center', transform=ax.transAxes, fontsize=10, 
                 bbox=dict(facecolor='white', alpha=0.8, edgecolor='none'))
     
-    plt.tight_layout()
+    # Ajustar diseño de manera diferente para categorías problemáticas
+    if category_name in ['safe-stack', 'overflow-checks', 'debug-assertions', 'panic']:
+        plt.subplots_adjust(bottom=0.2, top=0.9, left=0.1, right=0.85)
+    else:
+        plt.tight_layout(pad=2.5, h_pad=1.5, w_pad=1.5)
     
     # Crear directorio para la medida de seguridad
     measure_dir = os.path.join(output_dir, category_name)
@@ -506,7 +516,7 @@ def main():
                 print(f"  🖍️ Generando gráficas porcentuales...")
                 create_security_percentage_chart(filtered_data, 'Time (ms)', category_name, variant_name, subvariant_name, default_values, output_dir)
                 create_security_percentage_chart(filtered_data, 'Memory usage (KB)', category_name, variant_name, subvariant_name, default_values, output_dir)
-                create_security_percentage_chart(filtered_data, 'Memory size (KB)', category_name, variant_name, subvariant_name, default_values, output_dir)
+                create_security_percentage_chart(filtered_data, 'File size (KB)', category_name, variant_name, subvariant_name, default_values, output_dir)
                 create_security_percentage_chart(filtered_data, 'Fortified Functions (%)', category_name, variant_name, subvariant_name, default_values, output_dir)
     
     print(f"\n✅ Gráficos porcentuales generados exitosamente en: {output_dir}")

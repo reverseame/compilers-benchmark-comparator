@@ -1,35 +1,22 @@
 Informe de rendimiento y seguridad
 ===========================================
 ===========================================
-[0;34mCompilando con: -O0 -D_FORTIFY_SOURCE=2
+[0;34mCompilando con: -O0 -pie -fPIE
 [0mResultado del tiempo:
-Tiempo real: .003344417 s
+Tiempo real: .000909287 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6868 KB
+Memoria máxima utilizada: 6748 KB
 Tamaño del ejecutable: 19040 bytes
 -------------------------------------------
 Resultado de checksec:
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__D_FORTIFY_SOURCE_2
-===========================================
-
-===========================================
-[0;34mCompilando con: -O0 -D_FORTIFY_SOURCE=1
-[0mResultado del tiempo:
-Tiempo real: .000844248 s
-Uso de CPU:  0.0%
-Memoria máxima utilizada: 6980 KB
-Tamaño del ejecutable: 19040 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__D_FORTIFY_SOURCE_1
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__pie__fPIE
 ===========================================
 
 ===========================================
 [0;34mCompilando con: -O0 -no-pie
 [0mResultado del tiempo:
-Tiempo real: .001034853 s
+Tiempo real: .000929563 s
 Uso de CPU: 0.0%
 Memoria máxima utilizada: 6856 KB
 Tamaño del ejecutable: 18872 bytes
@@ -40,102 +27,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O0 -Wl,-z,execstack
-[0mResultado del tiempo:
-Tiempo real: .001157050 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 6980 KB
-Tamaño del ejecutable: 19040 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [31mNX disabled[m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__Wl__z_execstack
-===========================================
-
-===========================================
-[0;34mCompilando con: -O0 -fstack-protector-all
-[0mResultado del tiempo:
-Tiempo real: .003731720 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 6860 KB
-Tamaño del ejecutable: 23200 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m85 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__fstack_protector_all
-===========================================
-
-===========================================
-[0;34mCompilando con: -O0 -z noexecstack
-[0mResultado del tiempo:
-Tiempo real: .003374686 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 6912 KB
-Tamaño del ejecutable: 19040 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__z_noexecstack
-===========================================
-
-===========================================
-[0;34mCompilando con: -O0 -fstack-protector
-[0mResultado del tiempo:
-Tiempo real: .006637868 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 6884 KB
-Tamaño del ejecutable: 19104 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m85 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__fstack_protector
-===========================================
-
-===========================================
-[0;34mCompilando con: -O0 -fstack-protector-strong
-[0mResultado del tiempo:
-Tiempo real: .001458260 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 6860 KB
-Tamaño del ejecutable: 19104 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m85 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__fstack_protector_strong
-===========================================
-
-===========================================
-[0;34mCompilando con: -O0 
-[0mResultado del tiempo:
-Tiempo real: .004384122 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 6984 KB
-Tamaño del ejecutable: 19040 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0_
-===========================================
-
-===========================================
-[0;34mCompilando con: -O0 -D_FORTIFY_SOURCE=0
-[0mResultado del tiempo:
-Tiempo real: .004539606 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 6968 KB
-Tamaño del ejecutable: 19040 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__D_FORTIFY_SOURCE_0
-===========================================
-
-===========================================
 [0;34mCompilando con: -O0 -fno-stack-protector
 [0mResultado del tiempo:
-Tiempo real: .001002923 s
+Tiempo real: .003742213 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6728 KB
+Memoria máxima utilizada: 6980 KB
 Tamaño del ejecutable: 19040 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -144,24 +40,128 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O0 -pie -fPIE
+[0;34mCompilando con: -O0 -D_FORTIFY_SOURCE=1
 [0mResultado del tiempo:
-Tiempo real: .001157594 s
+Tiempo real: .002874378 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6936 KB
+Memoria máxima utilizada: 6836 KB
 Tamaño del ejecutable: 19040 bytes
 -------------------------------------------
 Resultado de checksec:
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__pie__fPIE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__D_FORTIFY_SOURCE_1
+===========================================
+
+===========================================
+[0;34mCompilando con: -O0 -Wl,-z,execstack
+[0mResultado del tiempo:
+Tiempo real: .003759705 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 6852 KB
+Tamaño del ejecutable: 19040 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [31mNX disabled[m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__Wl__z_execstack
+===========================================
+
+===========================================
+[0;34mCompilando con: -O0 -fstack-protector
+[0mResultado del tiempo:
+Tiempo real: .000979495 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 7028 KB
+Tamaño del ejecutable: 19104 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m85 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__fstack_protector
+===========================================
+
+===========================================
+[0;34mCompilando con: -O0 -fstack-protector-all
+[0mResultado del tiempo:
+Tiempo real: .003894064 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 6924 KB
+Tamaño del ejecutable: 23200 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m85 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__fstack_protector_all
+===========================================
+
+===========================================
+[0;34mCompilando con: -O0 
+[0mResultado del tiempo:
+Tiempo real: .000958662 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 6920 KB
+Tamaño del ejecutable: 19040 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0_
+===========================================
+
+===========================================
+[0;34mCompilando con: -O0 -z noexecstack
+[0mResultado del tiempo:
+Tiempo real: .001208604 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 6848 KB
+Tamaño del ejecutable: 19040 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__z_noexecstack
+===========================================
+
+===========================================
+[0;34mCompilando con: -O0 -D_FORTIFY_SOURCE=2
+[0mResultado del tiempo:
+Tiempo real: .001403663 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 7028 KB
+Tamaño del ejecutable: 19040 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__D_FORTIFY_SOURCE_2
+===========================================
+
+===========================================
+[0;34mCompilando con: -O0 -fstack-protector-strong
+[0mResultado del tiempo:
+Tiempo real: .000977887 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 6988 KB
+Tamaño del ejecutable: 19104 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m85 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__fstack_protector_strong
+===========================================
+
+===========================================
+[0;34mCompilando con: -O0 -D_FORTIFY_SOURCE=0
+[0mResultado del tiempo:
+Tiempo real: .001442560 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 6984 KB
+Tamaño del ejecutable: 19040 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m84 Symbols	[m[31mNo[m	0		1		./results_clang++/executables/program_-O0__D_FORTIFY_SOURCE_0
 ===========================================
 
 ===========================================
 [0;34mCompilando con: -O0 -fno-plt
 [0mResultado del tiempo:
-Tiempo real: .001116152 s
-Uso de CPU:  100%
-Memoria máxima utilizada: 6856 KB
+Tiempo real: .001064885 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 6916 KB
 Tamaño del ejecutable: 18992 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -172,9 +172,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O0 -Wl,-z,relro,-z,now
 [0mResultado del tiempo:
-Tiempo real: .003676804 s
+Tiempo real: .003680317 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6856 KB
+Memoria máxima utilizada: 6988 KB
 Tamaño del ejecutable: 18896 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -183,24 +183,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O1 -fstack-protector
-[0mResultado del tiempo:
-Tiempo real: .001099971 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3508 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__fstack_protector
-===========================================
-
-===========================================
 [0;34mCompilando con: -O0 -fsanitize=safe-stack
 [0mResultado del tiempo:
-Tiempo real: .001161062 s
+Tiempo real: .002925596 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 7108 KB
+Memoria máxima utilizada: 6996 KB
 Tamaño del ejecutable: 30296 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -209,63 +196,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O1 
-[0mResultado del tiempo:
-Tiempo real: .000911336 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3428 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1_
-===========================================
-
-===========================================
-[0;34mCompilando con: -O1 -fstack-protector-all
-[0mResultado del tiempo:
-Tiempo real: .001319880 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3536 KB
-Tamaño del ejecutable: 16048 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m37 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__fstack_protector_all
-===========================================
-
-===========================================
-[0;34mCompilando con: -O1 -fstack-protector-strong
-[0mResultado del tiempo:
-Tiempo real: .001215330 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3444 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__fstack_protector_strong
-===========================================
-
-===========================================
-[0;34mCompilando con: -O1 -fno-stack-protector
-[0mResultado del tiempo:
-Tiempo real: .001526524 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3440 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__fno_stack_protector
-===========================================
-
-===========================================
 [0;34mCompilando con: -O0 -flto
 [0mResultado del tiempo:
-Tiempo real: .001230773 s
+Tiempo real: .000988872 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 7028 KB
+Memoria máxima utilizada: 6852 KB
 Tamaño del ejecutable: 19032 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -274,11 +209,76 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O1 -fno-stack-protector
+[0mResultado del tiempo:
+Tiempo real: .001888496 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3424 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__fno_stack_protector
+===========================================
+
+===========================================
+[0;34mCompilando con: -O1 -fstack-protector
+[0mResultado del tiempo:
+Tiempo real: .000944277 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3464 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__fstack_protector
+===========================================
+
+===========================================
+[0;34mCompilando con: -O1 
+[0mResultado del tiempo:
+Tiempo real: .001026898 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3464 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1_
+===========================================
+
+===========================================
+[0;34mCompilando con: -O1 -fstack-protector-strong
+[0mResultado del tiempo:
+Tiempo real: .000942222 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3512 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__fstack_protector_strong
+===========================================
+
+===========================================
+[0;34mCompilando con: -O1 -fstack-protector-all
+[0mResultado del tiempo:
+Tiempo real: .002247414 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3456 KB
+Tamaño del ejecutable: 16048 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m37 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__fstack_protector_all
+===========================================
+
+===========================================
 [0;34mCompilando con: -O0 -fsanitize=undefined
 [0mResultado del tiempo:
-Tiempo real: .001850522 s
-Uso de CPU: 50.0%
-Memoria máxima utilizada: 7208 KB
+Tiempo real: .000934739 s
+Uso de CPU:  100%
+Memoria máxima utilizada: 7244 KB
 Tamaño del ejecutable: 448712 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -289,9 +289,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O0 -fsanitize=address
 [0mResultado del tiempo:
-Tiempo real: .001179390 s
-Uso de CPU:  100%
-Memoria máxima utilizada: 19972 KB
+Tiempo real: .001189335 s
+Uso de CPU: 50.0%
+Memoria máxima utilizada: 18040 KB
 Tamaño del ejecutable: 1707256 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -302,9 +302,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O0 -fsanitize=memory
 [0mResultado del tiempo:
-Tiempo real: .002757616 s
-Uso de CPU:  100%
-Memoria máxima utilizada: 13604 KB
+Tiempo real: .000970895 s
+Uso de CPU:  0.0%
+Memoria máxima utilizada: 13588 KB
 Tamaño del ejecutable: 1420184 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -313,11 +313,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O1 -no-pie
+[0mResultado del tiempo:
+Tiempo real: .001094256 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3528 KB
+Tamaño del ejecutable: 15672 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [31mNo PIE       [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m34 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__no_pie
+===========================================
+
+===========================================
 [0;34mCompilando con: -O1 -pie -fPIE
 [0mResultado del tiempo:
-Tiempo real: .001503396 s
+Tiempo real: .001132867 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3504 KB
+Memoria máxima utilizada: 3512 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -326,11 +339,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O1 -D_FORTIFY_SOURCE=0
+[0mResultado del tiempo:
+Tiempo real: .000929856 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3452 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__D_FORTIFY_SOURCE_0
+===========================================
+
+===========================================
 [0;34mCompilando con: -O1 -z noexecstack
 [0mResultado del tiempo:
-Tiempo real: .000877513 s
+Tiempo real: .001141713 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3480 KB
+Memoria máxima utilizada: 3428 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -341,9 +367,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O1 -D_FORTIFY_SOURCE=1
 [0mResultado del tiempo:
-Tiempo real: .000962807 s
+Tiempo real: .000940664 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3444 KB
+Memoria máxima utilizada: 3464 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -354,9 +380,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O1 -Wl,-z,execstack
 [0mResultado del tiempo:
-Tiempo real: .001907381 s
+Tiempo real: .000926327 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3360 KB
+Memoria máxima utilizada: 3428 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -365,50 +391,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O1 -D_FORTIFY_SOURCE=2
-[0mResultado del tiempo:
-Tiempo real: .000938039 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3504 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__D_FORTIFY_SOURCE_2
-===========================================
-
-===========================================
-[0;34mCompilando con: -O1 -no-pie
-[0mResultado del tiempo:
-Tiempo real: .001417373 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3488 KB
-Tamaño del ejecutable: 15672 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [31mNo PIE       [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m34 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__no_pie
-===========================================
-
-===========================================
-[0;34mCompilando con: -O1 -D_FORTIFY_SOURCE=0
-[0mResultado del tiempo:
-Tiempo real: .000991079 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3528 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__D_FORTIFY_SOURCE_0
-===========================================
-
-===========================================
 [0;34mCompilando con: -O1 -fno-plt
 [0mResultado del tiempo:
-Tiempo real: .000996146 s
+Tiempo real: .000984716 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3456 KB
+Memoria máxima utilizada: 3424 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -417,11 +404,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O1 -D_FORTIFY_SOURCE=2
+[0mResultado del tiempo:
+Tiempo real: .001092392 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3360 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O1__D_FORTIFY_SOURCE_2
+===========================================
+
+===========================================
 [0;34mCompilando con: -O1 -fsanitize=undefined
 [0mResultado del tiempo:
-Tiempo real: .001083465 s
+Tiempo real: .001050039 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 7220 KB
+Memoria máxima utilizada: 7352 KB
 Tamaño del ejecutable: 426008 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -432,9 +432,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O1 -fsanitize=address
 [0mResultado del tiempo:
-Tiempo real: .001093117 s
+Tiempo real: .001128584 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 9368 KB
+Memoria máxima utilizada: 10832 KB
 Tamaño del ejecutable: 1695768 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -445,9 +445,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O1 -Wl,-z,relro,-z,now
 [0mResultado del tiempo:
-Tiempo real: .001055891 s
+Tiempo real: .001057145 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3528 KB
+Memoria máxima utilizada: 3472 KB
 Tamaño del ejecutable: 15840 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -458,9 +458,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O1 -flto
 [0mResultado del tiempo:
-Tiempo real: .005400300 s
+Tiempo real: .003630697 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3480 KB
+Memoria máxima utilizada: 3528 KB
 Tamaño del ejecutable: 15832 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -471,9 +471,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O1 -fsanitize=safe-stack
 [0mResultado del tiempo:
-Tiempo real: .001197346 s
+Tiempo real: .001045677 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3424 KB
+Memoria máxima utilizada: 3604 KB
 Tamaño del ejecutable: 23144 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -482,24 +482,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O2 -pie -fPIE
+[0;34mCompilando con: -O2 
 [0mResultado del tiempo:
-Tiempo real: .001232151 s
+Tiempo real: .001301072 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3456 KB
+Memoria máxima utilizada: 3480 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2__pie__fPIE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2_
 ===========================================
 
 ===========================================
 [0;34mCompilando con: -O2 -fstack-protector-strong
 [0mResultado del tiempo:
-Tiempo real: .001035306 s
+Tiempo real: .001330675 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3504 KB
+Memoria máxima utilizada: 3468 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -510,9 +510,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O2 -fstack-protector
 [0mResultado del tiempo:
-Tiempo real: .001006957 s
+Tiempo real: .002991077 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3456 KB
+Memoria máxima utilizada: 3476 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -521,37 +521,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O2 
-[0mResultado del tiempo:
-Tiempo real: .001195668 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3408 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2_
-===========================================
-
-===========================================
-[0;34mCompilando con: -O2 -fno-stack-protector
-[0mResultado del tiempo:
-Tiempo real: .003501112 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3520 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2__fno_stack_protector
-===========================================
-
-===========================================
 [0;34mCompilando con: -O2 -fstack-protector-all
 [0mResultado del tiempo:
-Tiempo real: .001089742 s
+Tiempo real: .001032287 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3456 KB
+Memoria máxima utilizada: 3508 KB
 Tamaño del ejecutable: 16048 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -560,11 +534,37 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O2 -fno-stack-protector
+[0mResultado del tiempo:
+Tiempo real: .000995047 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3436 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2__fno_stack_protector
+===========================================
+
+===========================================
+[0;34mCompilando con: -O2 -pie -fPIE
+[0mResultado del tiempo:
+Tiempo real: .001205099 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3520 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2__pie__fPIE
+===========================================
+
+===========================================
 [0;34mCompilando con: -O2 -no-pie
 [0mResultado del tiempo:
-Tiempo real: .001018811 s
+Tiempo real: .001000109 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3360 KB
+Memoria máxima utilizada: 3488 KB
 Tamaño del ejecutable: 15672 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -575,9 +575,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O1 -fsanitize=memory
 [0mResultado del tiempo:
-Tiempo real: .001498072 s
+Tiempo real: .004088418 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 13688 KB
+Memoria máxima utilizada: 13756 KB
 Tamaño del ejecutable: 1396840 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -586,24 +586,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O2 -D_FORTIFY_SOURCE=2
-[0mResultado del tiempo:
-Tiempo real: .001279383 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3424 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2__D_FORTIFY_SOURCE_2
-===========================================
-
-===========================================
 [0;34mCompilando con: -O2 -D_FORTIFY_SOURCE=1
 [0mResultado del tiempo:
-Tiempo real: .002716001 s
+Tiempo real: .000983186 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3520 KB
+Memoria máxima utilizada: 3528 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -612,11 +599,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O2 -D_FORTIFY_SOURCE=0
+[0;34mCompilando con: -O2 -D_FORTIFY_SOURCE=2
 [0mResultado del tiempo:
-Tiempo real: .000914041 s
+Tiempo real: .001070635 s
 Uso de CPU: 0.0%
 Memoria máxima utilizada: 3520 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2__D_FORTIFY_SOURCE_2
+===========================================
+
+===========================================
+[0;34mCompilando con: -O2 -D_FORTIFY_SOURCE=0
+[0mResultado del tiempo:
+Tiempo real: .001018850 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3512 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -627,9 +627,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O2 -z noexecstack
 [0mResultado del tiempo:
-Tiempo real: .001444448 s
+Tiempo real: .001089663 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3540 KB
+Memoria máxima utilizada: 3488 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -638,9 +638,22 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O2 -Wl,-z,execstack
+[0mResultado del tiempo:
+Tiempo real: .001331499 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3444 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [31mNX disabled[m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2__Wl__z_execstack
+===========================================
+
+===========================================
 [0;34mCompilando con: -O2 -fno-plt
 [0mResultado del tiempo:
-Tiempo real: .001244218 s
+Tiempo real: .001020343 s
 Uso de CPU: 0.0%
 Memoria máxima utilizada: 3528 KB
 Tamaño del ejecutable: 15912 bytes
@@ -651,24 +664,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O2 -Wl,-z,execstack
-[0mResultado del tiempo:
-Tiempo real: .001044300 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3360 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [31mNX disabled[m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O2__Wl__z_execstack
-===========================================
-
-===========================================
 [0;34mCompilando con: -O2 -Wl,-z,relro,-z,now
 [0mResultado del tiempo:
-Tiempo real: .001112359 s
+Tiempo real: .001009211 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3452 KB
+Memoria máxima utilizada: 3476 KB
 Tamaño del ejecutable: 15840 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -679,9 +679,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O2 -flto
 [0mResultado del tiempo:
-Tiempo real: .001021749 s
+Tiempo real: .001009517 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3444 KB
+Memoria máxima utilizada: 3484 KB
 Tamaño del ejecutable: 15832 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -690,24 +690,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O2 -fsanitize=undefined
-[0mResultado del tiempo:
-Tiempo real: .001254777 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 7352 KB
-Tamaño del ejecutable: 426008 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m1693 Symbols	[m[32mYes[m	3		3		./results_clang++/executables/program_-O2__fsanitize_undefined
-===========================================
-
-===========================================
 [0;34mCompilando con: -O2 -fsanitize=safe-stack
 [0mResultado del tiempo:
-Tiempo real: .001043894 s
+Tiempo real: .001023543 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3496 KB
+Memoria máxima utilizada: 3424 KB
 Tamaño del ejecutable: 23144 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -716,11 +703,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O2 -fsanitize=undefined
+[0mResultado del tiempo:
+Tiempo real: .001415731 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 7216 KB
+Tamaño del ejecutable: 426008 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m1693 Symbols	[m[32mYes[m	3		3		./results_clang++/executables/program_-O2__fsanitize_undefined
+===========================================
+
+===========================================
 [0;34mCompilando con: -O2 -fsanitize=address
 [0mResultado del tiempo:
-Tiempo real: .002787588 s
+Tiempo real: .001222051 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 11376 KB
+Memoria máxima utilizada: 15024 KB
 Tamaño del ejecutable: 1695768 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -729,24 +729,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O3 
-[0mResultado del tiempo:
-Tiempo real: .000999291 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3508 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3_
-===========================================
-
-===========================================
 [0;34mCompilando con: -O3 -fstack-protector
 [0mResultado del tiempo:
-Tiempo real: .001399967 s
+Tiempo real: .001050948 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3484 KB
+Memoria máxima utilizada: 3452 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -757,9 +744,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O3 -fstack-protector-strong
 [0mResultado del tiempo:
-Tiempo real: .002018202 s
+Tiempo real: .000897047 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3476 KB
+Memoria máxima utilizada: 3456 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -768,11 +755,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O3 -fstack-protector-all
+[0;34mCompilando con: -O3 
 [0mResultado del tiempo:
-Tiempo real: .001266190 s
+Tiempo real: .003665767 s
 Uso de CPU: 0.0%
 Memoria máxima utilizada: 3360 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3_
+===========================================
+
+===========================================
+[0;34mCompilando con: -O3 -fstack-protector-all
+[0mResultado del tiempo:
+Tiempo real: .001259703 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3520 KB
 Tamaño del ejecutable: 16048 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -783,9 +783,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O3 -fno-stack-protector
 [0mResultado del tiempo:
-Tiempo real: .001175761 s
+Tiempo real: .000968649 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3520 KB
+Memoria máxima utilizada: 3496 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -794,24 +794,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O3 -no-pie
-[0mResultado del tiempo:
-Tiempo real: .000973890 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3512 KB
-Tamaño del ejecutable: 15672 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [31mNo PIE       [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m34 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3__no_pie
-===========================================
-
-===========================================
 [0;34mCompilando con: -O3 -pie -fPIE
 [0mResultado del tiempo:
-Tiempo real: .001123635 s
+Tiempo real: .001030240 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3420 KB
+Memoria máxima utilizada: 3472 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -820,37 +807,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O3 -D_FORTIFY_SOURCE=2
+[0;34mCompilando con: -O3 -no-pie
 [0mResultado del tiempo:
-Tiempo real: .002583438 s
+Tiempo real: .000967239 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3496 KB
-Tamaño del ejecutable: 15912 bytes
+Memoria máxima utilizada: 3444 KB
+Tamaño del ejecutable: 15672 bytes
 -------------------------------------------
 Resultado de checksec:
 RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3__D_FORTIFY_SOURCE_2
-===========================================
-
-===========================================
-[0;34mCompilando con: -O3 -D_FORTIFY_SOURCE=1
-[0mResultado del tiempo:
-Tiempo real: .001513220 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3536 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3__D_FORTIFY_SOURCE_1
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [31mNo PIE       [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m34 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3__no_pie
 ===========================================
 
 ===========================================
 [0;34mCompilando con: -O2 -fsanitize=memory
 [0mResultado del tiempo:
-Tiempo real: .001427886 s
+Tiempo real: .002436262 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 13768 KB
+Memoria máxima utilizada: 13688 KB
 Tamaño del ejecutable: 1396840 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -859,11 +833,37 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O3 -D_FORTIFY_SOURCE=1
+[0mResultado del tiempo:
+Tiempo real: .001042266 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3360 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3__D_FORTIFY_SOURCE_1
+===========================================
+
+===========================================
+[0;34mCompilando con: -O3 -D_FORTIFY_SOURCE=2
+[0mResultado del tiempo:
+Tiempo real: .001113352 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3520 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3__D_FORTIFY_SOURCE_2
+===========================================
+
+===========================================
 [0;34mCompilando con: -O3 -D_FORTIFY_SOURCE=0
 [0mResultado del tiempo:
-Tiempo real: .001035206 s
+Tiempo real: .000964422 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3440 KB
+Memoria máxima utilizada: 3508 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -872,24 +872,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O3 -Wl,-z,execstack
-[0mResultado del tiempo:
-Tiempo real: .001427550 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3280 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [31mNX disabled[m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3__Wl__z_execstack
-===========================================
-
-===========================================
 [0;34mCompilando con: -O3 -fno-plt
 [0mResultado del tiempo:
-Tiempo real: .001080215 s
+Tiempo real: .000936901 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3528 KB
+Memoria máxima utilizada: 3464 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -900,9 +887,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -O3 -z noexecstack
 [0mResultado del tiempo:
-Tiempo real: .002010693 s
+Tiempo real: .001045131 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3328 KB
+Memoria máxima utilizada: 3516 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -911,11 +898,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O3 -Wl,-z,execstack
+[0mResultado del tiempo:
+Tiempo real: .001583171 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3456 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [31mNX disabled[m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-O3__Wl__z_execstack
+===========================================
+
+===========================================
 [0;34mCompilando con: -O3 -Wl,-z,relro,-z,now
 [0mResultado del tiempo:
-Tiempo real: .001272956 s
+Tiempo real: .001052148 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3480 KB
+Memoria máxima utilizada: 3428 KB
 Tamaño del ejecutable: 15840 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -924,37 +924,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O3 -fsanitize=safe-stack
-[0mResultado del tiempo:
-Tiempo real: .001119641 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3528 KB
-Tamaño del ejecutable: 23144 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m88 Symbols	[m[32mYes[m	1		4		./results_clang++/executables/program_-O3__fsanitize_safe_stack
-===========================================
-
-===========================================
-[0;34mCompilando con: -O3 -fsanitize=undefined
-[0mResultado del tiempo:
-Tiempo real: .001152512 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 7352 KB
-Tamaño del ejecutable: 426000 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m1693 Symbols	[m[32mYes[m	3		3		./results_clang++/executables/program_-O3__fsanitize_undefined
-===========================================
-
-===========================================
 [0;34mCompilando con: -O3 -flto
 [0mResultado del tiempo:
-Tiempo real: .001064390 s
+Tiempo real: .001571311 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3452 KB
+Memoria máxima utilizada: 3520 KB
 Tamaño del ejecutable: 15832 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -963,12 +937,38 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O3 -fsanitize=undefined
+[0mResultado del tiempo:
+Tiempo real: .001414032 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 7348 KB
+Tamaño del ejecutable: 426000 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m1693 Symbols	[m[32mYes[m	3		3		./results_clang++/executables/program_-O3__fsanitize_undefined
+===========================================
+
+===========================================
+[0;34mCompilando con: -O3 -fsanitize=safe-stack
+[0mResultado del tiempo:
+Tiempo real: .000968077 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3644 KB
+Tamaño del ejecutable: 23144 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m88 Symbols	[m[32mYes[m	1		4		./results_clang++/executables/program_-O3__fsanitize_safe_stack
+===========================================
+
+===========================================
 [0;34mCompilando con: -Ofast 
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .000973937 s
+Tiempo real: .000956416 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3360 KB
+Memoria máxima utilizada: 3496 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -977,25 +977,12 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -O3 -fsanitize=address
-[0mResultado del tiempo:
-Tiempo real: .001334312 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 10948 KB
-Tamaño del ejecutable: 1695768 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m5986 Symbols	[m[32mYes[m	8		53		./results_clang++/executables/program_-O3__fsanitize_address
-===========================================
-
-===========================================
 [0;34mCompilando con: -Ofast -fstack-protector
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001582693 s
+Tiempo real: .001049395 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3520 KB
+Memoria máxima utilizada: 3464 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1004,12 +991,25 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -O3 -fsanitize=address
+[0mResultado del tiempo:
+Tiempo real: .002155906 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 11448 KB
+Tamaño del ejecutable: 1695768 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m5986 Symbols	[m[32mYes[m	8		53		./results_clang++/executables/program_-O3__fsanitize_address
+===========================================
+
+===========================================
 [0;34mCompilando con: -Ofast -fstack-protector-strong
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001133922 s
+Tiempo real: .001243722 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3528 KB
+Memoria máxima utilizada: 3456 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1021,9 +1021,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -fstack-protector-all
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001050081 s
+Tiempo real: .001014505 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3468 KB
+Memoria máxima utilizada: 3504 KB
 Tamaño del ejecutable: 17536 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1032,24 +1032,10 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -Ofast -pie -fPIE
-clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
-[0mResultado del tiempo:
-Tiempo real: .001217882 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3504 KB
-Tamaño del ejecutable: 17400 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m38 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Ofast__pie__fPIE
-===========================================
-
-===========================================
 [0;34mCompilando con: -Ofast -fno-stack-protector
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001193007 s
+Tiempo real: .002253691 s
 Uso de CPU: 0.0%
 Memoria máxima utilizada: 3456 KB
 Tamaño del ejecutable: 17400 bytes
@@ -1060,11 +1046,25 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -Ofast -pie -fPIE
+clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
+[0mResultado del tiempo:
+Tiempo real: .002894365 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3496 KB
+Tamaño del ejecutable: 17400 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m38 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Ofast__pie__fPIE
+===========================================
+
+===========================================
 [0;34mCompilando con: -O3 -fsanitize=memory
 [0mResultado del tiempo:
-Tiempo real: .001037416 s
+Tiempo real: .001991294 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 13756 KB
+Memoria máxima utilizada: 13748 KB
 Tamaño del ejecutable: 1396840 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1076,9 +1076,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -no-pie
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001320454 s
+Tiempo real: .001056556 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3360 KB
+Memoria máxima utilizada: 3512 KB
 Tamaño del ejecutable: 17168 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1090,9 +1090,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -D_FORTIFY_SOURCE=2
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001011673 s
+Tiempo real: .000953931 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3424 KB
+Memoria máxima utilizada: 3504 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1104,9 +1104,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -D_FORTIFY_SOURCE=1
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .000987754 s
+Tiempo real: .003863039 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3360 KB
+Memoria máxima utilizada: 3488 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1118,9 +1118,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -D_FORTIFY_SOURCE=0
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001073669 s
+Tiempo real: .000933289 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3452 KB
+Memoria máxima utilizada: 3532 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1129,26 +1129,12 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -Ofast -fno-plt
-clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
-[0mResultado del tiempo:
-Tiempo real: .001114265 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3528 KB
-Tamaño del ejecutable: 17400 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m38 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Ofast__fno_plt
-===========================================
-
-===========================================
 [0;34mCompilando con: -Ofast -Wl,-z,execstack
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001591212 s
+Tiempo real: .002682925 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3456 KB
+Memoria máxima utilizada: 3468 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1160,9 +1146,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -z noexecstack
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001005085 s
+Tiempo real: .000970242 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3480 KB
+Memoria máxima utilizada: 3444 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1171,12 +1157,26 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -Ofast -fno-plt
+clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
+[0mResultado del tiempo:
+Tiempo real: .001016831 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3476 KB
+Tamaño del ejecutable: 17400 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m38 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Ofast__fno_plt
+===========================================
+
+===========================================
 [0;34mCompilando con: -Ofast -Wl,-z,relro,-z,now
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .002638837 s
+Tiempo real: .001011233 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3440 KB
+Memoria máxima utilizada: 3452 KB
 Tamaño del ejecutable: 17336 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1188,9 +1188,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -flto
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001199020 s
+Tiempo real: .001123013 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3424 KB
+Memoria máxima utilizada: 3428 KB
 Tamaño del ejecutable: 17320 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1202,9 +1202,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -fsanitize=safe-stack
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .001076179 s
+Tiempo real: .001067034 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3480 KB
+Memoria máxima utilizada: 3420 KB
 Tamaño del ejecutable: 24632 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1216,9 +1216,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -fsanitize=undefined
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .002955741 s
+Tiempo real: .000980685 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 7216 KB
+Memoria máxima utilizada: 7044 KB
 Tamaño del ejecutable: 427496 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1230,9 +1230,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -fsanitize=address
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .004572107 s
+Tiempo real: .002896118 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 9312 KB
+Memoria máxima utilizada: 12960 KB
 Tamaño del ejecutable: 1697256 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1241,24 +1241,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -Os 
-[0mResultado del tiempo:
-Tiempo real: .001328004 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3460 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Os_
-===========================================
-
-===========================================
 [0;34mCompilando con: -Os -fstack-protector
 [0mResultado del tiempo:
-Tiempo real: .001106159 s
+Tiempo real: .000977722 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3512 KB
+Memoria máxima utilizada: 3504 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1267,11 +1254,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -Os 
+[0mResultado del tiempo:
+Tiempo real: .002976133 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3484 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Os_
+===========================================
+
+===========================================
 [0;34mCompilando con: -Os -fstack-protector-strong
 [0mResultado del tiempo:
-Tiempo real: .002365302 s
+Tiempo real: .001175999 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3428 KB
+Memoria máxima utilizada: 3528 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1282,9 +1282,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -fstack-protector-all
 [0mResultado del tiempo:
-Tiempo real: .001024774 s
+Tiempo real: .000966682 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3496 KB
+Memoria máxima utilizada: 3460 KB
 Tamaño del ejecutable: 16048 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1295,9 +1295,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -pie -fPIE
 [0mResultado del tiempo:
-Tiempo real: .001113989 s
+Tiempo real: .001208706 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3456 KB
+Memoria máxima utilizada: 3476 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1308,9 +1308,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -fno-stack-protector
 [0mResultado del tiempo:
-Tiempo real: .001136632 s
+Tiempo real: .001186706 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3488 KB
+Memoria máxima utilizada: 3428 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1322,9 +1322,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 [0;34mCompilando con: -Ofast -fsanitize=memory
 clang++: warning: argument '-Ofast' is deprecated; use '-O3 -ffast-math' for the same behavior, or '-O3' to enable only conforming optimizations [-Wdeprecated-ofast]
 [0mResultado del tiempo:
-Tiempo real: .002565821 s
+Tiempo real: .000991638 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 13688 KB
+Memoria máxima utilizada: 13656 KB
 Tamaño del ejecutable: 1398336 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1335,9 +1335,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -no-pie
 [0mResultado del tiempo:
-Tiempo real: .001158427 s
+Tiempo real: .001076765 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3516 KB
+Memoria máxima utilizada: 3512 KB
 Tamaño del ejecutable: 15672 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1348,9 +1348,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -D_FORTIFY_SOURCE=2
 [0mResultado del tiempo:
-Tiempo real: .001041135 s
+Tiempo real: .001006563 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3496 KB
+Memoria máxima utilizada: 3536 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1359,24 +1359,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -Os -D_FORTIFY_SOURCE=0
-[0mResultado del tiempo:
-Tiempo real: .001217700 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 3456 KB
-Tamaño del ejecutable: 15912 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Os__D_FORTIFY_SOURCE_0
-===========================================
-
-===========================================
 [0;34mCompilando con: -Os -D_FORTIFY_SOURCE=1
 [0mResultado del tiempo:
-Tiempo real: .000994779 s
+Tiempo real: .001196864 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3428 KB
+Memoria máxima utilizada: 3456 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1385,11 +1372,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -Os -D_FORTIFY_SOURCE=0
+[0mResultado del tiempo:
+Tiempo real: .001023729 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 3508 KB
+Tamaño del ejecutable: 15912 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m36 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Os__D_FORTIFY_SOURCE_0
+===========================================
+
+===========================================
 [0;34mCompilando con: -Os -z noexecstack
 [0mResultado del tiempo:
-Tiempo real: .001005310 s
+Tiempo real: .002296941 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3360 KB
+Memoria máxima utilizada: 3452 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1400,9 +1400,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -Wl,-z,execstack
 [0mResultado del tiempo:
-Tiempo real: .001112871 s
+Tiempo real: .001290754 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3360 KB
+Memoria máxima utilizada: 3528 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1413,9 +1413,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -fno-plt
 [0mResultado del tiempo:
-Tiempo real: .002580292 s
+Tiempo real: .001288986 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3504 KB
+Memoria máxima utilizada: 3528 KB
 Tamaño del ejecutable: 15912 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1426,9 +1426,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -Wl,-z,relro,-z,now
 [0mResultado del tiempo:
-Tiempo real: .001039743 s
+Tiempo real: .001062792 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3504 KB
+Memoria máxima utilizada: 3420 KB
 Tamaño del ejecutable: 15840 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1439,9 +1439,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -flto
 [0mResultado del tiempo:
-Tiempo real: .000960210 s
+Tiempo real: .002712867 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3520 KB
+Memoria máxima utilizada: 3452 KB
 Tamaño del ejecutable: 15832 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1452,9 +1452,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -fsanitize=undefined
 [0mResultado del tiempo:
-Tiempo real: .001177968 s
+Tiempo real: .001435628 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 7292 KB
+Memoria máxima utilizada: 7348 KB
 Tamaño del ejecutable: 426536 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1465,9 +1465,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -fsanitize=safe-stack
 [0mResultado del tiempo:
-Tiempo real: .001000919 s
+Tiempo real: .000980583 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3424 KB
+Memoria máxima utilizada: 3448 KB
 Tamaño del ejecutable: 23144 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1478,9 +1478,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Os -fsanitize=address
 [0mResultado del tiempo:
-Tiempo real: .001130526 s
+Tiempo real: .001761976 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 10888 KB
+Memoria máxima utilizada: 14400 KB
 Tamaño del ejecutable: 1695768 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1491,9 +1491,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz 
 [0mResultado del tiempo:
-Tiempo real: .001104081 s
+Tiempo real: .001028988 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6916 KB
+Memoria máxima utilizada: 6852 KB
 Tamaño del ejecutable: 17440 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1504,7 +1504,7 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -fstack-protector
 [0mResultado del tiempo:
-Tiempo real: .002085631 s
+Tiempo real: .002160671 s
 Uso de CPU: 0.0%
 Memoria máxima utilizada: 6856 KB
 Tamaño del ejecutable: 17440 bytes
@@ -1517,9 +1517,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -fstack-protector-strong
 [0mResultado del tiempo:
-Tiempo real: .004565683 s
+Tiempo real: .001015607 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6660 KB
+Memoria máxima utilizada: 6856 KB
 Tamaño del ejecutable: 17496 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1530,9 +1530,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -fstack-protector-all
 [0mResultado del tiempo:
-Tiempo real: .001096635 s
+Tiempo real: .000959595 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6984 KB
+Memoria máxima utilizada: 6908 KB
 Tamaño del ejecutable: 17496 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1541,24 +1541,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -Oz -pie -fPIE
-[0mResultado del tiempo:
-Tiempo real: .001031914 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 6980 KB
-Tamaño del ejecutable: 17440 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m58 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Oz__pie__fPIE
-===========================================
-
-===========================================
 [0;34mCompilando con: -Oz -fno-stack-protector
 [0mResultado del tiempo:
-Tiempo real: .000971342 s
+Tiempo real: .000991209 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6852 KB
+Memoria máxima utilizada: 6920 KB
 Tamaño del ejecutable: 17440 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1567,11 +1554,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -Oz -pie -fPIE
+[0mResultado del tiempo:
+Tiempo real: .001372661 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 6976 KB
+Tamaño del ejecutable: 17440 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m58 Symbols	[m[32mN/A[m	0		0		./results_clang++/executables/program_-Oz__pie__fPIE
+===========================================
+
+===========================================
 [0;34mCompilando con: -Os -fsanitize=memory
 [0mResultado del tiempo:
-Tiempo real: .005177198 s
+Tiempo real: .001016913 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 15788 KB
+Memoria máxima utilizada: 13744 KB
 Tamaño del ejecutable: 1396896 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1582,9 +1582,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -no-pie
 [0mResultado del tiempo:
-Tiempo real: .001106782 s
+Tiempo real: .001133642 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6980 KB
+Memoria máxima utilizada: 6852 KB
 Tamaño del ejecutable: 17264 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1595,9 +1595,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -D_FORTIFY_SOURCE=2
 [0mResultado del tiempo:
-Tiempo real: .001038543 s
+Tiempo real: .002726281 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6852 KB
+Memoria máxima utilizada: 6856 KB
 Tamaño del ejecutable: 17440 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1608,9 +1608,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -D_FORTIFY_SOURCE=1
 [0mResultado del tiempo:
-Tiempo real: .001092628 s
+Tiempo real: .001484743 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6984 KB
+Memoria máxima utilizada: 6836 KB
 Tamaño del ejecutable: 17440 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1621,9 +1621,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -D_FORTIFY_SOURCE=0
 [0mResultado del tiempo:
-Tiempo real: .003141702 s
+Tiempo real: .001688213 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6984 KB
+Memoria máxima utilizada: 6856 KB
 Tamaño del ejecutable: 17440 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1634,7 +1634,7 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -z noexecstack
 [0mResultado del tiempo:
-Tiempo real: .001863836 s
+Tiempo real: .002170123 s
 Uso de CPU: 0.0%
 Memoria máxima utilizada: 6820 KB
 Tamaño del ejecutable: 17440 bytes
@@ -1647,9 +1647,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -Wl,-z,execstack
 [0mResultado del tiempo:
-Tiempo real: .001050750 s
+Tiempo real: .001029676 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6980 KB
+Memoria máxima utilizada: 6852 KB
 Tamaño del ejecutable: 17440 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1660,9 +1660,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -fno-plt
 [0mResultado del tiempo:
-Tiempo real: .001371617 s
+Tiempo real: .001397734 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6852 KB
+Memoria máxima utilizada: 7028 KB
 Tamaño del ejecutable: 17400 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1673,9 +1673,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -Wl,-z,relro,-z,now
 [0mResultado del tiempo:
-Tiempo real: .000949397 s
+Tiempo real: .000752230 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6920 KB
+Memoria máxima utilizada: 6924 KB
 Tamaño del ejecutable: 17304 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1684,24 +1684,11 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
-[0;34mCompilando con: -Oz -fsanitize=undefined
-[0mResultado del tiempo:
-Tiempo real: .000948513 s
-Uso de CPU: 0.0%
-Memoria máxima utilizada: 7280 KB
-Tamaño del ejecutable: 427192 bytes
--------------------------------------------
-Resultado de checksec:
-RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
-[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m1710 Symbols	[m[32mYes[m	3		3		./results_clang++/executables/program_-Oz__fsanitize_undefined
-===========================================
-
-===========================================
 [0;34mCompilando con: -Oz -flto
 [0mResultado del tiempo:
-Tiempo real: .000949813 s
+Tiempo real: .000676307 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 3488 KB
+Memoria máxima utilizada: 3532 KB
 Tamaño del ejecutable: 15832 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1710,11 +1697,24 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 
 ===========================================
+[0;34mCompilando con: -Oz -fsanitize=undefined
+[0mResultado del tiempo:
+Tiempo real: .000769884 s
+Uso de CPU: 0.0%
+Memoria máxima utilizada: 9260 KB
+Tamaño del ejecutable: 427192 bytes
+-------------------------------------------
+Resultado de checksec:
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m1710 Symbols	[m[32mYes[m	3		3		./results_clang++/executables/program_-Oz__fsanitize_undefined
+===========================================
+
+===========================================
 [0;34mCompilando con: -Oz -fsanitize=safe-stack
 [0mResultado del tiempo:
-Tiempo real: .000998581 s
+Tiempo real: .000982789 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 6860 KB
+Memoria máxima utilizada: 6992 KB
 Tamaño del ejecutable: 24592 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1725,9 +1725,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -fsanitize=address
 [0mResultado del tiempo:
-Tiempo real: .001106398 s
+Tiempo real: .000658367 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 15832 KB
+Memoria máxima utilizada: 16048 KB
 Tamaño del ejecutable: 1701512 bytes
 -------------------------------------------
 Resultado de checksec:
@@ -1738,9 +1738,9 @@ RELRO           STACK CANARY      NX            PIE             RPATH      RUNPA
 ===========================================
 [0;34mCompilando con: -Oz -fsanitize=memory
 [0mResultado del tiempo:
-Tiempo real: .000646734 s
+Tiempo real: .000617871 s
 Uso de CPU: 0.0%
-Memoria máxima utilizada: 13760 KB
+Memoria máxima utilizada: 13720 KB
 Tamaño del ejecutable: 1402288 bytes
 -------------------------------------------
 Resultado de checksec:

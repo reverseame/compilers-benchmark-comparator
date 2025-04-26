@@ -103,3 +103,22 @@ Si tienes varios compiladores como clang++, g++, y rustc:
 
     Usa gráficas de líneas o de barras agrupadas para ver las diferencias por compilador bajo las mismas condiciones.
 ---
+
+
+25-04-2025
+
+1- Volver a poner grid a las gráficas
+
+2- Poner los N/A en negro
+
+3- Las graficas de flags poner las barras más juntas
+
+4- Fcate grid graficas 2x2
+
+5- Mirar por que fstack protector esta repetido en g++
+
+6- Cambiar dibujo Pipeline a horizontal y pdf
+
+7- Darle una vuelta a los datos a ver si puedo hacer algo mas con el facet grid
+
+8- Cambiar lo de Memory size por File size

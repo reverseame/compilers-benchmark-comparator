@@ -118,7 +118,7 @@ def create_facet_grid(data, output_dir):
                     if mem_size > 0:
                         metrics_data.append({
                             'Compiler': compiler,
-                            'Metric': 'Memory size (KB)',
+                            'Metric': 'File size (KB)',
                             'Value': mem_size,
                             'Security': security
                         })
@@ -146,7 +146,7 @@ def create_facet_grid(data, output_dir):
     metric_order = [
         'Time (ms)', 
         'Memory usage (KB)', 
-        'Memory size (KB)', 
+        'File size (KB)', 
         r'Fortified Functions (\%)'
     ]
     df['Metric'] = pd.Categorical(df['Metric'], categories=metric_order, ordered=True)
@@ -159,20 +159,22 @@ def create_facet_grid(data, output_dir):
     plt.rcParams['text.usetex'] = True
     plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
     
-    # Crear figura y grid
-    fig = plt.figure(figsize=(20, 16))
-    g = sns.FacetGrid(df, row='Metric', sharey=False, sharex=True,
-                     margin_titles=False, height=3.5, aspect=2.0)
+    # Crear figura con 2 filas y 2 columnas
+    fig, axes = plt.subplots(2, 2, figsize=(20, 16))
+    axes = axes.flatten()
     
     # Mapeo de colores
     palette = {compiler: color for compiler, color in zip(COMPILERS, COLORS)}
     
-    # Dibujar puntos con jitter
-    g.map_dataframe(sns.stripplot, x='Compiler', y='Value', hue='Compiler',
-                   palette=palette, size=8, jitter=0.3, alpha=0.8, linewidth=0.5)
-    
-    # Personalizar cada subgráfico
-    for i, (ax, metric) in enumerate(zip(g.axes.flat, metric_order)):
+    # Dibujar cada gráfico en su respectivo subplot
+    for i, metric in enumerate(metric_order):
+        ax = axes[i]
+        subset = df[df['Metric'] == metric]
+        
+        sns.stripplot(data=subset, x='Compiler', y='Value', hue='Compiler',
+                     palette=palette, size=8, jitter=0.3, alpha=0.8, linewidth=0.5, ax=ax,
+                     legend=False)
+        
         ax.set_title(metric, pad=20, fontsize=14, fontweight='bold')
         ax.set_ylabel('')
         ax.set_xlabel('')
@@ -187,11 +189,8 @@ def create_facet_grid(data, output_dir):
         ax.set_ylim(y_min * 0.98, y_max * 1.02)
         ax.grid(True, axis='y', linestyle='--', alpha=0.3)
     
-    g._legend = None
-    plt.subplots_adjust(hspace=0.3, wspace=0.2)
     plt.tight_layout()
     
-    # Guardar
     filename = os.path.join(output_dir, "Facet_Grid.pdf")
     plt.savefig(filename, format="pdf", bbox_inches='tight', dpi=300)
     plt.close()

@@ -15,6 +15,12 @@ try:
 except:
     plt.style.use('ggplot')
 
+plt.rcParams['axes.grid'] = True
+plt.rcParams['grid.linestyle'] = '--'
+plt.rcParams['grid.alpha'] = 0.3
+plt.rcParams['grid.color'] = 'gray'
+
+
 COLORS = ['#4C72B0', '#DD8452', '#55A868']  # Azul, Naranja, Verde
 COMPILERS = ['clang++', 'g++', 'rustc']
 
@@ -94,7 +100,7 @@ def create_individual_chart(data, metric, optimization, output_dir):
                     value = float(config.get('tiempo', 0)) * 1000
                 elif metric == 'Memory usage (KB)':
                     value = int(config.get('memory_usage', 0))
-                elif metric == 'Memory size (KB)':
+                elif metric == 'File size (KB)':
                     value = int(config.get('file_size', 0)) / 1024
                 else:
                     continue
@@ -126,7 +132,7 @@ def create_individual_chart(data, metric, optimization, output_dir):
         if not compiler_data[compiler]:
             x_positions.append(current_pos)
             values.append(0)
-            colors.append('red')
+            colors.append('black')
             security_labels.append('N/A')
             current_pos += 1
             current_pos += group_spacing
@@ -139,7 +145,7 @@ def create_individual_chart(data, metric, optimization, output_dir):
                 if item['security'] == security:
                     x_positions.append(current_pos)
                     values.append(item['value'] if item['value'] is not None else 0)
-                    colors.append(COLORS[i] if item['value'] is not None else 'red')
+                    colors.append(COLORS[i] if item['value'] is not None else 'black')
                     security_labels.append(item['security'])
                     current_pos += 1
         
@@ -148,6 +154,9 @@ def create_individual_chart(data, metric, optimization, output_dir):
     if not values:
         plt.close()
         return
+    
+    # Crear grid de fondo
+    ax.grid(True, axis='y', linestyle='--', alpha=0.3)
     
     # Crear barras
     bars = ax.bar(x_positions, values, width=bar_width, color=colors, alpha=0.8,
@@ -158,7 +167,7 @@ def create_individual_chart(data, metric, optimization, output_dir):
         if height <= 0 and label == 'N/A':
             ax.text(bar.get_x() + bar.get_width()/2., 0.1,
                     'N/A', ha='center', va='bottom', fontsize=12, 
-                    rotation=90, color='red', fontweight='bold')
+                    rotation=90, color='black', fontweight='bold')
         elif height > 0:
             ax.text(bar.get_x() + bar.get_width()/2., height*1.02,
                     label, ha='center', va='bottom', fontsize=9, rotation=90)
@@ -242,7 +251,7 @@ def create_fortification_chart(data, optimization, output_dir):
         if not compiler_data[compiler]:
             x_positions.append(current_pos)
             values.append(0)
-            colors.append('red')
+            colors.append('black')
             security_labels.append('N/A')
             current_pos += 1
             current_pos += group_spacing
@@ -255,7 +264,7 @@ def create_fortification_chart(data, optimization, output_dir):
                 if item['security'] == security:
                     x_positions.append(current_pos)
                     values.append(item['value'] if item['value'] is not None else 0)
-                    colors.append(COLORS[i] if item['value'] is not None else 'red')
+                    colors.append(COLORS[i] if item['value'] is not None else 'black')
                     security_labels.append(item['security'])
                     current_pos += 1
         
@@ -265,6 +274,9 @@ def create_fortification_chart(data, optimization, output_dir):
         plt.close()
         return
     
+    # Crear grid de fondo
+    ax.grid(True, axis='y', linestyle='--', alpha=0.3)
+    
     bars = ax.bar(x_positions, values, width=bar_width, color=colors, alpha=0.8,
                  edgecolor='black', linewidth=0.7)
     
@@ -273,7 +285,7 @@ def create_fortification_chart(data, optimization, output_dir):
         if height <= 0 and label == 'N/A':
             ax.text(bar.get_x() + bar.get_width()/2., 0.1,
                     'N/A', ha='center', va='bottom', fontsize=12, 
-                    rotation=90, color='red', fontweight='bold')
+                    rotation=90, color='black', fontweight='bold')
         elif height > 0:
             ax.text(bar.get_x() + bar.get_width()/2., height*1.02,
                     label, ha='center', va='bottom', fontsize=9, rotation=90)
@@ -335,7 +347,7 @@ def main():
         print("🖍️ Generando gráficos numéricos individuales...")
         create_individual_chart(filtered_data, 'Time (ms)', optimization, output_dir)
         create_individual_chart(filtered_data, 'Memory usage (KB)', optimization, output_dir)
-        create_individual_chart(filtered_data, 'Memory size (KB)', optimization, output_dir)
+        create_individual_chart(filtered_data, 'File size (KB)', optimization, output_dir)
         create_fortification_chart(filtered_data, optimization, output_dir)
     
     print(f"\n✅ Todos los gráficos individuales generados exitosamente en: {output_dir}")

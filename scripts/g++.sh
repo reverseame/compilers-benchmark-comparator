@@ -56,7 +56,6 @@ OPT_LEVELS=("-O0" "-O1" "-O2" "-O3" "-Os")
 # Opciones de seguridad (una de cada categoría)
 SECURITY_OPTIONS=(
     ""                           # Sin protecciones
-    "-fstack-protector"          # Protección básica contra desbordamiento de pila
     "-no-pie"                    # Ejecutable dependiente de posición
     "-pie"                       # Ejecutable independiente de posición
     "-D_FORTIFY_SOURCE=2"        # Fortificación avanzada

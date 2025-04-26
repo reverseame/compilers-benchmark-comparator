@@ -249,12 +249,14 @@ def get_optimization_level(config):
 
 def create_security_measure_chart(data, metric, category_name, variant_name, subvariant_name, output_dir):
     """Crea un gráfico comparando una medida de seguridad entre optimizaciones"""
-    fig, ax = plt.subplots(figsize=(14, 10))
+    fig, ax = plt.subplots(figsize=(14, 12))
     ax.set_facecolor('white')
     fig.patch.set_facecolor('white')
     
     # Organizar datos por compilador y optimización
     compiler_data = {}
+    all_values = []  # Para almacenar todos los valores y determinar el rango del eje Y
+    
     for compiler in COMPILERS:
         compiler_data[compiler] = {}
         for config in data[compiler].get('resultados', []):
@@ -267,7 +269,7 @@ def create_security_measure_chart(data, metric, category_name, variant_name, sub
                     value = float(config.get('tiempo', 0)) * 1000
                 elif metric == 'Memory usage (KB)':
                     value = int(config.get('memory_usage', 0))
-                elif metric == 'Memory size (KB)':
+                elif metric == 'File size (KB)':
                     value = int(config.get('file_size', 0)) / 1024
                 elif metric == 'Fortified Functions (%)':
                     fortified = int(config.get('checksec', {}).get('Fortified', 0))
@@ -280,8 +282,16 @@ def create_security_measure_chart(data, metric, category_name, variant_name, sub
                     continue
                     
                 compiler_data[compiler][opt_level].append(value)
+                all_values.append(value)
             except (ValueError, TypeError):
                 continue
+    
+    # Determinar límites del eje Y
+    if metric == 'Fortified Functions (%)':
+        y_min, y_max = 0, 100  # Porcentajes fijos entre 0 y 100
+    else:
+        y_min = max(min(all_values) * 0.9, 0) if all_values else 0  # 10% de margen inferior, mínimo 0
+        y_max = max(all_values) * 1.1 if all_values else 100  # 10% de margen superior
     
     # Preparar datos para el gráfico
     x_positions = []
@@ -289,7 +299,7 @@ def create_security_measure_chart(data, metric, category_name, variant_name, sub
     colors = []
     labels = []
     
-    bar_width = 0.25
+    bar_width = 0.7
     group_spacing = 1.5
     
     current_pos = 0
@@ -301,7 +311,7 @@ def create_security_measure_chart(data, metric, category_name, variant_name, sub
             if optimization not in compiler_data[compiler] or not compiler_data[compiler][optimization]:
                 x_positions.append(current_pos)
                 values.append(0)
-                colors.append('red')
+                colors.append('black')
                 labels.append('N/A')
             else:
                 # Calcular promedio de los valores
@@ -320,17 +330,21 @@ def create_security_measure_chart(data, metric, category_name, variant_name, sub
         plt.close()
         return
     
+    # Establecer límites del eje Y
+    ax.set_ylim(y_min, y_max)
+    
     # Crear barras
     bars = ax.bar(x_positions, values, width=bar_width, color=colors, alpha=0.8,
                  edgecolor='black', linewidth=0.7)
     
-    # Añadir etiquetas N/A en rojo donde corresponda
+    # Añadir etiquetas N/A
+    base_level = max(y_min, 0)
     for bar, label in zip(bars, labels):
         height = bar.get_height()
         if height <= 0 and label == 'N/A':
-            ax.text(bar.get_x() + bar.get_width()/2., 0.1,
+            ax.text(bar.get_x() + bar.get_width()/2., base_level + (y_max - base_level) * 0.01,
                     'N/A', ha='center', va='bottom', fontsize=12, 
-                    rotation=90, color='red', fontweight='bold')
+                    rotation=90, color='black', fontweight='bold')
     
     # Configurar ejes y leyenda
     ax.set_ylabel(f'{metric}', fontweight='bold')
@@ -348,7 +362,7 @@ def create_security_measure_chart(data, metric, category_name, variant_name, sub
     xtick_positions = []
     xtick_labels = []
     
-    pos = (len(COMPILERS) - 1) / 2.0  # Posición central del primer grupo
+    pos = (len(COMPILERS) - 1) / 2.0
     
     for optimization in OPTIMIZATIONS.keys():
         xtick_positions.append(pos)
@@ -356,9 +370,16 @@ def create_security_measure_chart(data, metric, category_name, variant_name, sub
         pos += len(COMPILERS) + group_spacing
     
     ax.set_xticks(xtick_positions)
-    ax.set_xticklabels(xtick_labels)
+    ax.set_xticklabels(xtick_labels, rotation=45, ha='right')
     
-    plt.tight_layout()
+    # Ajustar márgenes de manera diferente para categorías problemáticas
+    problematic_categories = ['safe-stack', 'overflow-checks', 'debug-assertions', 
+                            'panic', 'sanitizers', 'fortify-source']
+    
+    if category_name in problematic_categories:
+        plt.subplots_adjust(bottom=0.25, top=0.9, left=0.1, right=0.85)
+    else:
+        plt.tight_layout()
     
     # Crear directorio para la medida de seguridad
     measure_dir = os.path.join(output_dir, category_name)
@@ -420,7 +441,7 @@ def main():
                 print(f"  🖍️ Generando gráficas...")
                 create_security_measure_chart(filtered_data, 'Time (ms)', category_name, variant_name, subvariant_name, output_dir)
                 create_security_measure_chart(filtered_data, 'Memory usage (KB)', category_name, variant_name, subvariant_name, output_dir)
-                create_security_measure_chart(filtered_data, 'Memory size (KB)', category_name, variant_name, subvariant_name, output_dir)
+                create_security_measure_chart(filtered_data, 'File size (KB)', category_name, variant_name, subvariant_name, output_dir)
                 create_security_measure_chart(filtered_data, 'Fortified Functions (%)', category_name, variant_name, subvariant_name, output_dir)
     
     print(f"\n✅ Gráficos generados exitosamente en: {output_dir}")
