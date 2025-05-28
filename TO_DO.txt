@@ -122,3 +122,8 @@ Si tienes varios compiladores como clang++, g++, y rustc:
 7- Darle una vuelta a los datos a ver si puedo hacer algo mas con el facet grid
 
 8- Cambiar lo de Memory size por File size
+
+6-05-2025
+
+1- Hacer 10 ejecuciones de binario para sacar una media
+2- Propuesta tabla de contenidos para la memoria

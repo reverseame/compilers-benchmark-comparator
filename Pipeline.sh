@@ -66,6 +66,9 @@ python3 ./scripts/Radar_chart.py
 echo -e "\n- Generando gráfico facet grid comparativo..."
 python3 ./scripts/Facet_grid.py
 
+echo -e "\n- Generando gráfico boxplot comparativo..."
+python3 ./scripts/Boxplot.py
+
 ./scripts/Obtener_gráficas.sh
 
 echo "Proceso completado."

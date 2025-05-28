@@ -2,15 +2,15 @@
   "resultados": [
     {
       "optimización": "-O0",
-      "opción_seguridad": "-pie -fPIE",
-      "tiempo": ".000909287",
+      "opción_seguridad": "-Wl,-z,execstack",
+      "tiempo": ".001436144",
       "cpu_usage": "0.0",
-      "memory_usage": "6748",
+      "memory_usage": "6980",
       "file_size": "19040",
       "checksec": {
         "RELRO": "Partial RELRO",
         "CANARY": "No canary found",
-        "NX": "NX enabled",
+        "NX": "NX disabled",
         "PIE": "PIE enabled",
         "RPATH": "No RPATH",
         "RUNPATH": "No RUNPATH",
@@ -22,28 +22,8 @@
     },
     {
       "optimización": "-O0",
-      "opción_seguridad": "-no-pie",
-      "tiempo": ".000929563",
-      "cpu_usage": "0.0",
-      "memory_usage": "6856",
-      "file_size": "18872",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "No PIE",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "82 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "-fno-stack-protector",
-      "tiempo": ".003742213",
+      "opción_seguridad": "",
+      "tiempo": ".007242827",
       "cpu_usage": "0.0",
       "memory_usage": "6980",
       "file_size": "19040",
@@ -62,168 +42,8 @@
     },
     {
       "optimización": "-O0",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=1",
-      "tiempo": ".002874378",
-      "cpu_usage": "0.0",
-      "memory_usage": "6836",
-      "file_size": "19040",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "84 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "-Wl,-z,execstack",
-      "tiempo": ".003759705",
-      "cpu_usage": "0.0",
-      "memory_usage": "6852",
-      "file_size": "19040",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX disabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "84 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "-fstack-protector",
-      "tiempo": ".000979495",
-      "cpu_usage": "0.0",
-      "memory_usage": "7028",
-      "file_size": "19104",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "Canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "85 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "-fstack-protector-all",
-      "tiempo": ".003894064",
-      "cpu_usage": "0.0",
-      "memory_usage": "6924",
-      "file_size": "23200",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "Canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "85 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "",
-      "tiempo": ".000958662",
-      "cpu_usage": "0.0",
-      "memory_usage": "6920",
-      "file_size": "19040",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "84 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "-z noexecstack",
-      "tiempo": ".001208604",
-      "cpu_usage": "0.0",
-      "memory_usage": "6848",
-      "file_size": "19040",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "84 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=2",
-      "tiempo": ".001403663",
-      "cpu_usage": "0.0",
-      "memory_usage": "7028",
-      "file_size": "19040",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "84 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "-fstack-protector-strong",
-      "tiempo": ".000977887",
-      "cpu_usage": "0.0",
-      "memory_usage": "6988",
-      "file_size": "19104",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "Canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "85 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=0",
-      "tiempo": ".001442560",
+      "opción_seguridad": "-fno-stack-protector",
+      "tiempo": ".000999650",
       "cpu_usage": "0.0",
       "memory_usage": "6984",
       "file_size": "19040",
@@ -242,10 +62,190 @@
     },
     {
       "optimización": "-O0",
-      "opción_seguridad": "-fno-plt",
-      "tiempo": ".001064885",
+      "opción_seguridad": "-no-pie",
+      "tiempo": ".001981253",
+      "cpu_usage": "0.0",
+      "memory_usage": "6852",
+      "file_size": "18872",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "No PIE",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "82 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-pie -fPIE",
+      "tiempo": ".002013249",
       "cpu_usage": "0.0",
       "memory_usage": "6916",
+      "file_size": "19040",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "84 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-fstack-protector",
+      "tiempo": ".003878824",
+      "cpu_usage": "0.0",
+      "memory_usage": "6860",
+      "file_size": "19104",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "Canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "85 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=0",
+      "tiempo": ".004661989",
+      "cpu_usage": "0.0",
+      "memory_usage": "7028",
+      "file_size": "19040",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "84 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-fstack-protector-all",
+      "tiempo": ".001215075",
+      "cpu_usage": " 0.0",
+      "memory_usage": "6860",
+      "file_size": "23200",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "Canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "85 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=1",
+      "tiempo": ".001067464",
+      "cpu_usage": " 0.0",
+      "memory_usage": "6984",
+      "file_size": "19040",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "84 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-fstack-protector-strong",
+      "tiempo": ".001026987",
+      "cpu_usage": "0.0",
+      "memory_usage": "6832",
+      "file_size": "19104",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "Canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "85 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=2",
+      "tiempo": ".004524139",
+      "cpu_usage": "0.0",
+      "memory_usage": "6984",
+      "file_size": "19040",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "84 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-z noexecstack",
+      "tiempo": ".003711361",
+      "cpu_usage": "0.0",
+      "memory_usage": "6836",
+      "file_size": "19040",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "84 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-fno-plt",
+      "tiempo": ".003612828",
+      "cpu_usage": "0.0",
+      "memory_usage": "6856",
       "file_size": "18992",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -262,30 +262,10 @@
     },
     {
       "optimización": "-O0",
-      "opción_seguridad": "-Wl,-z,relro,-z,now",
-      "tiempo": ".003680317",
-      "cpu_usage": "0.0",
-      "memory_usage": "6988",
-      "file_size": "18896",
-      "checksec": {
-        "RELRO": "Full RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "84 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O0",
       "opción_seguridad": "-fsanitize=safe-stack",
-      "tiempo": ".002925596",
+      "tiempo": ".000938755",
       "cpu_usage": "0.0",
-      "memory_usage": "6996",
+      "memory_usage": "6984",
       "file_size": "30296",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -301,51 +281,11 @@
       }
     },
     {
-      "optimización": "-O0",
-      "opción_seguridad": "-flto",
-      "tiempo": ".000988872",
-      "cpu_usage": "0.0",
-      "memory_usage": "6852",
-      "file_size": "19032",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "84 Symbols",
-        "FORTIFY": "No",
-        "Fortified": "0",
-        "Fortifiable": "1"
-      }
-    },
-    {
-      "optimización": "-O1",
-      "opción_seguridad": "-fno-stack-protector",
-      "tiempo": ".001888496",
-      "cpu_usage": "0.0",
-      "memory_usage": "3424",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
       "optimización": "-O1",
       "opción_seguridad": "-fstack-protector",
-      "tiempo": ".000944277",
+      "tiempo": ".001114271",
       "cpu_usage": "0.0",
-      "memory_usage": "3464",
+      "memory_usage": "3512",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -363,9 +303,9 @@
     {
       "optimización": "-O1",
       "opción_seguridad": "",
-      "tiempo": ".001026898",
+      "tiempo": ".001047474",
       "cpu_usage": "0.0",
-      "memory_usage": "3464",
+      "memory_usage": "3536",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -381,9 +321,69 @@
       }
     },
     {
+      "optimización": "-O0",
+      "opción_seguridad": "-Wl,-z,relro,-z,now",
+      "tiempo": ".000972386",
+      "cpu_usage": "0.0",
+      "memory_usage": "7028",
+      "file_size": "18896",
+      "checksec": {
+        "RELRO": "Full RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "84 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
+      }
+    },
+    {
+      "optimización": "-O1",
+      "opción_seguridad": "-fno-stack-protector",
+      "tiempo": ".001086770",
+      "cpu_usage": "0.0",
+      "memory_usage": "3452",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O0",
+      "opción_seguridad": "-fsanitize=undefined",
+      "tiempo": ".003506517",
+      "cpu_usage": "0.0",
+      "memory_usage": "7308",
+      "file_size": "448712",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "1734 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "3",
+        "Fortifiable": "4"
+      }
+    },
+    {
       "optimización": "-O1",
       "opción_seguridad": "-fstack-protector-strong",
-      "tiempo": ".000942222",
+      "tiempo": ".000978219",
       "cpu_usage": "0.0",
       "memory_usage": "3512",
       "file_size": "15912",
@@ -403,9 +403,9 @@
     {
       "optimización": "-O1",
       "opción_seguridad": "-fstack-protector-all",
-      "tiempo": ".002247414",
+      "tiempo": ".000970475",
       "cpu_usage": "0.0",
-      "memory_usage": "3456",
+      "memory_usage": "3512",
       "file_size": "16048",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -422,11 +422,11 @@
     },
     {
       "optimización": "-O0",
-      "opción_seguridad": "-fsanitize=undefined",
-      "tiempo": ".000934739",
-      "cpu_usage": " 100",
-      "memory_usage": "7244",
-      "file_size": "448712",
+      "opción_seguridad": "-flto",
+      "tiempo": ".001033706",
+      "cpu_usage": "0.0",
+      "memory_usage": "6984",
+      "file_size": "19032",
       "checksec": {
         "RELRO": "Partial RELRO",
         "CANARY": "No canary found",
@@ -434,18 +434,18 @@
         "PIE": "PIE enabled",
         "RPATH": "No RPATH",
         "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "1734 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "3",
-        "Fortifiable": "4"
+        "SYMBOLS": "84 Symbols",
+        "FORTIFY": "No",
+        "Fortified": "0",
+        "Fortifiable": "1"
       }
     },
     {
       "optimización": "-O0",
       "opción_seguridad": "-fsanitize=address",
-      "tiempo": ".001189335",
-      "cpu_usage": "50.0",
-      "memory_usage": "18040",
+      "tiempo": ".001058707",
+      "cpu_usage": " 100",
+      "memory_usage": "17868",
       "file_size": "1707256",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -463,9 +463,9 @@
     {
       "optimización": "-O0",
       "opción_seguridad": "-fsanitize=memory",
-      "tiempo": ".000970895",
-      "cpu_usage": " 0.0",
-      "memory_usage": "13588",
+      "tiempo": ".002638596",
+      "cpu_usage": " 100",
+      "memory_usage": "13580",
       "file_size": "1420184",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -482,130 +482,10 @@
     },
     {
       "optimización": "-O1",
-      "opción_seguridad": "-no-pie",
-      "tiempo": ".001094256",
-      "cpu_usage": "0.0",
-      "memory_usage": "3528",
-      "file_size": "15672",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "No PIE",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "34 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O1",
       "opción_seguridad": "-pie -fPIE",
-      "tiempo": ".001132867",
+      "tiempo": ".001006253",
       "cpu_usage": "0.0",
-      "memory_usage": "3512",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O1",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=0",
-      "tiempo": ".000929856",
-      "cpu_usage": "0.0",
-      "memory_usage": "3452",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O1",
-      "opción_seguridad": "-z noexecstack",
-      "tiempo": ".001141713",
-      "cpu_usage": "0.0",
-      "memory_usage": "3428",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O1",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=1",
-      "tiempo": ".000940664",
-      "cpu_usage": "0.0",
-      "memory_usage": "3464",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O1",
-      "opción_seguridad": "-Wl,-z,execstack",
-      "tiempo": ".000926327",
-      "cpu_usage": "0.0",
-      "memory_usage": "3428",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX disabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O1",
-      "opción_seguridad": "-fno-plt",
-      "tiempo": ".000984716",
-      "cpu_usage": "0.0",
-      "memory_usage": "3424",
+      "memory_usage": "3520",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -623,9 +503,9 @@
     {
       "optimización": "-O1",
       "opción_seguridad": "-D_FORTIFY_SOURCE=2",
-      "tiempo": ".001092392",
+      "tiempo": ".000978975",
       "cpu_usage": "0.0",
-      "memory_usage": "3360",
+      "memory_usage": "3528",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -642,10 +522,130 @@
     },
     {
       "optimización": "-O1",
-      "opción_seguridad": "-fsanitize=undefined",
-      "tiempo": ".001050039",
+      "opción_seguridad": "-no-pie",
+      "tiempo": ".001109969",
       "cpu_usage": "0.0",
-      "memory_usage": "7352",
+      "memory_usage": "3496",
+      "file_size": "15672",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "No PIE",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "34 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O1",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=1",
+      "tiempo": ".001090805",
+      "cpu_usage": "0.0",
+      "memory_usage": "3460",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O1",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=0",
+      "tiempo": ".000946737",
+      "cpu_usage": "0.0",
+      "memory_usage": "3460",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O1",
+      "opción_seguridad": "-z noexecstack",
+      "tiempo": ".001056559",
+      "cpu_usage": "0.0",
+      "memory_usage": "3520",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O1",
+      "opción_seguridad": "-fno-plt",
+      "tiempo": ".000990207",
+      "cpu_usage": "0.0",
+      "memory_usage": "3468",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O1",
+      "opción_seguridad": "-Wl,-z,execstack",
+      "tiempo": ".001076107",
+      "cpu_usage": "0.0",
+      "memory_usage": "3456",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX disabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O1",
+      "opción_seguridad": "-fsanitize=undefined",
+      "tiempo": ".001043050",
+      "cpu_usage": "0.0",
+      "memory_usage": "7336",
       "file_size": "426008",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -662,30 +662,10 @@
     },
     {
       "optimización": "-O1",
-      "opción_seguridad": "-fsanitize=address",
-      "tiempo": ".001128584",
-      "cpu_usage": "0.0",
-      "memory_usage": "10832",
-      "file_size": "1695768",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "5986 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "8",
-        "Fortifiable": "53"
-      }
-    },
-    {
-      "optimización": "-O1",
       "opción_seguridad": "-Wl,-z,relro,-z,now",
-      "tiempo": ".001057145",
+      "tiempo": ".001787416",
       "cpu_usage": "0.0",
-      "memory_usage": "3472",
+      "memory_usage": "3456",
       "file_size": "15840",
       "checksec": {
         "RELRO": "Full RELRO",
@@ -702,11 +682,11 @@
     },
     {
       "optimización": "-O1",
-      "opción_seguridad": "-flto",
-      "tiempo": ".003630697",
+      "opción_seguridad": "-fsanitize=address",
+      "tiempo": ".002224849",
       "cpu_usage": "0.0",
-      "memory_usage": "3528",
-      "file_size": "15832",
+      "memory_usage": "13424",
+      "file_size": "1695768",
       "checksec": {
         "RELRO": "Partial RELRO",
         "CANARY": "No canary found",
@@ -714,18 +694,18 @@
         "PIE": "PIE enabled",
         "RPATH": "No RPATH",
         "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "34 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
+        "SYMBOLS": "5986 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "8",
+        "Fortifiable": "53"
       }
     },
     {
       "optimización": "-O1",
       "opción_seguridad": "-fsanitize=safe-stack",
-      "tiempo": ".001045677",
+      "tiempo": ".001248616",
       "cpu_usage": "0.0",
-      "memory_usage": "3604",
+      "memory_usage": "3668",
       "file_size": "23144",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -741,9 +721,69 @@
       }
     },
     {
+      "optimización": "-O1",
+      "opción_seguridad": "-flto",
+      "tiempo": ".001130240",
+      "cpu_usage": "0.0",
+      "memory_usage": "3460",
+      "file_size": "15832",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "34 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
       "optimización": "-O2",
       "opción_seguridad": "",
-      "tiempo": ".001301072",
+      "tiempo": ".000990829",
+      "cpu_usage": "0.0",
+      "memory_usage": "3444",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-fstack-protector-strong",
+      "tiempo": ".000994793",
+      "cpu_usage": "0.0",
+      "memory_usage": "3460",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-fstack-protector",
+      "tiempo": ".000966820",
       "cpu_usage": "0.0",
       "memory_usage": "3480",
       "file_size": "15912",
@@ -762,50 +802,10 @@
     },
     {
       "optimización": "-O2",
-      "opción_seguridad": "-fstack-protector-strong",
-      "tiempo": ".001330675",
-      "cpu_usage": "0.0",
-      "memory_usage": "3468",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-fstack-protector",
-      "tiempo": ".002991077",
-      "cpu_usage": "0.0",
-      "memory_usage": "3476",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
       "opción_seguridad": "-fstack-protector-all",
-      "tiempo": ".001032287",
+      "tiempo": ".003588927",
       "cpu_usage": "0.0",
-      "memory_usage": "3508",
+      "memory_usage": "3480",
       "file_size": "16048",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -823,87 +823,7 @@
     {
       "optimización": "-O2",
       "opción_seguridad": "-fno-stack-protector",
-      "tiempo": ".000995047",
-      "cpu_usage": "0.0",
-      "memory_usage": "3436",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-pie -fPIE",
-      "tiempo": ".001205099",
-      "cpu_usage": "0.0",
-      "memory_usage": "3520",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-no-pie",
-      "tiempo": ".001000109",
-      "cpu_usage": "0.0",
-      "memory_usage": "3488",
-      "file_size": "15672",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "No PIE",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "34 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O1",
-      "opción_seguridad": "-fsanitize=memory",
-      "tiempo": ".004088418",
-      "cpu_usage": "0.0",
-      "memory_usage": "13756",
-      "file_size": "1396840",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "5986 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "7",
-        "Fortifiable": "65"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=1",
-      "tiempo": ".000983186",
+      "tiempo": ".001012276",
       "cpu_usage": "0.0",
       "memory_usage": "3528",
       "file_size": "15912",
@@ -922,308 +842,8 @@
     },
     {
       "optimización": "-O2",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=2",
-      "tiempo": ".001070635",
-      "cpu_usage": "0.0",
-      "memory_usage": "3520",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=0",
-      "tiempo": ".001018850",
-      "cpu_usage": "0.0",
-      "memory_usage": "3512",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-z noexecstack",
-      "tiempo": ".001089663",
-      "cpu_usage": "0.0",
-      "memory_usage": "3488",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-Wl,-z,execstack",
-      "tiempo": ".001331499",
-      "cpu_usage": "0.0",
-      "memory_usage": "3444",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX disabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-fno-plt",
-      "tiempo": ".001020343",
-      "cpu_usage": "0.0",
-      "memory_usage": "3528",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-Wl,-z,relro,-z,now",
-      "tiempo": ".001009211",
-      "cpu_usage": "0.0",
-      "memory_usage": "3476",
-      "file_size": "15840",
-      "checksec": {
-        "RELRO": "Full RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-flto",
-      "tiempo": ".001009517",
-      "cpu_usage": "0.0",
-      "memory_usage": "3484",
-      "file_size": "15832",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "34 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-fsanitize=safe-stack",
-      "tiempo": ".001023543",
-      "cpu_usage": "0.0",
-      "memory_usage": "3424",
-      "file_size": "23144",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "88 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "1",
-        "Fortifiable": "4"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-fsanitize=undefined",
-      "tiempo": ".001415731",
-      "cpu_usage": "0.0",
-      "memory_usage": "7216",
-      "file_size": "426008",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "1693 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "3",
-        "Fortifiable": "3"
-      }
-    },
-    {
-      "optimización": "-O2",
-      "opción_seguridad": "-fsanitize=address",
-      "tiempo": ".001222051",
-      "cpu_usage": "0.0",
-      "memory_usage": "15024",
-      "file_size": "1695768",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "5986 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "8",
-        "Fortifiable": "53"
-      }
-    },
-    {
-      "optimización": "-O3",
-      "opción_seguridad": "-fstack-protector",
-      "tiempo": ".001050948",
-      "cpu_usage": "0.0",
-      "memory_usage": "3452",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O3",
-      "opción_seguridad": "-fstack-protector-strong",
-      "tiempo": ".000897047",
-      "cpu_usage": "0.0",
-      "memory_usage": "3456",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O3",
-      "opción_seguridad": "",
-      "tiempo": ".003665767",
-      "cpu_usage": "0.0",
-      "memory_usage": "3360",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O3",
-      "opción_seguridad": "-fstack-protector-all",
-      "tiempo": ".001259703",
-      "cpu_usage": "0.0",
-      "memory_usage": "3520",
-      "file_size": "16048",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "Canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "37 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O3",
-      "opción_seguridad": "-fno-stack-protector",
-      "tiempo": ".000968649",
-      "cpu_usage": "0.0",
-      "memory_usage": "3496",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O3",
       "opción_seguridad": "-pie -fPIE",
-      "tiempo": ".001030240",
+      "tiempo": ".000990549",
       "cpu_usage": "0.0",
       "memory_usage": "3472",
       "file_size": "15912",
@@ -1241,11 +861,11 @@
       }
     },
     {
-      "optimización": "-O3",
+      "optimización": "-O2",
       "opción_seguridad": "-no-pie",
-      "tiempo": ".000967239",
+      "tiempo": ".002439829",
       "cpu_usage": "0.0",
-      "memory_usage": "3444",
+      "memory_usage": "3484",
       "file_size": "15672",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1261,11 +881,11 @@
       }
     },
     {
-      "optimización": "-O2",
+      "optimización": "-O1",
       "opción_seguridad": "-fsanitize=memory",
-      "tiempo": ".002436262",
+      "tiempo": ".001046216",
       "cpu_usage": "0.0",
-      "memory_usage": "13688",
+      "memory_usage": "13692",
       "file_size": "1396840",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1281,11 +901,351 @@
       }
     },
     {
-      "optimización": "-O3",
-      "opción_seguridad": "-D_FORTIFY_SOURCE=1",
-      "tiempo": ".001042266",
+      "optimización": "-O2",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=2",
+      "tiempo": ".001792054",
       "cpu_usage": "0.0",
-      "memory_usage": "3360",
+      "memory_usage": "3508",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=1",
+      "tiempo": ".001832285",
+      "cpu_usage": "0.0",
+      "memory_usage": "3456",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=0",
+      "tiempo": ".001111233",
+      "cpu_usage": "0.0",
+      "memory_usage": "3540",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-z noexecstack",
+      "tiempo": ".001201899",
+      "cpu_usage": "0.0",
+      "memory_usage": "3444",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-Wl,-z,execstack",
+      "tiempo": ".001057771",
+      "cpu_usage": "0.0",
+      "memory_usage": "3512",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX disabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-fno-plt",
+      "tiempo": ".004136783",
+      "cpu_usage": "0.0",
+      "memory_usage": "3536",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-Wl,-z,relro,-z,now",
+      "tiempo": ".001120304",
+      "cpu_usage": "0.0",
+      "memory_usage": "3504",
+      "file_size": "15840",
+      "checksec": {
+        "RELRO": "Full RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-fsanitize=undefined",
+      "tiempo": ".001030642",
+      "cpu_usage": "0.0",
+      "memory_usage": "7348",
+      "file_size": "426008",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "1693 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "3",
+        "Fortifiable": "3"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-flto",
+      "tiempo": ".001370997",
+      "cpu_usage": "0.0",
+      "memory_usage": "3496",
+      "file_size": "15832",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "34 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-fsanitize=address",
+      "tiempo": ".002429294",
+      "cpu_usage": "0.0",
+      "memory_usage": "12988",
+      "file_size": "1695768",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "5986 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "8",
+        "Fortifiable": "53"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-fsanitize=safe-stack",
+      "tiempo": ".001120600",
+      "cpu_usage": "0.0",
+      "memory_usage": "3520",
+      "file_size": "23144",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "88 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "1",
+        "Fortifiable": "4"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "",
+      "tiempo": ".004236044",
+      "cpu_usage": "0.0",
+      "memory_usage": "3464",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-fstack-protector",
+      "tiempo": ".005232097",
+      "cpu_usage": "0.0",
+      "memory_usage": "3440",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-fstack-protector-all",
+      "tiempo": ".001055853",
+      "cpu_usage": "0.0",
+      "memory_usage": "3448",
+      "file_size": "16048",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "Canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "37 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-fstack-protector-strong",
+      "tiempo": ".001297097",
+      "cpu_usage": "0.0",
+      "memory_usage": "3448",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-fno-stack-protector",
+      "tiempo": ".001233355",
+      "cpu_usage": "0.0",
+      "memory_usage": "3536",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-no-pie",
+      "tiempo": ".001932574",
+      "cpu_usage": "0.0",
+      "memory_usage": "3528",
+      "file_size": "15672",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "No PIE",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "34 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-pie -fPIE",
+      "tiempo": ".000998797",
+      "cpu_usage": "0.0",
+      "memory_usage": "3512",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1303,7 +1263,67 @@
     {
       "optimización": "-O3",
       "opción_seguridad": "-D_FORTIFY_SOURCE=2",
-      "tiempo": ".001113352",
+      "tiempo": ".002021427",
+      "cpu_usage": "0.0",
+      "memory_usage": "3520",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-D_FORTIFY_SOURCE=1",
+      "tiempo": ".001667780",
+      "cpu_usage": "0.0",
+      "memory_usage": "3360",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O2",
+      "opción_seguridad": "-fsanitize=memory",
+      "tiempo": ".001113900",
+      "cpu_usage": "0.0",
+      "memory_usage": "13692",
+      "file_size": "1396840",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "5986 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "7",
+        "Fortifiable": "65"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-z noexecstack",
+      "tiempo": ".004400560",
       "cpu_usage": "0.0",
       "memory_usage": "3520",
       "file_size": "15912",
@@ -1323,49 +1343,9 @@
     {
       "optimización": "-O3",
       "opción_seguridad": "-D_FORTIFY_SOURCE=0",
-      "tiempo": ".000964422",
+      "tiempo": ".001076594",
       "cpu_usage": "0.0",
-      "memory_usage": "3508",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O3",
-      "opción_seguridad": "-fno-plt",
-      "tiempo": ".000936901",
-      "cpu_usage": "0.0",
-      "memory_usage": "3464",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O3",
-      "opción_seguridad": "-z noexecstack",
-      "tiempo": ".001045131",
-      "cpu_usage": "0.0",
-      "memory_usage": "3516",
+      "memory_usage": "3528",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1383,9 +1363,9 @@
     {
       "optimización": "-O3",
       "opción_seguridad": "-Wl,-z,execstack",
-      "tiempo": ".001583171",
+      "tiempo": ".001499741",
       "cpu_usage": "0.0",
-      "memory_usage": "3456",
+      "memory_usage": "3504",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1402,10 +1382,30 @@
     },
     {
       "optimización": "-O3",
-      "opción_seguridad": "-Wl,-z,relro,-z,now",
-      "tiempo": ".001052148",
+      "opción_seguridad": "-fno-plt",
+      "tiempo": ".006933443",
       "cpu_usage": "0.0",
-      "memory_usage": "3428",
+      "memory_usage": "3488",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-Wl,-z,relro,-z,now",
+      "tiempo": ".005498495",
+      "cpu_usage": "0.0",
+      "memory_usage": "3424",
       "file_size": "15840",
       "checksec": {
         "RELRO": "Full RELRO",
@@ -1422,10 +1422,30 @@
     },
     {
       "optimización": "-O3",
-      "opción_seguridad": "-flto",
-      "tiempo": ".001571311",
+      "opción_seguridad": "-fsanitize=safe-stack",
+      "tiempo": ".002242313",
       "cpu_usage": "0.0",
-      "memory_usage": "3520",
+      "memory_usage": "3624",
+      "file_size": "23144",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "88 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "1",
+        "Fortifiable": "4"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-flto",
+      "tiempo": ".005428399",
+      "cpu_usage": "0.0",
+      "memory_usage": "3504",
       "file_size": "15832",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1443,9 +1463,9 @@
     {
       "optimización": "-O3",
       "opción_seguridad": "-fsanitize=undefined",
-      "tiempo": ".001414032",
+      "tiempo": ".001071606",
       "cpu_usage": "0.0",
-      "memory_usage": "7348",
+      "memory_usage": "9396",
       "file_size": "426000",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1461,31 +1481,11 @@
       }
     },
     {
-      "optimización": "-O3",
-      "opción_seguridad": "-fsanitize=safe-stack",
-      "tiempo": ".000968077",
-      "cpu_usage": "0.0",
-      "memory_usage": "3644",
-      "file_size": "23144",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "88 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "1",
-        "Fortifiable": "4"
-      }
-    },
-    {
       "optimización": "-Ofast",
       "opción_seguridad": "",
-      "tiempo": ".000956416",
+      "tiempo": ".000978869",
       "cpu_usage": "0.0",
-      "memory_usage": "3496",
+      "memory_usage": "3424",
       "file_size": "17400",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1503,107 +1503,7 @@
     {
       "optimización": "-Ofast",
       "opción_seguridad": "-fstack-protector",
-      "tiempo": ".001049395",
-      "cpu_usage": "0.0",
-      "memory_usage": "3464",
-      "file_size": "17400",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "38 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-O3",
-      "opción_seguridad": "-fsanitize=address",
-      "tiempo": ".002155906",
-      "cpu_usage": "0.0",
-      "memory_usage": "11448",
-      "file_size": "1695768",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "5986 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "8",
-        "Fortifiable": "53"
-      }
-    },
-    {
-      "optimización": "-Ofast",
-      "opción_seguridad": "-fstack-protector-strong",
-      "tiempo": ".001243722",
-      "cpu_usage": "0.0",
-      "memory_usage": "3456",
-      "file_size": "17400",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "38 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Ofast",
-      "opción_seguridad": "-fstack-protector-all",
-      "tiempo": ".001014505",
-      "cpu_usage": "0.0",
-      "memory_usage": "3504",
-      "file_size": "17536",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "Canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "39 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Ofast",
-      "opción_seguridad": "-fno-stack-protector",
-      "tiempo": ".002253691",
-      "cpu_usage": "0.0",
-      "memory_usage": "3456",
-      "file_size": "17400",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "38 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Ofast",
-      "opción_seguridad": "-pie -fPIE",
-      "tiempo": ".002894365",
+      "tiempo": ".001077375",
       "cpu_usage": "0.0",
       "memory_usage": "3496",
       "file_size": "17400",
@@ -1622,10 +1522,110 @@
     },
     {
       "optimización": "-O3",
-      "opción_seguridad": "-fsanitize=memory",
-      "tiempo": ".001991294",
+      "opción_seguridad": "-fsanitize=address",
+      "tiempo": ".001752189",
       "cpu_usage": "0.0",
-      "memory_usage": "13748",
+      "memory_usage": "12932",
+      "file_size": "1695768",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "5986 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "8",
+        "Fortifiable": "53"
+      }
+    },
+    {
+      "optimización": "-Ofast",
+      "opción_seguridad": "-fstack-protector-strong",
+      "tiempo": ".001009105",
+      "cpu_usage": "0.0",
+      "memory_usage": "3496",
+      "file_size": "17400",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "38 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Ofast",
+      "opción_seguridad": "-fstack-protector-all",
+      "tiempo": ".004336016",
+      "cpu_usage": "0.0",
+      "memory_usage": "3528",
+      "file_size": "17536",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "Canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "39 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Ofast",
+      "opción_seguridad": "-fno-stack-protector",
+      "tiempo": ".001101161",
+      "cpu_usage": "0.0",
+      "memory_usage": "3444",
+      "file_size": "17400",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "38 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Ofast",
+      "opción_seguridad": "-pie -fPIE",
+      "tiempo": ".001973098",
+      "cpu_usage": "0.0",
+      "memory_usage": "3508",
+      "file_size": "17400",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "38 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-O3",
+      "opción_seguridad": "-fsanitize=memory",
+      "tiempo": ".003560580",
+      "cpu_usage": "0.0",
+      "memory_usage": "13772",
       "file_size": "1396840",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1643,9 +1643,9 @@
     {
       "optimización": "-Ofast",
       "opción_seguridad": "-no-pie",
-      "tiempo": ".001056556",
+      "tiempo": ".007833841",
       "cpu_usage": "0.0",
-      "memory_usage": "3512",
+      "memory_usage": "3480",
       "file_size": "17168",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1663,9 +1663,9 @@
     {
       "optimización": "-Ofast",
       "opción_seguridad": "-D_FORTIFY_SOURCE=2",
-      "tiempo": ".000953931",
+      "tiempo": ".001023314",
       "cpu_usage": "0.0",
-      "memory_usage": "3504",
+      "memory_usage": "3488",
       "file_size": "17400",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1683,7 +1683,7 @@
     {
       "optimización": "-Ofast",
       "opción_seguridad": "-D_FORTIFY_SOURCE=1",
-      "tiempo": ".003863039",
+      "tiempo": ".001183406",
       "cpu_usage": "0.0",
       "memory_usage": "3488",
       "file_size": "17400",
@@ -1703,47 +1703,7 @@
     {
       "optimización": "-Ofast",
       "opción_seguridad": "-D_FORTIFY_SOURCE=0",
-      "tiempo": ".000933289",
-      "cpu_usage": "0.0",
-      "memory_usage": "3532",
-      "file_size": "17400",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "38 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Ofast",
-      "opción_seguridad": "-Wl,-z,execstack",
-      "tiempo": ".002682925",
-      "cpu_usage": "0.0",
-      "memory_usage": "3468",
-      "file_size": "17400",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX disabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "38 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Ofast",
-      "opción_seguridad": "-z noexecstack",
-      "tiempo": ".000970242",
+      "tiempo": ".001088104",
       "cpu_usage": "0.0",
       "memory_usage": "3444",
       "file_size": "17400",
@@ -1762,10 +1722,50 @@
     },
     {
       "optimización": "-Ofast",
-      "opción_seguridad": "-fno-plt",
-      "tiempo": ".001016831",
+      "opción_seguridad": "-z noexecstack",
+      "tiempo": ".001237476",
       "cpu_usage": "0.0",
-      "memory_usage": "3476",
+      "memory_usage": "3512",
+      "file_size": "17400",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "38 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Ofast",
+      "opción_seguridad": "-Wl,-z,execstack",
+      "tiempo": ".001082627",
+      "cpu_usage": "0.0",
+      "memory_usage": "3528",
+      "file_size": "17400",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX disabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "38 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Ofast",
+      "opción_seguridad": "-fno-plt",
+      "tiempo": ".003768953",
+      "cpu_usage": "0.0",
+      "memory_usage": "3472",
       "file_size": "17400",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1783,9 +1783,9 @@
     {
       "optimización": "-Ofast",
       "opción_seguridad": "-Wl,-z,relro,-z,now",
-      "tiempo": ".001011233",
+      "tiempo": ".001028789",
       "cpu_usage": "0.0",
-      "memory_usage": "3452",
+      "memory_usage": "3472",
       "file_size": "17336",
       "checksec": {
         "RELRO": "Full RELRO",
@@ -1802,50 +1802,10 @@
     },
     {
       "optimización": "-Ofast",
-      "opción_seguridad": "-flto",
-      "tiempo": ".001123013",
-      "cpu_usage": "0.0",
-      "memory_usage": "3428",
-      "file_size": "17320",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Ofast",
-      "opción_seguridad": "-fsanitize=safe-stack",
-      "tiempo": ".001067034",
-      "cpu_usage": "0.0",
-      "memory_usage": "3420",
-      "file_size": "24632",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "90 Symbols",
-        "FORTIFY": "Yes",
-        "Fortified": "1",
-        "Fortifiable": "4"
-      }
-    },
-    {
-      "optimización": "-Ofast",
       "opción_seguridad": "-fsanitize=undefined",
-      "tiempo": ".000980685",
+      "tiempo": ".002104199",
       "cpu_usage": "0.0",
-      "memory_usage": "7044",
+      "memory_usage": "7224",
       "file_size": "427496",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1862,10 +1822,70 @@
     },
     {
       "optimización": "-Ofast",
-      "opción_seguridad": "-fsanitize=address",
-      "tiempo": ".002896118",
+      "opción_seguridad": "-fsanitize=safe-stack",
+      "tiempo": ".001258223",
       "cpu_usage": "0.0",
-      "memory_usage": "12960",
+      "memory_usage": "3496",
+      "file_size": "24632",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "90 Symbols",
+        "FORTIFY": "Yes",
+        "Fortified": "1",
+        "Fortifiable": "4"
+      }
+    },
+    {
+      "optimización": "-Os",
+      "opción_seguridad": "",
+      "tiempo": ".003887995",
+      "cpu_usage": "0.0",
+      "memory_usage": "3476",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Ofast",
+      "opción_seguridad": "-flto",
+      "tiempo": ".000996100",
+      "cpu_usage": "0.0",
+      "memory_usage": "3448",
+      "file_size": "17320",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Ofast",
+      "opción_seguridad": "-fsanitize=address",
+      "tiempo": ".001146138",
+      "cpu_usage": "0.0",
+      "memory_usage": "13348",
       "file_size": "1697256",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1883,47 +1903,7 @@
     {
       "optimización": "-Os",
       "opción_seguridad": "-fstack-protector",
-      "tiempo": ".000977722",
-      "cpu_usage": "0.0",
-      "memory_usage": "3504",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Os",
-      "opción_seguridad": "",
-      "tiempo": ".002976133",
-      "cpu_usage": "0.0",
-      "memory_usage": "3484",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Os",
-      "opción_seguridad": "-fstack-protector-strong",
-      "tiempo": ".001175999",
+      "tiempo": ".001603271",
       "cpu_usage": "0.0",
       "memory_usage": "3528",
       "file_size": "15912",
@@ -1942,30 +1922,10 @@
     },
     {
       "optimización": "-Os",
-      "opción_seguridad": "-fstack-protector-all",
-      "tiempo": ".000966682",
+      "opción_seguridad": "-fstack-protector-strong",
+      "tiempo": ".001593328",
       "cpu_usage": "0.0",
-      "memory_usage": "3460",
-      "file_size": "16048",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "Canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "37 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Os",
-      "opción_seguridad": "-pie -fPIE",
-      "tiempo": ".001208706",
-      "cpu_usage": "0.0",
-      "memory_usage": "3476",
+      "memory_usage": "3520",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -1982,10 +1942,50 @@
     },
     {
       "optimización": "-Os",
-      "opción_seguridad": "-fno-stack-protector",
-      "tiempo": ".001186706",
+      "opción_seguridad": "-fstack-protector-all",
+      "tiempo": ".001052990",
       "cpu_usage": "0.0",
-      "memory_usage": "3428",
+      "memory_usage": "3456",
+      "file_size": "16048",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "Canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "37 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Os",
+      "opción_seguridad": "-fno-stack-protector",
+      "tiempo": ".001012718",
+      "cpu_usage": "0.0",
+      "memory_usage": "3504",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Os",
+      "opción_seguridad": "-pie -fPIE",
+      "tiempo": ".001131383",
+      "cpu_usage": "0.0",
+      "memory_usage": "3456",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2003,9 +2003,9 @@
     {
       "optimización": "-Ofast",
       "opción_seguridad": "-fsanitize=memory",
-      "tiempo": ".000991638",
+      "tiempo": ".001238274",
       "cpu_usage": "0.0",
-      "memory_usage": "13656",
+      "memory_usage": "13580",
       "file_size": "1398336",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2022,30 +2022,10 @@
     },
     {
       "optimización": "-Os",
-      "opción_seguridad": "-no-pie",
-      "tiempo": ".001076765",
-      "cpu_usage": "0.0",
-      "memory_usage": "3512",
-      "file_size": "15672",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "No PIE",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "34 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Os",
       "opción_seguridad": "-D_FORTIFY_SOURCE=2",
-      "tiempo": ".001006563",
+      "tiempo": ".001245043",
       "cpu_usage": "0.0",
-      "memory_usage": "3536",
+      "memory_usage": "3520",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2062,8 +2042,88 @@
     },
     {
       "optimización": "-Os",
+      "opción_seguridad": "-no-pie",
+      "tiempo": ".001768301",
+      "cpu_usage": "0.0",
+      "memory_usage": "3528",
+      "file_size": "15672",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "No PIE",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "34 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Os",
       "opción_seguridad": "-D_FORTIFY_SOURCE=1",
-      "tiempo": ".001196864",
+      "tiempo": ".004633253",
+      "cpu_usage": "0.0",
+      "memory_usage": "3428",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Os",
+      "opción_seguridad": "-Wl,-z,execstack",
+      "tiempo": ".001023833",
+      "cpu_usage": "0.0",
+      "memory_usage": "3520",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX disabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Os",
+      "opción_seguridad": "-fno-plt",
+      "tiempo": ".004388424",
+      "cpu_usage": "0.0",
+      "memory_usage": "3520",
+      "file_size": "15912",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "36 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Os",
+      "opción_seguridad": "-z noexecstack",
+      "tiempo": ".006491120",
       "cpu_usage": "0.0",
       "memory_usage": "3456",
       "file_size": "15912",
@@ -2083,69 +2143,9 @@
     {
       "optimización": "-Os",
       "opción_seguridad": "-D_FORTIFY_SOURCE=0",
-      "tiempo": ".001023729",
+      "tiempo": ".002275550",
       "cpu_usage": "0.0",
-      "memory_usage": "3508",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Os",
-      "opción_seguridad": "-z noexecstack",
-      "tiempo": ".002296941",
-      "cpu_usage": "0.0",
-      "memory_usage": "3452",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Os",
-      "opción_seguridad": "-Wl,-z,execstack",
-      "tiempo": ".001290754",
-      "cpu_usage": "0.0",
-      "memory_usage": "3528",
-      "file_size": "15912",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX disabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "36 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Os",
-      "opción_seguridad": "-fno-plt",
-      "tiempo": ".001288986",
-      "cpu_usage": "0.0",
-      "memory_usage": "3528",
+      "memory_usage": "3520",
       "file_size": "15912",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2163,9 +2163,9 @@
     {
       "optimización": "-Os",
       "opción_seguridad": "-Wl,-z,relro,-z,now",
-      "tiempo": ".001062792",
+      "tiempo": ".002098541",
       "cpu_usage": "0.0",
-      "memory_usage": "3420",
+      "memory_usage": "3480",
       "file_size": "15840",
       "checksec": {
         "RELRO": "Full RELRO",
@@ -2183,9 +2183,9 @@
     {
       "optimización": "-Os",
       "opción_seguridad": "-flto",
-      "tiempo": ".002712867",
+      "tiempo": ".004766444",
       "cpu_usage": "0.0",
-      "memory_usage": "3452",
+      "memory_usage": "3424",
       "file_size": "15832",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2203,9 +2203,9 @@
     {
       "optimización": "-Os",
       "opción_seguridad": "-fsanitize=undefined",
-      "tiempo": ".001435628",
+      "tiempo": ".004308339",
       "cpu_usage": "0.0",
-      "memory_usage": "7348",
+      "memory_usage": "7224",
       "file_size": "426536",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2223,9 +2223,9 @@
     {
       "optimización": "-Os",
       "opción_seguridad": "-fsanitize=safe-stack",
-      "tiempo": ".000980583",
+      "tiempo": ".003836965",
       "cpu_usage": "0.0",
-      "memory_usage": "3448",
+      "memory_usage": "3424",
       "file_size": "23144",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2241,31 +2241,11 @@
       }
     },
     {
-      "optimización": "-Oz",
-      "opción_seguridad": "",
-      "tiempo": ".001028988",
-      "cpu_usage": "0.0",
-      "memory_usage": "6852",
-      "file_size": "17440",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "58 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
       "optimización": "-Os",
       "opción_seguridad": "-fsanitize=address",
-      "tiempo": ".001761976",
+      "tiempo": ".005826093",
       "cpu_usage": "0.0",
-      "memory_usage": "14400",
+      "memory_usage": "14836",
       "file_size": "1695768",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2282,10 +2262,10 @@
     },
     {
       "optimización": "-Oz",
-      "opción_seguridad": "-fstack-protector",
-      "tiempo": ".002160671",
+      "opción_seguridad": "",
+      "tiempo": ".002466568",
       "cpu_usage": "0.0",
-      "memory_usage": "6856",
+      "memory_usage": "6980",
       "file_size": "17440",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2302,39 +2282,19 @@
     },
     {
       "optimización": "-Oz",
-      "opción_seguridad": "-fstack-protector-strong",
-      "tiempo": ".001015607",
+      "opción_seguridad": "-fstack-protector",
+      "tiempo": ".000947532",
       "cpu_usage": "0.0",
-      "memory_usage": "6856",
-      "file_size": "17496",
+      "memory_usage": "6984",
+      "file_size": "17440",
       "checksec": {
         "RELRO": "Partial RELRO",
-        "CANARY": "Canary found",
+        "CANARY": "No canary found",
         "NX": "NX enabled",
         "PIE": "PIE enabled",
         "RPATH": "No RPATH",
         "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "59 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Oz",
-      "opción_seguridad": "-fstack-protector-all",
-      "tiempo": ".000959595",
-      "cpu_usage": "0.0",
-      "memory_usage": "6908",
-      "file_size": "17496",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "Canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "59 Symbols",
+        "SYMBOLS": "58 Symbols",
         "FORTIFY": "N/A",
         "Fortified": "0",
         "Fortifiable": "0"
@@ -2343,9 +2303,9 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-fno-stack-protector",
-      "tiempo": ".000991209",
+      "tiempo": ".001223742",
       "cpu_usage": "0.0",
-      "memory_usage": "6920",
+      "memory_usage": "6856",
       "file_size": "17440",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2362,10 +2322,50 @@
     },
     {
       "optimización": "-Oz",
-      "opción_seguridad": "-pie -fPIE",
-      "tiempo": ".001372661",
+      "opción_seguridad": "-fstack-protector-all",
+      "tiempo": ".004828331",
       "cpu_usage": "0.0",
-      "memory_usage": "6976",
+      "memory_usage": "6924",
+      "file_size": "17496",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "Canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "59 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Oz",
+      "opción_seguridad": "-fstack-protector-strong",
+      "tiempo": ".001128614",
+      "cpu_usage": "0.0",
+      "memory_usage": "6984",
+      "file_size": "17496",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "Canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "59 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Oz",
+      "opción_seguridad": "-pie -fPIE",
+      "tiempo": ".002377285",
+      "cpu_usage": "0.0",
+      "memory_usage": "6984",
       "file_size": "17440",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2383,9 +2383,9 @@
     {
       "optimización": "-Os",
       "opción_seguridad": "-fsanitize=memory",
-      "tiempo": ".001016913",
+      "tiempo": ".002507422",
       "cpu_usage": "0.0",
-      "memory_usage": "13744",
+      "memory_usage": "15796",
       "file_size": "1396896",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2403,9 +2403,9 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-no-pie",
-      "tiempo": ".001133642",
+      "tiempo": ".001108312",
       "cpu_usage": "0.0",
-      "memory_usage": "6852",
+      "memory_usage": "7028",
       "file_size": "17264",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2423,9 +2423,9 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-D_FORTIFY_SOURCE=2",
-      "tiempo": ".002726281",
+      "tiempo": ".001042302",
       "cpu_usage": "0.0",
-      "memory_usage": "6856",
+      "memory_usage": "6984",
       "file_size": "17440",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2443,9 +2443,29 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-D_FORTIFY_SOURCE=1",
-      "tiempo": ".001484743",
+      "tiempo": ".002084990",
       "cpu_usage": "0.0",
-      "memory_usage": "6836",
+      "memory_usage": "6896",
+      "file_size": "17440",
+      "checksec": {
+        "RELRO": "Partial RELRO",
+        "CANARY": "No canary found",
+        "NX": "NX enabled",
+        "PIE": "PIE enabled",
+        "RPATH": "No RPATH",
+        "RUNPATH": "No RUNPATH",
+        "SYMBOLS": "58 Symbols",
+        "FORTIFY": "N/A",
+        "Fortified": "0",
+        "Fortifiable": "0"
+      }
+    },
+    {
+      "optimización": "-Oz",
+      "opción_seguridad": "-z noexecstack",
+      "tiempo": ".001018645",
+      "cpu_usage": "0.0",
+      "memory_usage": "6772",
       "file_size": "17440",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2463,7 +2483,7 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-D_FORTIFY_SOURCE=0",
-      "tiempo": ".001688213",
+      "tiempo": ".002032933",
       "cpu_usage": "0.0",
       "memory_usage": "6856",
       "file_size": "17440",
@@ -2482,30 +2502,10 @@
     },
     {
       "optimización": "-Oz",
-      "opción_seguridad": "-z noexecstack",
-      "tiempo": ".002170123",
-      "cpu_usage": "0.0",
-      "memory_usage": "6820",
-      "file_size": "17440",
-      "checksec": {
-        "RELRO": "Partial RELRO",
-        "CANARY": "No canary found",
-        "NX": "NX enabled",
-        "PIE": "PIE enabled",
-        "RPATH": "No RPATH",
-        "RUNPATH": "No RUNPATH",
-        "SYMBOLS": "58 Symbols",
-        "FORTIFY": "N/A",
-        "Fortified": "0",
-        "Fortifiable": "0"
-      }
-    },
-    {
-      "optimización": "-Oz",
       "opción_seguridad": "-Wl,-z,execstack",
-      "tiempo": ".001029676",
+      "tiempo": ".003795624",
       "cpu_usage": "0.0",
-      "memory_usage": "6852",
+      "memory_usage": "6920",
       "file_size": "17440",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2523,7 +2523,7 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-fno-plt",
-      "tiempo": ".001397734",
+      "tiempo": ".001280572",
       "cpu_usage": "0.0",
       "memory_usage": "7028",
       "file_size": "17400",
@@ -2543,7 +2543,7 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-Wl,-z,relro,-z,now",
-      "tiempo": ".000752230",
+      "tiempo": ".001250220",
       "cpu_usage": "0.0",
       "memory_usage": "6924",
       "file_size": "17304",
@@ -2563,9 +2563,9 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-flto",
-      "tiempo": ".000676307",
+      "tiempo": ".000977395",
       "cpu_usage": "0.0",
-      "memory_usage": "3532",
+      "memory_usage": "3448",
       "file_size": "15832",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2583,9 +2583,9 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-fsanitize=undefined",
-      "tiempo": ".000769884",
+      "tiempo": ".000992060",
       "cpu_usage": "0.0",
-      "memory_usage": "9260",
+      "memory_usage": "7308",
       "file_size": "427192",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2603,7 +2603,7 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-fsanitize=safe-stack",
-      "tiempo": ".000982789",
+      "tiempo": ".000983930",
       "cpu_usage": "0.0",
       "memory_usage": "6992",
       "file_size": "24592",
@@ -2623,9 +2623,9 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-fsanitize=address",
-      "tiempo": ".000658367",
+      "tiempo": ".000986979",
       "cpu_usage": "0.0",
-      "memory_usage": "16048",
+      "memory_usage": "17964",
       "file_size": "1701512",
       "checksec": {
         "RELRO": "Partial RELRO",
@@ -2643,9 +2643,9 @@
     {
       "optimización": "-Oz",
       "opción_seguridad": "-fsanitize=memory",
-      "tiempo": ".000617871",
+      "tiempo": ".000717683",
       "cpu_usage": "0.0",
-      "memory_usage": "13720",
+      "memory_usage": "13692",
       "file_size": "1402288",
       "checksec": {
         "RELRO": "Partial RELRO",

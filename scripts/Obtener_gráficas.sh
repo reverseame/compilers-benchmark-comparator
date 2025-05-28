@@ -104,6 +104,10 @@ if [ -f "Informes/Facet_Grid.pdf" ]; then
     mv -- "Informes/Facet_Grid.pdf" "Gráficas"
 fi
 
+# Mover el gráfico boxplot a la carpeta Gráficas
+if [ -f "Informes/Boxplot.pdf" ]; then
+    mv -- "Informes/Boxplot.pdf" "Gráficas"
+fi
 echo "Las gráficas se han organizado en:"
 echo "Gráficas"
 echo "├── Gráficas_cualitativas"
