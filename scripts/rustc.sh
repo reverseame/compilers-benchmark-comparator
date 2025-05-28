@@ -4,7 +4,7 @@
 
 # Verificar si se proporcionó un archivo fuente como argumento
 if [ "$#" -lt 1 ]; then
-    echo "Uso: $0 <archivo_fuente.rs> [num_ejecuciones]"
+    echo "Uso: $0 <archivo_fuente.rs> [<numero_de_ejecuciones>]"
     exit 1
 fi
 

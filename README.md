@@ -34,19 +34,21 @@ Clona el repositorio:
 git clone https://github.com/DonJulve/Compilers-Benchmark-Comparator
 ```
 
-**Nota**: nombre-del-programa es el nombre del programa a usar para medir sin extensión, osea si tengo suma.cpp y suma.rs pondría solo suma.
+**Nota**: 
+ - nombre-del-programa es el nombre del programa a usar para medir sin extensión, osea si tengo suma.cpp y suma.rs pondría solo suma.
+ - numero_de_ejecuciones es opcional y por defecto es 1, se usa para poder hacer una media de las ejecuciones.
 
 ### Nativo
 
 ```sh
-./Pipeline <nombre-del-programa>
+./Pipeline <nombre_del_programa> [<numero_de_ejecuciones>]
 ```
 
 ### Docker
 ```sh
 docker-compose build
 docker-compose up -d
-docker-compose run benchmark <nombre-del-programa>
+docker-compose run benchmark <nombre_del_programa> [<numero_de_ejecuciones>]
 ```
 
 **Eliminar imagen**

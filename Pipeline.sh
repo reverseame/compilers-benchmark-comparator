@@ -2,7 +2,7 @@
 
 # Verificar que se haya pasado un argumento
 if [ -z "$1" ]; then
-    echo "Uso: $0 <nombre_del_programa>"
+    echo "Uso: $0 <nombre_del_programa> [<numero_de_ejecuciones>]"
     exit 1
 fi
 
