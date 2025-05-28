@@ -35,7 +35,7 @@ git clone https://github.com/DonJulve/Compilers-Benchmark-Comparator
 ```
 
 **Nota**: 
- - nombre-del-programa es el nombre del programa a usar para medir sin extensión, osea si tengo suma.cpp y suma.rs pondría solo suma.
+ - nombre_del_programa es el nombre del programa a usar para medir sin extensión, osea si tengo suma.cpp y suma.rs pondría solo suma.
  - numero_de_ejecuciones es opcional y por defecto es 1, se usa para poder hacer una media de las ejecuciones.
 
 ### Nativo
