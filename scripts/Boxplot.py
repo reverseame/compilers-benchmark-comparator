@@ -159,7 +159,10 @@ def create_boxplot_grid(data, output_dir):
         ax = axes[i]
         subset = df[df['Metric'] == metric]
         
-        sns.boxplot(data=subset, x='Compiler', y='Value', palette=palette, ax=ax)
+        sns.boxplot(data=subset, x='Compiler', y='Value', hue='Compiler', palette=palette, ax=ax)
+
+        if ax.get_legend():
+            ax.get_legend().remove()
         
         ax.set_title(metric, pad=20, fontsize=14, fontweight='bold')
         ax.set_ylabel('')

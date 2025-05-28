@@ -1,15 +1,16 @@
 #!/bin/bash
-# Script modificado para probar cada nivel de optimización con una opción de seguridad a la vez en rustc
 
 # Se usará Rust Nightly para las compilaciones
 
 # Verificar si se proporcionó un archivo fuente como argumento
-if [ "$#" -ne 1 ]; then
-    echo "Uso: $0 <archivo_fuente.rs>"
+if [ "$#" -lt 1 ]; then
+    echo "Uso: $0 <archivo_fuente.rs> [num_ejecuciones]"
     exit 1
 fi
 
 SOURCE="$1"
+NUM_EJECUCIONES=${2:-1}  # Valor por defecto: 1
+
 if [ ! -f "$SOURCE" ]; then
     echo "Error: El archivo fuente '$SOURCE' no existe."
     exit 1
@@ -30,10 +31,11 @@ REPORT_JSON="${OUTPUT_DIR}/Informe.json"
 {
   echo "Informe de rendimiento y seguridad"
   echo "==========================================="
+  echo "Número de ejecuciones por prueba: $NUM_EJECUCIONES"
 } > "$REPORT_FILE"
 
 # Inicializamos el JSON
-echo '{"resultados": []}' > "$REPORT_JSON"
+echo '{"resultados": [], "num_ejecuciones": '$NUM_EJECUCIONES'}' > "$REPORT_JSON"
 
 # Función para agregar un resultado al archivo JSON
 add_to_json() {
@@ -104,9 +106,37 @@ get_memory_usage() {
     /usr/bin/time -v "$1" 2>&1 | awk '/Maximum resident set size/ {print $6}'
 }
 
+# Función para calcular la media de un array de números
+calculate_average() {
+    local round_mode="$1"
+    shift
+    local numbers=("$@")
+    local sum=0
+    local count=${#numbers[@]}
+
+    for num in "${numbers[@]}"; do
+        sum=$(echo "$sum + $num" | bc -l)
+    done
+
+    local average=$(echo "scale=9; $sum / $count" | bc -l)
+
+    if [[ "$round_mode" == "round" ]]; then
+        # Redondear al entero más cercano
+        echo "$average" | awk '{printf("%d\n", ($1-int($1)>=0.5)?int($1)+1:int($1))}'
+    else
+        # Devolver con decimales
+        echo "$average"
+    fi
+}
+
 process_combination() {
     local opt=$1
     local feature=$2
+
+    # Arrays para almacenar múltiples ejecuciones
+    local times=()
+    local cpu_usages=()
+    local memory_usages=()
 
     # Archivo temporal para salida
     local temp_report=$(mktemp) || return 1
@@ -122,6 +152,7 @@ process_combination() {
     {
         echo "==========================================="
         echo -e "${BLUE}Compilando con: $opt $feature"
+        echo -e "Número de ejecuciones: $NUM_EJECUCIONES${NC}"
     } >> "$temp_report"
 
     # Compilar (usamos nightly para todas las compilaciones)
@@ -134,23 +165,42 @@ process_combination() {
         return 1
     fi
 
-    # Obtener el tamaño del ejecutable
+    # Obtener el tamaño del ejecutable (solo una vez)
     local FILE_SIZE=$(stat -c%s "$EXECUTABLE")
 
-    # Ejecutar el programa en segundo plano y obtener su PID
-    "$EXECUTABLE" &
-    local pid=$!
+    # Ejecutar el programa múltiples veces
+    for ((i=1; i<=NUM_EJECUCIONES; i++)); do
+        {
+            echo -e "\nEjecución $i de $NUM_EJECUCIONES:"
+            
+            # Ejecutar el programa en segundo plano y obtener su PID
+            "$EXECUTABLE" &
+            local pid=$!
 
-    # Medir tiempo de ejecución con date
-    local TIME_OUTPUT=$(measure_time wait "$pid")
+            # Medir tiempo de ejecución con date
+            local TIME_OUTPUT=$(measure_time wait "$pid")
 
-    # Obtener el uso de CPU
-    local CPU_USAGE=$(get_cpu_usage "$pid")
+            # Obtener el uso de CPU
+            local CPU_USAGE=$(get_cpu_usage "$pid")
 
-    # Obtener el uso de memoria
-    local MEMORY_USAGE=$(get_memory_usage "$EXECUTABLE")
+            # Obtener el uso de memoria
+            local MEMORY_USAGE=$(get_memory_usage "$EXECUTABLE")
 
-    # Obtener resultados de seguridad con checksec
+            # Almacenar resultados para calcular la media después
+            times+=("$TIME_OUTPUT")
+            cpu_usages+=("$CPU_USAGE")
+            memory_usages+=("$MEMORY_USAGE")
+
+            echo "Tiempo: ${TIME_OUTPUT} s | CPU: ${CPU_USAGE}% | Memoria: ${MEMORY_USAGE} KB"
+        } >> "$temp_report"
+    done
+
+    # Calcular medias
+    local AVG_TIME=$(calculate_average "" "${times[@]}")
+    local AVG_CPU=$(calculate_average "round" "${cpu_usages[@]}")
+    local AVG_MEMORY=$(calculate_average "round" "${memory_usages[@]}")
+
+    # Obtener resultados de seguridad con checksec (solo una vez)
     local CHECKSEC_OUTPUT=$(checksec --file="$EXECUTABLE" 2>&1)
 
     # Filtrar la salida para JSON
@@ -195,10 +245,10 @@ process_combination() {
 
     # Escribir resultados en el reporte temporal
     {
-        echo -e "${NC}Resultado del tiempo:"
-        echo "Tiempo real: ${TIME_OUTPUT} s"
-        echo "Uso de CPU: ${CPU_USAGE}%"
-        echo "Memoria máxima utilizada: ${MEMORY_USAGE} KB"
+        echo -e "\n${BLUE}Resultados promediados:${NC}"
+        echo "Tiempo real promedio: ${AVG_TIME} s"
+        echo "Uso de CPU promedio: ${AVG_CPU}%"
+        echo "Memoria máxima promedio utilizada: ${AVG_MEMORY} KB"
         echo "Tamaño del ejecutable: ${FILE_SIZE} bytes"
         echo "-------------------------------------------"
         echo "Resultado de checksec:"
@@ -215,9 +265,9 @@ process_combination() {
     local json_result=$(jq -n \
         --arg opt "$opt" \
         --arg feature "$feature" \
-        --arg time "$TIME_OUTPUT" \
-        --arg cpu "$CPU_USAGE" \
-        --arg memory "$MEMORY_USAGE" \
+        --arg time "$AVG_TIME" \
+        --arg cpu "$AVG_CPU" \
+        --arg memory "$AVG_MEMORY" \
         --arg size "$FILE_SIZE" \
         --argjson checksec "$CHECKSEC_JSON" \
         '{
@@ -227,7 +277,8 @@ process_combination() {
             "cpu_usage": $cpu,
             "memory_usage": $memory,
             "file_size": $size,
-            "checksec": $checksec
+            "checksec": $checksec,
+            "ejecuciones": '$NUM_EJECUCIONES'
         }')
     
     add_to_json "$json_result"

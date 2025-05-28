@@ -8,6 +8,7 @@ fi
 
 # Nombre del programa pasado como argumento
 program_name=$1
+NUM_EJECUCIONES=${2:-1}  # Valor por defecto: 1
 
 # Rutas a los archivos
 cpp_file="programs/${program_name}.cpp"
@@ -26,13 +27,13 @@ fi
 
 # Ejecutar los scripts de compilación
 echo "Compilando $cpp_file con g++..."
-./scripts/g++.sh "$cpp_file"
+./scripts/g++.sh "$cpp_file" "$NUM_EJECUCIONES"
 
 echo -e "\nCompilando $cpp_file con clang++..."
-./scripts/clang++.sh "$cpp_file"
+./scripts/clang++.sh "$cpp_file" "$NUM_EJECUCIONES"
 
 echo -e "\nCompilando $rs_file con rustc..."
-./scripts/rustc.sh "$rs_file"
+./scripts/rustc.sh "$rs_file" "$NUM_EJECUCIONES"
 
 # Ejecutar el script para obtener informes
 echo -e "\nGenerando informes..."
