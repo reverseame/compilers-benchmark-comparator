@@ -22,6 +22,14 @@ Tener un programa con el mismo nombre que sea cpp y rs.
 
 - Tener configuradas las fuentes para matplotlib (mirar Dockerfile si hay dudas).
 
+```sh
+sudo apt install build-essential, clang, llvm, curl, python3, python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf, pandoc, texlive-full, lmodern, fonts-freefont-otf, binutils-dev, libcap-dev, libseccomp-dev, libpython3.11
+```
+
+```sh 
+pip3 install -r requirements.txt
+```
+
 ### Docker
 
 - Tener instalado docker y docker-compose.
