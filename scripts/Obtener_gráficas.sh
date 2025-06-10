@@ -3,8 +3,8 @@
 # Ruta a la carpeta Informes
 INFORMES_DIR="Informes"
 GRAFICAS_DIR="Gráficas_cualitativas"
-GRAFICAS_NUMERICAS_DIR="Gráficas_numéricas"
-GRAFICAS_PORCENTUALES_DIR="Gráficas_porcentuales"
+GRAFICAS_NUMERICAS_DIR="Gráficas_por_optimización"
+GRAFICAS_PORCENTUALES_DIR="Gráficas_por_optimización_porcentual"
 GRAFICAS_SEGURIDAD_PORCENTUAL_DIR="../Gráficas_por_medida_seguridad_porcentual"
 
 # Entrar en la carpeta Informes
@@ -59,13 +59,11 @@ pdflatex valores_por_defecto.tex
 
 # Mover el tex de valores por defecto a la carpeta Gráficas_porcentuales
 if [ -f "valores_por_defecto.tex" ]; then
-    cp -- "valores_por_defecto.tex" $GRAFICAS_SEGURIDAD_PORCENTUAL_DIR
     mv -- "valores_por_defecto.tex" $GRAFICAS_PORCENTUALES_DIR
 fi
 
 # Mover el pdf de valores por defecto a la carpeta Gráficas_porcentuales
 if [ -f "valores_por_defecto.pdf" ]; then
-    cp -- "valores_por_defecto.pdf" $GRAFICAS_SEGURIDAD_PORCENTUAL_DIR
     mv -- "valores_por_defecto.pdf" $GRAFICAS_PORCENTUALES_DIR
 fi
 
@@ -95,6 +93,17 @@ if [ -d "$GRAFICAS_PORCENTUALES_DIR" ]; then
     mv -- "$GRAFICAS_PORCENTUALES_DIR" ..
 fi
 
+# Compilar el archivo LaTeX en Gráficas_por_medida_seguridad_porcentual
+if [ -f "$GRAFICAS_SEGURIDAD_PORCENTUAL_DIR/valores_por_defecto.tex" ]; then
+    cd "$GRAFICAS_SEGURIDAD_PORCENTUAL_DIR" || exit 1
+    pdflatex -interaction=nonstopmode valores_por_defecto.tex 
+
+    # Limpiar archivos auxiliares de LaTeX
+    rm -f valores_por_defecto.{aux,log,out}
+
+    cd -
+fi
+
 cd ..
 mkdir -p "Gráficas"
 mv Gráficas_* "Gráficas"
@@ -111,7 +120,7 @@ fi
 echo "Las gráficas se han organizado en:"
 echo "Gráficas"
 echo "├── Gráficas_cualitativas"
-echo "├── Gráficas_numéricas"
-echo "├── Gráficas_porcentuales"
+echo "├── Gráficas_por_optimización"
+echo "├── Gráficas_por_optimización_porcentual"
 echo "├── Gráficas_por_medida_seguridad"
 echo "└── Gráficas_por_medida_seguridad_porcentual"

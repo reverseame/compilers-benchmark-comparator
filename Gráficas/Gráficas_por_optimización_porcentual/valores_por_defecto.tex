@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{geometry}
+\usepackage{array}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\begin{table}[ht]
+\centering
+\caption{Valores por defecto (sin flags de seguridad)}
+\small
+\begin{tabularx}{\textwidth}{l l >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+\toprule
+Compilador & Optimización & \multicolumn{1}{c}{Time (ms)} & \multicolumn{1}{c}{Memory usage (KB)} & \multicolumn{1}{c}{File size (KB)} & \multicolumn{1}{c}{Fortified functions (\%)} \\
+\midrule
+clang++ & -O0 & 1.34 & 3270 & 16.07 & 0.0 \\
+ & -O1 & 1.33 & 3446 & 16.00 & 0.0 \\
+ & -O2 & 1.55 & 3489 & 16.00 & 0.0 \\
+ & -O3 & 1.31 & 3433 & 16.00 & 0.0 \\
+ & -Os & 1.74 & 3416 & 16.00 & 0.0 \\
+ & -Oz & 2.00 & 3013 & 15.98 & 0.0 \\
+ & -Ofast & 1.34 & 3448 & 17.45 & 0.0 \\
+\midrule
+g++ & -O0 & 1.40 & 3052 & 16.26 & 0.0 \\
+ & -O1 & 1.74 & 3051 & 16.04 & 0.0 \\
+ & -O2 & 1.08 & 3052 & 15.99 & 0.0 \\
+ & -O3 & 1.23 & 3459 & 16.02 & 0.0 \\
+ & -Os & 1.12 & 3038 & 16.04 & 0.0 \\
+\midrule
+rustc & -O0 & 1.66 & 1919 & 3758.80 & 0.0 \\
+ & -O1 & 1.35 & 1996 & 3752.70 & 0.0 \\
+ & -O2 & 2.32 & 2004 & 3752.35 & 0.0 \\
+ & -O3 & 1.52 & 1966 & 3752.35 & 0.0 \\
+ & -Os & 1.35 & 2014 & 3752.62 & 0.0 \\
+ & -Oz & 1.53 & 1976 & 3752.70 & 0.0 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\end{document}

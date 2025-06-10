@@ -394,7 +394,9 @@ def create_security_measure_chart(data, metric, category_name, variant_name, sub
     os.makedirs(measure_dir, exist_ok=True)
     
     # Guardar gráfico en PDF
-    filename = f"{metric.replace(' ', '_').replace('(', '').replace(')', '')}.pdf"
+    filename = metric.replace(' ', '_').replace('(', '').replace(')', '').replace('%', '')
+    # Eliminar cualquier _ adicional al final antes de .pdf
+    filename = filename.rstrip('_') + '.pdf'
     plt.savefig(os.path.join(measure_dir, filename), format="pdf", bbox_inches='tight')
     plt.close()
 

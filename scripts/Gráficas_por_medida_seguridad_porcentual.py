@@ -253,31 +253,123 @@ def get_optimization_level(config):
     return 'unknown'
 
 def get_default_values(data):
-    """Obtiene los valores por defecto (sin flags de seguridad) para cada compilador y optimización"""
+    """Obtiene los valores por defecto (sin flags de seguridad y con -O0) para cada compilador"""
     default_values = {}
     
     for compiler in COMPILERS:
         default_values[compiler] = {}
-        for optimization in OPTIMIZATIONS:
-            opt_flag = OPTIMIZATIONS[optimization][compiler]
-            if opt_flag is None:
-                continue
+        
+        # Buscar configuración sin flags de seguridad y con -O0
+        for config in data[compiler].get('resultados', []):
+            if (not config.get('opción_seguridad', '').strip() and 
+                config.get('optimización', '').strip() == OPTIMIZATIONS['-O0'][compiler]):
                 
-            # Buscar configuración sin flags de seguridad
-            for config in data[compiler].get('resultados', []):
-                if (config.get('optimización', '').strip() == opt_flag and 
-                    not config.get('opción_seguridad', '').strip()):
-                    
-                    default_values[compiler][optimization] = {
-                        'time': float(config.get('tiempo', 0)) * 1000,
-                        'memory_usage': int(config.get('memory_usage', 0)),
-                        'file_size': int(config.get('file_size', 0)) / 1024,
-                        'fortified': int(config.get('checksec', {}).get('Fortified', 0)),
-                        'fortifiable': int(config.get('checksec', {}).get('Fortifiable', 0))
-                    }
-                    break
+                default_values[compiler] = {
+                    'time': float(config.get('tiempo', 0)) * 1000,
+                    'memory_usage': int(config.get('memory_usage', 0)),
+                    'file_size': int(config.get('file_size', 0)) / 1024,
+                    'fortified': int(config.get('checksec', {}).get('Fortified', 0)),
+                    'fortifiable': int(config.get('checksec', {}).get('Fortifiable', 0))
+                }
+                break
     
     return default_values
+
+def generate_latex_table(default_values, data, output_dir):
+    """Genera una tabla LaTeX con los valores por defecto y por flag de seguridad usando booktabs"""
+    latex_table = """\\documentclass{article}
+\\usepackage[utf8]{inputenc}
+\\usepackage{booktabs}
+\\usepackage{tabularx}
+\\usepackage{geometry}
+\\usepackage{array}
+\\usepackage{longtable}
+\\usepackage{pdflscape}
+\\geometry{a4paper, margin=1in}
+
+\\begin{document}
+
+\\begin{landscape}
+\\begin{center}
+\\begin{longtable}{l >{\\centering\\arraybackslash}p{2.5cm} >{\\centering\\arraybackslash}p{2.5cm} >{\\centering\\arraybackslash}p{2.5cm} >{\\centering\\arraybackslash}p{2.5cm}}
+\\caption{Valores de referencia y por flag de seguridad (optimización -O0)} \\\\
+\\toprule
+\\textbf{Configuración} & \\textbf{Time (ms)} & \\textbf{Memory usage (KB)} & \\textbf{File size (KB)} & \\textbf{Fortified functions (\\%)} \\\\
+\\midrule
+\\endfirsthead
+
+\\multicolumn{5}{c}%
+{{\\tablename\\ \\thetable{} -- Continuación de la página anterior}} \\\\
+\\toprule
+\\textbf{Configuración} & \\textbf{Time (ms)} & \\textbf{Memory usage (KB)} & \\textbf{File size (KB)} & \\textbf{Fortified functions (\\%)} \\\\
+\\midrule
+\\endhead
+
+\\midrule
+\\multicolumn{5}{r}{{Continúa en la página siguiente}} \\\\
+\\endfoot
+
+\\bottomrule
+\\endlastfoot
+"""
+
+    # Primero añadir los valores por defecto
+    latex_table += "\\multicolumn{5}{l}{\\textbf{Valores por defecto (sin flags de seguridad)}} \\\\\n"
+    for compiler in COMPILERS:
+        values = default_values[compiler]
+        fortified_pct = (values['fortified'] / values['fortifiable'] * 100) if values['fortifiable'] > 0 else 0.0
+        
+        latex_table += f"{compiler} & {values['time']:.2f} & {values['memory_usage']} & {values['file_size']:.2f} & {fortified_pct:.1f} \\\\\n"
+    
+    # Ahora añadir secciones para cada categoría de seguridad
+    for category_name, category_data in SECURITY_CATEGORIES.items():
+        latex_table += "\\midrule\n"
+        latex_table += f"\\multicolumn{{5}}{{l}}{{\\textbf{{{category_name.replace('-', ' ').title()}}}}} \\\\\n"
+        
+        for variant_name, variant_data in category_data['variants'].items():
+            for subvariant_name, subvariant_opts in variant_data.items():
+                filtered_data = filter_by_security_variant(data, subvariant_opts)
+                
+                # Obtener valores para esta variante (con -O0)
+                variant_values = {}
+                for compiler in COMPILERS:
+                    variant_values[compiler] = None
+                    for config in filtered_data[compiler]['resultados']:
+                        if config.get('optimización', '').strip() == OPTIMIZATIONS['-O0'][compiler]:
+                            variant_values[compiler] = {
+                                'time': float(config.get('tiempo', 0)) * 1000,
+                                'memory_usage': int(config.get('memory_usage', 0)),
+                                'file_size': int(config.get('file_size', 0)) / 1024,
+                                'fortified': int(config.get('checksec', {}).get('Fortified', 0)),
+                                'fortifiable': int(config.get('checksec', {}).get('Fortifiable', 0))
+                            }
+                            break
+                
+                # Añadir fila para esta variante
+                variant_title = f"{variant_name}"
+                if subvariant_name != 'default':
+                    variant_title += f" ({subvariant_name})"
+                
+                latex_table += f"\\multicolumn{{5}}{{l}}{{\\textit{{{variant_title}}}}} \\\\\n"
+                
+                for compiler in COMPILERS:
+                    if variant_values[compiler] is None:
+                        latex_table += f"{compiler} & N/A & N/A & N/A & N/A \\\\\n"
+                    else:
+                        values = variant_values[compiler]
+                        fortified_pct = (values['fortified'] / values['fortifiable'] * 100) if values['fortifiable'] > 0 else 0.0
+                        latex_table += f"{compiler} & {values['time']:.2f} & {values['memory_usage']} & {values['file_size']:.2f} & {fortified_pct:.1f} \\\\\n"
+    
+    latex_table += """\\end{longtable}
+\\end{center}
+\\end{landscape}
+
+\\end{document}"""
+    
+    # Guardar tabla LaTeX
+    with open(os.path.join(output_dir, 'valores_por_defecto.tex'), 'w', encoding='utf-8') as f:
+        f.write(latex_table)
+
 
 def create_security_percentage_chart(data, metric, category_name, variant_name, subvariant_name, default_values, output_dir):
     """Crea un gráfico de porcentaje respecto a los valores por defecto para una medida de seguridad"""
@@ -303,27 +395,24 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
                 if opt_level not in compiler_data[compiler]:
                     compiler_data[compiler][opt_level] = []
                 
-                # Obtener valor por defecto para esta métrica y optimización
-                if opt_level not in default_values[compiler]:
-                    continue
-                    
+                # Obtener valor por defecto para esta métrica
                 default_value = 0
                 if metric == 'Time (ms)':
-                    default_value = default_values[compiler][opt_level]['time']
+                    default_value = default_values[compiler]['time']
                     value = float(config.get('tiempo', 0)) * 1000
                 elif metric == 'Memory usage (KB)':
-                    default_value = default_values[compiler][opt_level]['memory_usage']
+                    default_value = default_values[compiler]['memory_usage']
                     value = int(config.get('memory_usage', 0))
                 elif metric == 'File size (KB)':
-                    default_value = default_values[compiler][opt_level]['file_size']
+                    default_value = default_values[compiler]['file_size']
                     value = int(config.get('file_size', 0)) / 1024
                 elif metric == 'Fortified Functions (%)':
                     fortified = int(config.get('checksec', {}).get('Fortified', 0))
                     fortifiable = int(config.get('checksec', {}).get('Fortifiable', 0))
                     value = (fortified / fortifiable * 100) if fortifiable > 0 else 0
                     
-                    default_fortified = default_values[compiler][opt_level]['fortified']
-                    default_fortifiable = default_values[compiler][opt_level]['fortifiable']
+                    default_fortified = default_values[compiler]['fortified']
+                    default_fortifiable = default_values[compiler]['fortifiable']
                     default_value = (default_fortified / default_fortifiable * 100) if default_fortifiable > 0 else 0
                 else:
                     continue
@@ -465,7 +554,7 @@ def create_security_percentage_chart(data, metric, category_name, variant_name, 
     os.makedirs(measure_dir, exist_ok=True)
     
     # Guardar gráfico en PDF
-    filename = f"{metric.replace(' ', '_').replace('(', '').replace(')', '')}_porcentaje.pdf"
+    filename = f"{metric.replace(' ', '_').replace('(', '').replace(')', '').replace('_%', '')}_porcentaje.pdf"
     plt.savefig(os.path.join(measure_dir, filename), format="pdf", bbox_inches='tight')
     plt.close()
 
@@ -494,9 +583,13 @@ def main():
     print("📊 Procesando datos...")
     data = load_data(base_dir)
     
-    # Obtener valores por defecto
+    # Obtener valores por defecto (sin flags de seguridad, con -O0)
     print("🔍 Extrayendo valores por defecto...")
     default_values = get_default_values(data)
+    
+    # Generar tabla LaTeX con valores por defecto
+    print("📝 Generando tabla LaTeX...")
+    generate_latex_table(default_values, data, output_dir)
     
     # Generar gráficas para cada categoría de seguridad
     for category_name, category_data in SECURITY_CATEGORIES.items():
