@@ -1,0 +1,66 @@
+\chapter{Introducción}
+
+\section{Motivación}
+
+En los últimos años, la preocupación por la seguridad en el desarrollo
+de software ha crecido notablemente. Como respuesta, los compiladores
+modernos han incorporado mecanismos de protección que refuerzan la
+integridad y robustez del programa generado.
+Estas medidas, sin embargo, introducen un coste en términos de
+eficiencia. Se observa un impacto en el tiempo de ejecución, en el uso
+de memoria y, en general, en el rendimiento del programa.
+
+Por ello, resulta de interés analizar en qué medida estas protecciones
+afectan al comportamiento de los programas, especialmente cuando se
+combinan con distintos niveles de optimización. En este trabajo se
+estudia el efecto de activar \emph{flags} de seguridad junto con
+\emph{flags} de optimización durante el proceso de compilación,
+observando cómo esta combinación influye en el rendimiento final.
+
+El análisis se realiza evaluando diferentes compiladores, lo que permite
+identificar posibles diferencias en las estrategias utilizadas por estos 
+compiladores para aplicar estas medidas. Este enfoque busca comprender 
+con mayor precisión el equilibrio entre seguridad y eficiencia, aportando 
+datos que ayuden a fundamentar decisiones técnicas en entornos donde ambos
+factores son críticos.
+
+\section{Objetivos}
+
+El objetivo principal de este trabajo es realizar un análisis
+comparativo del impacto que tienen ciertas medidas de seguridad
+aplicadas durante la compilación sobre la eficiencia de ejecución de los
+programas generados.
+Para ello, se han evaluado compiladores de uso común, como \emph{GCC},
+\emph{Clang} y \emph{Rustc} y se han diseñado pruebas en las que se
+combinan distintas medidas de seguridad con niveles de optimización.
+
+Durante la experimentación, se recogen métricas como el tiempo de
+ejecución, el uso de memoria, el tamaño del programa generado y la
+presencia de funciones fortificadas (son aquellas que sustituyen
+fragmentos de código potencialmente peligrosos por versiones más seguras
+con comprobaciones adicionales). Estas métricas permiten evaluar el
+efecto real de la combinación entre seguridad y optimización en cada
+entorno de compilación.
+
+Con los resultados obtenidos, se pretende entender cómo responde cada
+compilador ante estas configuraciones y en qué medida se ve afectado el
+rendimiento. Se busca así ofrecer una visión clara y práctica sobre el
+coste asociado a la seguridad en el contexto de la compilación de
+programas.
+
+\section{Estructura del documento}
+
+Este documento se encuentra dividido en seis capítulos y dos anexos. En el 
+\hyperref[chap:fundamentos]{\textbf{Capítulo 2}} se presentan los conceptos previos necesarios para comprender el 
+análisis, con especial atención a las protecciones de seguridad aplicadas a nivel de compilador. En el 
+\hyperref[chap:metodologia]{\textbf{Capítulo 3}} se describe el \emph{pipeline} automatizado desarrollado para realizar 
+los experimentos: desde la entrada (código fuente y combinaciones de \emph{flags}), pasando por el proceso 
+(compilación, ejecución, recolección de métricas), hasta la generación automática de informes y gráficas. También 
+se justifican los programas utilizados y el enfoque visual adoptado. En el 
+\hyperref[chap:resultados]{\textbf{Capítulo 4}} se detallan el entorno de experimentación, los conjuntos de datos 
+utilizados y los resultados obtenidos, incluyendo una discusión crítica sobre las observaciones realizadas. En el
+\hyperref[chap:trabajo]{\textbf{Capítulo 5}} se detallan los trabajos similares al que se ha realizado.
+Finalmente, en el \hyperref[chap:conclusiones]{\textbf{Capítulo 6}} se exponen las conclusiones obtenidas  tras la realización
+de este trabajo, así como posibles líneas de trabajo futuro que pueden continuar y ampliar el estudio aquí presentado.
+Adicionalmente, en el \hyperref[chap:anexoA]{\textbf{Anexo A}} se incluye el diagrama de Gantt con la distribución temporal del trabajo, en
+el \hyperref[chap:anexoB]{\textbf{Anexo B}} se encuentran la colección completa de gráficas generadas, que no han sido incorporadas en el cuerpo principal del documento.

@@ -1,0 +1,2477 @@
+\chapter*{Anexo B}
+\label{chap:anexoB}
+{\Large \bfseries Gráficas}
+
+Este anexo contiene todas las gráficas generadas durante el análisis.
+
+El color azul corresponde \emph{GCC}, el naranja a \emph{Clang} y el verde a \emph{Rustc}
+
+A continuación las tablas con los valores por defecto de los compiladores, necesario para las gráficas porcentuales.
+
+\begin{table}[H]
+\centering
+\small % Tamaño de fuente más pequeño
+\label{tab:valores_sin_flags}
+\begin{tabularx}{\linewidth}{l l >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+\toprule
+\textbf{Compilador} & \textbf{Optimización} & \textbf{Tiempo (ms)} & \textbf{Uso de memoria (KB)} & \textbf{Tamaño del archivo (KB)} & \textbf{Funciones fortificadas (\%)} \\
+\midrule
+\emph{Clang} & \texttt{-O0} & 1.34 & 3270 & 16.07 & 0.0 \\
+ & \texttt{-O1} & 1.33 & 3446 & 16.00 & 0.0 \\
+ & \texttt{-O2} & 1.55 & 3489 & 16.00 & 0.0 \\
+ & \texttt{-O3} & 1.31 & 3433 & 16.00 & 0.0 \\
+ & \texttt{-Os} & 1.74 & 3416 & 16.00 & 0.0 \\
+ & \texttt{-Oz} & 2.00 & 3013 & 15.98 & 0.0 \\
+ & \texttt{-Ofast} & 1.34 & 3448 & 17.45 & 0.0 \\
+\midrule
+\emph{GCC} & \texttt{-O0} & 1.40 & 3052 & 16.26 & 0.0 \\
+ & \texttt{-O1} & 1.74 & 3051 & 16.04 & 0.0 \\
+ & \texttt{-O2} & 1.08 & 3052 & 15.99 & 0.0 \\
+ & \texttt{-O3} & 1.23 & 3459 & 16.02 & 0.0 \\
+ & \texttt{-Os} & 1.12 & 3038 & 16.04 & 0.0 \\
+\midrule
+\emph{Rustc} & \texttt{-O0} & 1.66 & 1919 & 3758.80 & 0.0 \\
+ & \texttt{-O1} & 1.35 & 1996 & 3752.70 & 0.0 \\
+ & \texttt{-O2} & 2.32 & 2004 & 3752.35 & 0.0 \\
+ & \texttt{-O3} & 1.52 & 1966 & 3752.35 & 0.0 \\
+ & \texttt{-Os} & 1.35 & 2014 & 3752.62 & 0.0 \\
+ & \texttt{-Oz} & 1.53 & 1976 & 3752.70 & 0.0 \\
+\bottomrule
+\end{tabularx}
+\caption{Valores por defecto (sin \emph{flags} de seguridad)}
+\end{table}
+
+\newpage
+
+\begin{longtable}{l >{\centering\arraybackslash}p{2cm} >{\centering\arraybackslash}p{2cm} >{\centering\arraybackslash}p{2cm} >{\centering\arraybackslash}p{2cm}}
+\caption{Valores de referencia y por \emph{flag} de seguridad (optimización \texttt{-O0})} \label{tab:valores_flags} \\
+\toprule
+\textbf{Configuración} & \textbf{Tiempo (ms)} & \textbf{Uso de memoria (KB)} & \textbf{Tamaño del archivo (KB)} & \textbf{Funciones fortificadas (\%)} \\
+\midrule
+\endfirsthead
+
+\multicolumn{5}{c}%
+{{\tablename\ \thetable{} -- Continuación de la página anterior}} \\
+\toprule
+\textbf{Configuración} & \textbf{Tiempo (ms)} & \textbf{Uso de memoria (KB)} & \textbf{Tamaño del archivo (KB)} & \textbf{Funciones fortificadas (\%)} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{5}{r}{{Continúa en la página siguiente}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\multicolumn{5}{l}{\textbf{Valores por defecto (sin \emph{flags} de seguridad)}} \\
+\emph{Clang} & 1.34 & 3270 & 16.07 & 0.0 \\
+\emph{GCC} & 1.40 & 3052 & 16.26 & 0.0 \\
+\emph{Rustc} & 1.66 & 1919 & 3758.80 & 0.0 \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{Stack protector}} \\
+\multicolumn{5}{l}{\textit{basic}} \\
+\emph{Clang} & 1.66 & 3153 & 16.13 & 0.0 \\
+\emph{GCC} & 1.29 & 3182 & 16.32 & 0.0 \\
+\emph{Rustc} & 1.90 & 2039 & 3759.80 & 0.0 \\
+\multicolumn{5}{l}{\textit{strong}} \\
+\emph{Clang} & 2.18 & 3118 & 16.13 & 0.0 \\
+\emph{GCC} & 1.29 & 3182 & 16.32 & 0.0 \\
+\emph{Rustc} & 1.99 & 1955 & 3759.91 & 0.0 \\
+\multicolumn{5}{l}{\textit{all}} \\
+\emph{Clang} & 1.66 & 3153 & 16.13 & 0.0 \\
+\emph{GCC} & 1.22 & 3188 & 16.32 & 0.0 \\
+\emph{Rustc} & N/A & N/A & N/A & N/A \\
+\multicolumn{5}{l}{\textit{disabled}} \\
+\emph{Clang} & 1.48 & 3322 & 16.07 & 0.0 \\
+\emph{GCC} & 1.23 & 3045 & 16.26 & 0.0 \\
+\emph{Rustc} & 1.25 & 1968 & 3758.80 & 0.0 \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{PIE}} \\
+\multicolumn{5}{l}{\textit{enabled}} \\
+\emph{Clang} & 1.19 & 3348 & 16.07 & 0.0 \\
+\emph{GCC} & 1.06 & 3052 & 16.26 & 0.0 \\
+\emph{Rustc} & 1.14 & 1999 & 3758.80 & 0.0 \\
+\multicolumn{5}{l}{\textit{disabled}} \\
+\emph{Clang} & 1.34 & 3312 & 15.91 & 0.0 \\
+\emph{GCC} & 1.46 & 3045 & 16.09 & 0.0 \\
+\emph{Rustc} & 1.20 & 1922 & 3740.59 & 0.0 \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{Execstack}} \\
+\multicolumn{5}{l}{\textit{disabled}} \\
+\emph{Clang} & 1.29 & 3310 & 16.07 & 0.0 \\
+\emph{GCC} & 2.08 & 3052 & 16.26 & 0.0 \\
+\emph{Rustc} & 1.22 & 1886 & 3758.80 & 0.0 \\
+\multicolumn{5}{l}{\textit{enabled}} \\
+\emph{Clang} & 3.00 & 3322 & 16.07 & 0.0 \\
+\emph{GCC} & 1.07 & 3050 & 16.26 & 0.0 \\
+\emph{Rustc} & 1.52 & 1960 & 3758.80 & 0.0 \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{Sanitizadores}} \\
+\multicolumn{5}{l}{\textit{AddressSanitizer}} \\
+\emph{Clang} & 2.65 & 13462 & 1660.77 & 15.1 \\
+\emph{GCC} & 1.22 & 24964 & 25.92 & 0.0 \\
+\emph{Rustc} & 1.75 & 12688 & 6251.03 & 11.5 \\
+\multicolumn{5}{l}{\textit{UndefinedSanitizer}} \\
+\emph{Clang} & 2.27 & 5600 & 416.24 & 75.0 \\
+\emph{GCC} & 1.09 & 3045 & 17.04 & 0.0 \\
+\emph{Rustc} & N/A & N/A & N/A & N/A \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{Fortify Source}} \\
+\multicolumn{5}{l}{\textit{level-2}} \\
+\emph{Clang} & 1.52 & 3274 & 16.07 & 0.0 \\
+\emph{GCC} & 1.33 & 3052 & 16.26 & 0.0 \\
+\emph{Rustc} & N/A & N/A & N/A & N/A \\
+\multicolumn{5}{l}{\textit{level-1}} \\
+\emph{Clang} & 1.54 & 3342 & 16.07 & 0.0 \\
+\emph{GCC} & 1.24 & 3052 & 16.26 & 0.0 \\
+\emph{Rustc} & N/A & N/A & N/A & N/A \\
+\multicolumn{5}{l}{\textit{disabled}} \\
+\emph{Clang} & 1.14 & 3283 & 16.07 & 0.0 \\
+\emph{GCC} & 1.15 & 3039 & 16.26 & 0.0 \\
+\emph{Rustc} & N/A & N/A & N/A & N/A \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{RELRO}} \\
+\multicolumn{5}{l}{\textit{full}} \\
+\emph{Clang} & 2.70 & 3312 & 15.95 & 0.0 \\
+\emph{GCC} & 1.12 & 3052 & 16.14 & 0.0 \\
+\emph{Rustc} & 2.29 & 2001 & 3758.80 & 0.0 \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{Safe stack}} \\
+\multicolumn{5}{l}{\textit{enabled}} \\
+\emph{Clang} & 1.34 & 3104 & 22.96 & 20.0 \\
+\emph{GCC} & N/A & N/A & N/A & N/A \\
+\emph{Rustc} & N/A & N/A & N/A & N/A \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{Overflow checks}} \\
+\multicolumn{5}{l}{\textit{enabled}} \\
+\emph{Clang} & N/A & N/A & N/A & N/A \\
+\emph{GCC} & N/A & N/A & N/A & N/A \\
+\emph{Rustc} & 1.40 & 1962 & 3758.80 & 0.0 \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{Debug assertions}} \\
+\multicolumn{5}{l}{\textit{enabled}} \\
+\emph{Clang} & N/A & N/A & N/A & N/A \\
+\emph{GCC} & N/A & N/A & N/A & N/A \\
+\emph{Rustc} & 1.25 & 1984 & 3758.80 & 0.0 \\
+\midrule
+
+\multicolumn{5}{l}{\textbf{Panic}} \\
+\multicolumn{5}{l}{\textit{abort}} \\
+\emph{Clang} & N/A & N/A & N/A & N/A \\
+\emph{GCC} & N/A & N/A & N/A & N/A \\
+\emph{Rustc} & 1.42 & 1996 & 3752.00 & 0.0 \\
+\end{longtable}
+
+\newpage
+
+% Auto-generated LaTeX file with all figures
+% This file was automatically generated by a Python script
+
+
+% === Boxplot ===
+\subsection*{Boxplot}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth, height=0.85\textheight, keepaspectratio]{Gráficas/./Boxplot.pdf}
+  \caption{Boxplot}
+  \label{fig:Gráficas_boxplot}
+\end{figure}
+\newpage
+
+% === Facet_Grid ===
+\subsection*{Facet Grid}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth, height=0.85\textheight, keepaspectratio]{Gráficas/./Facet_Grid.pdf}
+  \caption{Facet Grid}
+  \label{fig:Gráficas_facet_grid}
+\end{figure}
+\newpage
+
+% === Gráficas_cualitativas/Comparacion_compiladores ===
+\subsection*{Comparacion Compiladores}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth, height=0.85\textheight, keepaspectratio]{Gráficas/Gráficas_cualitativas/Comparacion_compiladores.pdf}
+  \caption{Comparacion Compiladores}
+  \label{fig:Gráficas_gráficas_cualitativas_comparacion_compiladores}
+\end{figure}
+\newpage
+
+% === Gráficas_cualitativas/Gráfico_protecciones ===
+\subsection*{Gráfico Protecciones}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth, height=0.85\textheight, keepaspectratio]{Gráficas/Gráficas_cualitativas/Gráfico_protecciones.pdf}
+  \caption{Gráfico Protecciones}
+  \label{fig:Gráficas_gráficas_cualitativas_gráfico_protecciones}
+\end{figure}
+\newpage
+
+\section*{Gráficas Por Optimización}
+
+% === Gráficas_por_optimización/-O0 ===
+\subsection*{-O0}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-O0}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O0/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o0_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O0/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o0_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O0/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o0_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O0/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o0_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización/-O1 ===
+\subsection*{-O1}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-O1}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O1/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o1_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O1/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o1_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O1/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o1_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O1/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o1_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización/-O2 ===
+\subsection*{-O2}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-O2}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O2/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o2_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O2/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o2_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O2/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o2_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O2/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o2_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización/-O3 ===
+\subsection*{-O3}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-O3}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O3/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o3_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O3/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o3_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O3/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o3_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-O3/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__o3_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización/-Ofast ===
+\subsection*{-OFAST}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-Ofast}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Ofast/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__ofast_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Ofast/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__ofast_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Ofast/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__ofast_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Ofast/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__ofast_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización/-Os ===
+\subsection*{-OS}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-Os}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Os/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__os_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Os/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__os_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Os/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__os_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Os/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__os_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización/-Oz ===
+\subsection*{-OZ}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-Oz}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Oz/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__oz_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Oz/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__oz_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Oz/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__oz_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización/-Oz/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización__oz_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+\section*{Gráficas Por Medida Seguridad}
+
+% === Gráficas_por_medida_seguridad/debug-assertions ===
+\subsection*{Debug assertions}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización Debug assertions}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/debug-assertions/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_debug_assertions_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/debug-assertions/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_debug_assertions_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/debug-assertions/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_debug_assertions_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/debug-assertions/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_debug_assertions_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/execstack/disabled ===
+\subsection*{Execstack / disabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Execstack (disabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/execstack/disabled/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_execstack_disabled_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/execstack/disabled/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_execstack_disabled_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/execstack/disabled/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_execstack_disabled_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/execstack/disabled/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_execstack_disabled_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/execstack/enabled ===
+\subsection*{Execstack / enabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Execstack (enabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/execstack/enabled/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_execstack_enabled_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/execstack/enabled/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_execstack_enabled_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/execstack/enabled/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_execstack_enabled_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/execstack/enabled/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_execstack_enabled_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/fortify-source/disabled ===
+\subsection*{Fortify source / disabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Fortify source (disabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/disabled/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_disabled_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/disabled/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_disabled_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/disabled/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_disabled_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/disabled/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_disabled_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/fortify-source/level-1 ===
+\subsection*{Fortify source / level-1}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Fortify source (level-1)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/level-1/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_level_1_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/level-1/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_level_1_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/level-1/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_level_1_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/level-1/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_level_1_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/fortify-source/level-2 ===
+\subsection*{Fortify source / level-2}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Fortify source (level-2)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/level-2/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_level_2_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/level-2/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_level_2_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/level-2/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_level_2_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/fortify-source/level-2/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_fortify_source_level_2_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/overflow-checks ===
+\subsection*{Overflow checks}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización Overflow checks}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/overflow-checks/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_overflow_checks_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/overflow-checks/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_overflow_checks_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/overflow-checks/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_overflow_checks_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/overflow-checks/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_overflow_checks_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/panic ===
+\subsection*{panic}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización panic}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/panic/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_panic_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/panic/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_panic_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/panic/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_panic_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/panic/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_panic_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/pie/disabled ===
+\subsection*{PIE / disabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para PIE (disabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/pie/disabled/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_pie_disabled_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/pie/disabled/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_pie_disabled_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/pie/disabled/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_pie_disabled_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/pie/disabled/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_pie_disabled_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/pie/enabled ===
+\subsection*{PIE / enabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para PIE (enabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/pie/enabled/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_pie_enabled_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/pie/enabled/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_pie_enabled_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/pie/enabled/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_pie_enabled_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/pie/enabled/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_pie_enabled_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/relro ===
+\subsection*{RELRO}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización RELRO}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/relro/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_relro_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/relro/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_relro_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/relro/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_relro_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/relro/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_relro_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/safe-stack ===
+\subsection*{Safe stack}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización Safe stack}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/safe-stack/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_safe_stack_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/safe-stack/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_safe_stack_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/safe-stack/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_safe_stack_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/safe-stack/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_safe_stack_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/sanitizers/address ===
+\subsection*{Sanitizadores / AddressSanitizer}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Sanitizadores (AddressSanitizer)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/sanitizers/address/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_sanitizers_address_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/sanitizers/address/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_sanitizers_address_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/sanitizers/address/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_sanitizers_address_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/sanitizers/address/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_sanitizers_address_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/sanitizers/undefined ===
+\subsection*{Sanitizadores / UndefinedSanitizer}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Sanitizadores (UndefinedSanitizer)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/sanitizers/undefined/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_sanitizers_undefined_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/sanitizers/undefined/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_sanitizers_undefined_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/sanitizers/undefined/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_sanitizers_undefined_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/sanitizers/undefined/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_sanitizers_undefined_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/stack-protection/all ===
+\subsection*{Stack protector / all}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Stack protector (all)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/all/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_all_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/all/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_all_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/all/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_all_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/all/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_all_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/stack-protection/basic ===
+\subsection*{Stack protector / basic}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Stack protector (basic)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/basic/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_basic_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/basic/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_basic_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/basic/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_basic_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/basic/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_basic_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/stack-protection/disabled ===
+\subsection*{Stack protector / disabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Stack protector (disabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/disabled/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_disabled_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/disabled/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_disabled_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/disabled/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_disabled_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/disabled/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_disabled_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad/stack-protection/strong ===
+\subsection*{Stack protector / strong}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Stack protector (strong)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/strong/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_strong_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/strong/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_strong_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/strong/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_strong_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad/stack-protection/strong/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_stack_protection_strong_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+\section*{Gráficas Por Optimización Porcentual}
+
+% === Gráficas_por_optimización_porcentual/-O0 ===
+\subsection*{-O0}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-O0}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O0/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o0_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O0/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o0_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O0/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o0_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O0/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o0_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización_porcentual/-O1 ===
+\subsection*{-O1}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-O1}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O1/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o1_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O1/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o1_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O1/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o1_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O1/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o1_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización_porcentual/-O2 ===
+\subsection*{-O2}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-O2}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O2/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o2_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O2/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o2_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O2/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o2_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O2/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o2_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización_porcentual/-O3 ===
+\subsection*{-O3}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-O3}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O3/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o3_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O3/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o3_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O3/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o3_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-O3/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__o3_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización_porcentual/-Ofast ===
+\subsection*{-OFAST}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-Ofast}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Ofast/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__ofast_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Ofast/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__ofast_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Ofast/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__ofast_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Ofast/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__ofast_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización_porcentual/-Os ===
+\subsection*{-OS}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-Os}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Os/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__os_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Os/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__os_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Os/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__os_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Os/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__os_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_optimización_porcentual/-Oz ===
+\subsection*{-OZ}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización \texttt{-Oz}}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Oz/File_size_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__oz_file_size_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Oz/Fortified_Functions.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__oz_fortified_functions}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Oz/Memory_usage_KB.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__oz_memory_usage_kb}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms)]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_optimización_porcentual/-Oz/Time_ms.pdf}
+      \label{fig:Gráficas_gráficas_por_optimización_porcentual__oz_time_ms}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+\section*{Gráficas Por Medida Seguridad Porcentual}
+
+% === Gráficas_por_medida_seguridad_porcentual/debug-assertions ===
+\subsection*{Debug assertions}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización Debug assertions}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/debug-assertions/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_debug_assertions_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/debug-assertions/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_debug_assertions_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/debug-assertions/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_debug_assertions_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/debug-assertions/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_debug_assertions_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/execstack/disabled ===
+\subsection*{Execstack / disabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Execstack (disabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/execstack/disabled/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_execstack_disabled_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/execstack/disabled/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_execstack_disabled_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/execstack/disabled/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_execstack_disabled_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/execstack/disabled/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_execstack_disabled_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/execstack/enabled ===
+\subsection*{Execstack / enabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Execstack (enabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/execstack/enabled/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_execstack_enabled_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/execstack/enabled/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_execstack_enabled_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/execstack/enabled/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_execstack_enabled_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/execstack/enabled/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_execstack_enabled_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/fortify-source/disabled ===
+\subsection*{Fortify source / disabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Fortify source (disabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/disabled/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_disabled_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/disabled/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_disabled_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/disabled/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_disabled_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/disabled/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_disabled_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/fortify-source/level-1 ===
+\subsection*{Fortify source / level-1}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Fortify source (level-1)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/level-1/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_level_1_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/level-1/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_level_1_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/level-1/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_level_1_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/level-1/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_level_1_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/fortify-source/level-2 ===
+\subsection*{Fortify source / level-2}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Fortify source (level-2)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/level-2/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_level_2_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/level-2/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_level_2_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/level-2/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_level_2_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/fortify-source/level-2/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_fortify_source_level_2_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/overflow-checks ===
+\subsection*{Overflow checks}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización Overflow checks}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/overflow-checks/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_overflow_checks_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/overflow-checks/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_overflow_checks_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/overflow-checks/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_overflow_checks_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/overflow-checks/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_overflow_checks_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/panic ===
+\subsection*{panic}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización panic}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/panic/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_panic_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/panic/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_panic_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/panic/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_panic_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/panic/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_panic_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/pie/disabled ===
+\subsection*{PIE / disabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para PIE (disabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/pie/disabled/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_pie_disabled_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/pie/disabled/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_pie_disabled_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/pie/disabled/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_pie_disabled_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/pie/disabled/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_pie_disabled_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/pie/enabled ===
+\subsection*{PIE / enabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para PIE (enabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/pie/enabled/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_pie_enabled_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/pie/enabled/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_pie_enabled_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/pie/enabled/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_pie_enabled_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/pie/enabled/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_pie_enabled_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/relro ===
+\subsection*{RELRO}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización RELRO}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/relro/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_relro_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/relro/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_relro_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/relro/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_relro_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/relro/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_relro_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/safe-stack ===
+\subsection*{Safe stack}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados de compilación con optimización Safe stack}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/safe-stack/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_safe_stack_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/safe-stack/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_safe_stack_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/safe-stack/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_safe_stack_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/safe-stack/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_safe_stack_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/sanitizers/address ===
+\subsection*{Sanitizadores / AddressSanitizer}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Sanitizadores (AddressSanitizer)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/sanitizers/address/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_sanitizers_address_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/sanitizers/address/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_sanitizers_address_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/sanitizers/address/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_sanitizers_address_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/sanitizers/address/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_sanitizers_address_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/sanitizers/undefined ===
+\subsection*{Sanitizadores / UndefinedSanitizer}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Sanitizadores (UndefinedSanitizer)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/sanitizers/undefined/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_sanitizers_undefined_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/sanitizers/undefined/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_sanitizers_undefined_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/sanitizers/undefined/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_sanitizers_undefined_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/sanitizers/undefined/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_sanitizers_undefined_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/stack-protection/all ===
+\subsection*{Stack protector / all}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Stack protector (all)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/all/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_all_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/all/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_all_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/all/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_all_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/all/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_all_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/stack-protection/basic ===
+\subsection*{Stack protector / basic}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Stack protector (basic)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/basic/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_basic_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/basic/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_basic_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/basic/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_basic_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/basic/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_basic_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/stack-protection/disabled ===
+\subsection*{Stack protector / disabled}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Stack protector (disabled)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/disabled/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_disabled_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/disabled/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_disabled_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/disabled/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_disabled_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/disabled/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_disabled_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage
+
+% === Gráficas_por_medida_seguridad_porcentual/stack-protection/strong ===
+\subsection*{Stack protector / strong}
+\begin{figure}[htbp]
+  \centering
+  \caption{Resultados para Stack protector (strong)}
+  \vspace{0.5cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tamaño del archivo (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/strong/File_size_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_strong_file_size_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Funciones fortificadas (\%) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/strong/Fortified_Functions_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_strong_fortified_functions_porcentaje}
+    }
+  \end{minipage}
+
+
+  \vspace{1cm}
+
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Uso de memoria (KB) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/strong/Memory_usage_KB_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_strong_memory_usage_kb_porcentaje}
+    }
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \subfloat[Tiempo (ms) Porcentaje]{
+      \includegraphics[width=\linewidth]{Gráficas/Gráficas_por_medida_seguridad_porcentual/stack-protection/strong/Time_ms_porcentaje.pdf}
+      \label{fig:Gráficas_gráficas_por_medida_seguridad_porcentual_stack_protection_strong_time_ms_porcentaje}
+    }
+  \end{minipage}
+
+\end{figure}
+\newpage

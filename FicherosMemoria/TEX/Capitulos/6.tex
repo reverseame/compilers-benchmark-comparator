@@ -1,0 +1,18 @@
+\chapter{Conclusiones y trabajo futuro}
+\label{chap:conclusiones}
+
+Este trabajo ha permitido analizar y comparar distintas estrategias de compilación enfocadas tanto en el rendimiento como en la seguridad del software. Se ha estudiado el comportamiento de diferentes compiladores y lenguajes, así como el efecto de múltiples combinaciones de opciones de optimización y protección. A partir de los resultados obtenidos, se han identificado configuraciones que ofrecen un equilibrio adecuado entre eficiencia y robustez, así como otras más orientadas a contextos específicos, como entornos de pruebas o aplicaciones críticas desde el punto de vista de la seguridad.
+
+Una de las principales conclusiones es que no existe una configuración única que sea óptima en todos los casos, sino que la elección debe ajustarse a las necesidades y limitaciones del proyecto de software a compilar. Además, se ha dejado en claro la importancia de entender bien las implicaciones de cada opción de compilación, ya que algunas pueden tener un coste elevado en recursos sin aportar mejoras significativas.
+
+Por otro lado, también se ha confirmado que el diseño de ciertos lenguajes modernos ofrece ventajas estructurales en términos de seguridad, lo que puede simplificar el desarrollo de software más fiable sin necesidad de tantas configuraciones externas.
+
+Como continuación del trabajo realizado se plantea ampliar el conjunto de programas utilizados en las pruebas. Aunque los ejemplos empleados han sido suficientes para observar el efecto de las combinaciones evaluadas, la incorporación de programas con un comportamiento más complejo, o incluso de fragmentos de código reales tomados de proyectos de código abierto, permitiría observar el impacto de las medidas en contextos más realistas y variados.
+
+Otra dirección interesante sería la incorporación de nuevos compiladores o lenguajes. En el caso de C++, podría incluirse el compilador de Microsoft o el de Intel, mientras que a nivel de lenguajes, se podría extender el estudio a otros con orientación a la seguridad como Go o Zig, ampliando así el espectro de comparativa más allá de los compiladores tradicionales.
+
+También sería relevante ejecutar los experimentos en otras arquitecturas o sistemas operativos. Hasta ahora, todas las pruebas se han realizado en una única máquina con Linux y arquitectura x86\_64. Repetir el análisis en entornos ARM o en sistemas como Windows o BSD permitiría evaluar la consistencia de los resultados en plataformas distintas.
+
+A nivel metodológico, sería útil mejorar el \emph{pipeline} de pruebas para hacerlo más modular y extensible. También se podrían introducir mecanismos de paralelización o automatización avanzada para reducir los tiempos de ejecución y facilitar la inclusión de nuevas configuraciones.
+
+Por último, integrar el \emph{pipeline} en entornos de integración continua permitiría su uso en contextos de desarrollo real, facilitando evaluaciones automáticas de seguridad y eficiencia tras cada cambio en el código fuente.

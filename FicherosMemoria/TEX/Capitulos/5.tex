@@ -1,0 +1,12 @@
+\chapter{Trabajo relacionado}
+\label{chap:trabajo}
+
+Numerosos trabajos han analizado las técnicas de defensa a nivel de binario, el coste asociado a activarlas y su integración en compiladores modernos como \emph{GCC}, \emph{Clang} o \emph{Rustc}. Este capítulo resume brevemente algunos de los trabajos y herramientas más relevantes, contextualizando el presente trabajo dentro del panorama actual.
+
+Uno de los enfoques más comunes es el análisis del impacto de medidas como protección de la pila, RELRO, PIE o la fortificación de funciones sobre la ejecución de programas en C y C++. Por ejemplo, proyectos como el \emph{Hardening Guide de Debian} [20] o la documentación de Red Hat [21] han explorado las ventajas y limitaciones de estas protecciones, normalmente desde una perspectiva funcional o de seguridad, pero sin cuantificar en detalle su coste en eficiencia.
+
+También existen herramientas académicas y profesionales como BINSEC [23] que permite analizar programas ya compilados (binarios) utilizando técnicas como la ejecución simbólica, que consiste en simular su comportamiento con variables en lugar de valores concretos. Algunos trabajos en entornos como LLVM han implementado marcos de análisis para evaluar cómo las optimizaciones afectan al rendimiento y seguridad del código generado, pero suelen centrarse en contextos más específicos (optimización interprocedimental, protección frente a ataques concretos, etcétera) [22].
+
+En el caso de Rust, algunos estudios han analizado su diseño como lenguaje seguro por defecto, comparándolo con C/C++ en términos de prevención de errores comunes, aunque pocos lo han integrado en estudios comparativos prácticos que midan rendimiento frente a compiladores tradicionales [23]. En este sentido, el presente trabajo aporta una comparación directa y reproducible entre \emph{Rustc} y otros compiladores ampliamente utilizados, evaluando no solo el soporte de medidas de seguridad, sino también su impacto cuantitativo.
+
+En cuanto a la representación de resultados, aunque es habitual encontrar tablas de rendimiento o medidas aisladas en \emph{benchmarks}, la combinación de informes estructurados y visualizaciones gráficas automáticas como la desarrollada en este proyecto no es común en trabajos anteriores. Esto facilita la comprensión global del efecto de cada configuración, al mismo tiempo que permite detectar patrones generales entre compiladores.
