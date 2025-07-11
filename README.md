@@ -70,5 +70,5 @@ docker rmi compiler-benchmark
 - **Shell**: Lenguaje de scripting usado para poder ejecutar grandes cantidades de comandos para compilación, ejecución y medición.
 - **Python**: Lenguaje usado para generar las gráficas y tratar los datos de las mediciones realizadas.
 - **Docker**: Herramienta de contenedores utilizada para empaquetar y distribuir la aplicación.
-- **C++** y **rust**: Ambos lenguajes no están directamente presentes en el proyecto pero se ha estudiado su comportamiento y sus compiladores para poder realizar el proyecto
+- **C++** y **rust**: Ambos lenguajes no están directamente presentes en el proyecto pero se ha estudiado su comportamiento y sus compiladores para poder realizar el proyecto.
 
