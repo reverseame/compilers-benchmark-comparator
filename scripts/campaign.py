@@ -332,7 +332,8 @@ def main():
         w = csv.writer(f)
         w.writerow(["compiler", "program", "opt", "flag_id", "sweep",
                     "is_warmup", "wall_s", "user_s", "sys_s", "max_rss_kb",
-                    "exit_code", "term_signal", "output_ok", "epoch_s"])
+                    "exit_code", "term_signal", "output_ok", "epoch_s",
+                    "error"])
         total_sweeps = warmups + reps
         for sweep in range(total_sweeps):
             is_warmup = int(sweep < warmups)
@@ -345,7 +346,8 @@ def main():
                 w.writerow([c.compiler, c.program, c.opt, c.flag_id, sweep,
                             is_warmup, m["wall_s"], m["user_s"], m["sys_s"],
                             m["max_rss_kb"], m["exit_code"], m["term_signal"],
-                            m["output_ok"], int(time.time())])
+                            m["output_ok"], int(time.time()),
+                            m.get("spawn_error", "")])
                 f.flush()
 
     print(f"[campaign] done. Results in {out_dir}")

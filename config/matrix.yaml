@@ -83,9 +83,9 @@ compilers:
       lto: "-C lto"
       lto_thin: "-C lto=thin"
       asan: "-Z sanitizer=address"
-      # MSan without -Zbuild-std produces false positives (uninstrumented std);
-      # kept in the matrix so the failure is recorded explicitly.
-      msan: "-Z sanitizer=memory"
+      # MSan is deliberately absent: rustc refuses to link -Z sanitizer=memory
+      # against an uninstrumented std (ABI mismatch error) and instrumenting
+      # std would require cargo -Zbuild-std, outside this pipeline's scope.
       lsan: "-Z sanitizer=leak"
       relro_full: "-C link-arg=-Wl,-z,relro,-z,now"
       stack_protector_none: "-Z stack-protector=none"

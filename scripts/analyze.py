@@ -61,13 +61,15 @@ def load(results_dir):
 
 
 def mean_ms(runs, key):
+    # Median over the timed reps: robust to the occasional interference
+    # outlier (individual runs are preserved in runs.csv regardless).
     rows = runs.get(key)
-    return statistics.mean(r["wall"] for r in rows) * 1000 if rows else None
+    return statistics.median(r["wall"] for r in rows) * 1000 if rows else None
 
 
 def mean_rss(runs, key):
     rows = runs.get(key)
-    return statistics.mean(r["rss"] for r in rows) if rows else None
+    return statistics.median(r["rss"] for r in rows) if rows else None
 
 
 def fmt(x, nd=2):
