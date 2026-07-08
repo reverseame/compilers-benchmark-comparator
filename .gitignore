@@ -1,0 +1,10 @@
+# Campaign outputs (archive the campaign used in the paper explicitly)
+results_csv/
+
+# Legacy flow outputs
+results_g++/
+results_clang++/
+results_rustc/
+
+__pycache__/
+*.pyc

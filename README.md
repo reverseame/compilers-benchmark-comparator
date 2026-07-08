@@ -1,85 +1,160 @@
 # Compilers Benchmark Comparator
 
-Este repositorio contiene una pipeline que se encarga de realizar gráficas comparativas de medidas de rendimiento y seguridad en compiladores modernos, en concreto de g++, clang++ y rustc. Además ha sido mi TFG presentado en la EINA, Universidad de Zaragoza.
+This repository contains a pipeline that produces comparative measurements of
+performance and security hardening across modern compilers — specifically
+g++, clang++ and rustc. It originated as a Bachelor's thesis (TFG) presented
+at EINA, University of Zaragoza, and now drives the measurement campaign of
+the accompanying research article.
 
-## Contenido
+## Contents
 
-- **Pipeline.sh**: Es el programa principal.
-- **scripts**: Es la carpeta que contiene todos los scripts que se ejecutarán para poder realizar la ejecución completa.
-- **programs**: Es la carpeta donde están los programas de prueba o donde se deberían añadir nuevos para poder comparar.
-- **Dockerfile** y **docker-compose.yml**: Archivos para poder desplegar la aplicación en docker si no se desea usar un sistema debian nativo.
+- **scripts/campaign.py**: measurement campaign driver (CSV output). This is
+  what produces the data used in the article — see "Measurement campaign"
+  below.
+- **config/matrix.yaml**: the experimental matrix (compilers × optimization
+  levels × security flags × programs). Single source of truth for the
+  campaign.
+- **programs**: benchmark source programs. Each benchmark exists as a
+  semantically equivalent `.cpp`/`.rs` pair.
+- **Dockerfile.measure**: lean container image for running the campaign on a
+  server.
+- **Pipeline.sh**, **scripts/*.sh**, **scripts/*.py** (plots): legacy
+  report/plot generation flow from the original TFG.
+- **Dockerfile** and **docker-compose.yml**: container deployment for both
+  flows.
 
-## Requisitos
-Tener un programa con el mismo nombre que sea cpp y rs.
+## Measurement campaign (v2, CSV output)
 
-### Nativo
+The measurement campaign used for the article runs through
+`scripts/campaign.py`, which replaces the per-compiler shell scripts
+(`g++.sh`, `clang++.sh`, `rustc.sh`) for the measurement phase. Key
+differences from the legacy flow:
 
-- Haber instalado las siguientes dependencias en un sistema basado en debian: build-essential, clang, llvm, curl, python3, python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf, texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, dvipng, cm-super, ghostscript, fonts-liberation, fonts-freefont-otf, binutils-dev, libcap-dev, libseccomp-dev, libasan8, libubsan1, libclang-rt-dev, python3-dev
+- The experimental matrix is defined in **`config/matrix.yaml`**; adding a
+  compiler or a flag requires no code changes.
+- Compilation runs in parallel, but **timed executions are strictly
+  sequential** (the legacy flow ran up to `nproc` combinations concurrently,
+  invalidating the timings).
+- Every execution is recorded **individually** in `runs.csv` (no
+  aggregation): wall-clock time (`CLOCK_MONOTONIC`), user/system CPU time,
+  peak RSS and **exit status** — all from the same execution, via `wait4(2)`.
+  A warmup sweep is recorded flagged with `is_warmup=1`.
+- If a binary does not exit 0 with the expected output, the row is flagged
+  (`output_ok=0`) and the campaign warns at the end: a crashing execution can
+  never masquerade as a valid measurement.
+- Per-binary properties go to `binaries.csv`: exact compiler invocation,
+  size (as produced and stripped), checksec fields (RELRO, canary, NX, PIE,
+  fortified/fortifiable counts) and sha256.
+- The execution environment is captured in `environment.txt`: CPU, kernel,
+  governor, turbo state, glibc, exact compiler versions, cgroup limits and
+  CPU affinity. The matrix used is copied next to the results.
 
-- Tener instalado los compiladores de c++, clang++ y rustc (en su version nightly).
+### Running on a server
 
-- Tener las siguientes librerias de python instaladas: matplotlib, pandas, seaborn, numpy, scipy, statsmodels.
+```sh
+# 1. Prepare the host (outside the container):
+sudo cpupower frequency-set -g performance      # governor
+echo 1 | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo  # turbo off
 
-- Tener configuradas las fuentes para matplotlib (mirar Dockerfile si hay dudas).
+# 2. Build the lean image (GCC 14.2 / Clang 19 from Debian trixie).
+#    Pin the Rust nightly for reproducibility:
+docker build -f Dockerfile.measure \
+  --build-arg RUST_TOOLCHAIN=nightly-2026-07-01 \
+  -t compiler-benchmark-measure .
+
+# 3. Launch the campaign pinned to isolated cores, with no CPU limits:
+docker run --rm --cpuset-cpus=2,3 --security-opt seccomp=unconfined \
+  -v "$PWD/results_csv:/app/results_csv" \
+  compiler-benchmark-measure --reps 10
+```
+
+Useful options: `--programs suma,final`, `--compilers g++,clang++,rustc`,
+`--reps N`, `--keep-binaries` (keeps the compiled binaries next to the CSVs
+so they can be archived as an artifact).
+
+Results are written to
+`results_csv/<timestamp>/{runs.csv,binaries.csv,environment.txt,matrix.yaml}`.
+
+## Legacy flow (TFG)
+
+### Requirements
+
+A program with the same base name in both languages (`.cpp` and `.rs`).
+
+#### Native
+
+- Debian-based system with: build-essential, clang, llvm, curl, python3,
+  python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf,
+  texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, dvipng,
+  cm-super, ghostscript, fonts-liberation, fonts-freefont-otf, binutils-dev,
+  libcap-dev, libseccomp-dev, libasan8, libubsan1, libclang-rt-dev,
+  python3-dev
+- C++, clang++ and rustc (nightly) compilers installed.
+- Python libraries: matplotlib, pandas, seaborn, numpy, scipy, statsmodels.
+- Fonts configured for matplotlib (see Dockerfile).
 
 ```sh
 sudo apt install build-essential clang llvm curl python3 python3-pip jq bc time checksec git aha texlive-latex-base texlive-latex-extra texlive-fonts-recommended dvipng cm-super ghostscript fonts-liberation fonts-freefont-otf binutils-dev libcap-dev libseccomp-dev libasan8 libubsan1 libclang-rt-dev python3-dev
 ```
 
-> **Nota para `wkhtmltopdf`**: Si usas distribuciones recientes (como Kali Linux, Debian 13 o Ubuntu 24.04), `wkhtmltopdf` ya no está en los repositorios oficiales. Puedes instalarlo descargando el paquete `.deb` manualmente:
+> **Note on `wkhtmltopdf`**: recent distributions (Kali Linux, Debian 13,
+> Ubuntu 24.04) no longer ship `wkhtmltopdf` in the official repositories.
+> Install the `.deb` package manually:
 > ```sh
 > wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.bookworm_amd64.deb
 > sudo apt install ./wkhtmltox_0.12.6.1-3.bookworm_amd64.deb
 > ```
 
-```sh 
+```sh
 pip3 install -r requirements.txt
 ```
 
-### Docker
+#### Docker
 
-- Tener instalado docker y docker-compose.
-- Poseer al menos 3 gigas para la imagen de docker.
+- docker and docker-compose installed.
+- At least 3 GB free for the image.
 
-## Instalación y Uso
+### Installation and usage
 
-Clona el repositorio:
+Clone the repository:
 ```sh
 git clone https://github.com/DonJulve/Compilers-Benchmark-Comparator
 ```
 
-**Nota**: 
- - nombre_del_programa es el nombre del programa a usar para medir sin extensión, osea si tengo suma.cpp y suma.rs pondría solo suma.
- - numero_de_ejecuciones es opcional y por defecto es 1, se usa para poder hacer una media de las ejecuciones.
+**Note**:
+ - `program_name` is the base name of the program to measure, without
+   extension (for `suma.cpp`/`suma.rs`, pass `suma`).
+ - `number_of_runs` is optional (default 1) and controls how many runs are
+   averaged.
 
-### Nativo
+#### Native
 
 ```sh
-./Pipeline <nombre_del_programa> [<numero_de_ejecuciones>]
+./Pipeline <program_name> [<number_of_runs>]
 ```
 
-### Docker
+#### Docker
+
 ```sh
-# Descargar la imagen pre-construida (opcional, docker-compose la bajará si no la tienes)
+# Pull the pre-built image (optional; docker-compose fetches it otherwise)
 docker-compose pull
 
-# Levantar contenedores
+# Start containers
 docker-compose up -d
 
-# Ejecutar el benchmark
-docker-compose run benchmark <nombre_del_programa> [<numero_de_ejecuciones>]
+# Run the benchmark
+docker-compose run benchmark <program_name> [<number_of_runs>]
 ```
 
-**Eliminar imagen**
+**Remove the image**
 ```sh
 docker-compose down
 docker rmi compiler-benchmark
 ```
 
-## Teclonogías empleadas:
+## Technologies
 
-- **Shell**: Lenguaje de scripting usado para poder ejecutar grandes cantidades de comandos para compilación, ejecución y medición.
-- **Python**: Lenguaje usado para generar las gráficas y tratar los datos de las mediciones realizadas.
-- **Docker**: Herramienta de contenedores utilizada para empaquetar y distribuir la aplicación.
-- **C++** y **rust**: Ambos lenguajes no están directamente presentes en el proyecto pero se ha estudiado su comportamiento y sus compiladores para poder realizar el proyecto.
-
+- **Shell**: scripting language used by the legacy compile/run/measure flow.
+- **Python**: campaign driver, data handling and plot generation.
+- **Docker**: packaging and reproducible deployment of the toolchains.
+- **C++** and **Rust**: the languages whose compilers are under study.

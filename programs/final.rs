@@ -1,34 +1,28 @@
-use std::ffi::CString;
-use std::ptr;
+// copy benchmark: repeatedly copies a 31-byte string into a 32-byte stack
+// buffer. Must stay semantically identical to final.cpp: same buffer size,
+// same input, same iteration count, input fits the buffer.
+//
+// copy_from_slice is the idiomatic bounds-checked equivalent of the C strcpy
+// (it panics if the lengths do not match, which is the Rust counterpart of
+// the C/C++ mitigations firing). black_box keeps the source opaque and the
+// buffer live so the loop cannot be optimized away.
+use std::hint::black_box;
 
-fn vulnerable_function(input: &str) -> usize {
-    let mut buffer = [0u8; 32];
-    // Simula un strcpy: copia byte por byte sin comprobar tamaño
-    let bytes = input.as_bytes();
-    for i in 0..bytes.len() {
-        // Esto puede desbordar si input > 32, útil para ver sanitizadores
-        if i < buffer.len() {
-            buffer[i] = bytes[i];
-        }
-    }
-    bytes.len()
-}
+const TEXT: &str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01234"; // 31 bytes
 
 fn main() {
-    // Cadena de prueba fija
-    let test_input = "Esta cadena es un poco más larga de lo habitual";
+    const ITERS: usize = 10_000_000;
 
-    // Reserva de memoria dinámica (heap)
-    let mut dynamic_memory = Vec::with_capacity(100);
-    for i in 0..100 {
-        dynamic_memory.push((i % 256) as u8);
+    let mut buffer = [0u8; 32];
+
+    let mut total: i64 = 0;
+    for _ in 0..ITERS {
+        let src = black_box(TEXT.as_bytes()); // opaque source
+        buffer[..src.len()].copy_from_slice(src); // bounds-checked copy
+        black_box(&buffer);
+        // strlen equivalent: position of the first NUL byte.
+        total += buffer.iter().position(|&b| b == 0).unwrap_or(32) as i64;
     }
 
-    // Llamada a la función vulnerable
-    let len = vulnerable_function(test_input);
-
-    println!("Longitud copiada: {}", len);
-
-    // dynamic_memory se libera automáticamente
+    println!("{}", total); // expected: 310000000
 }
-

@@ -14,3 +14,18 @@ services:
       - ./results_rustc:/app/results_rustc
     working_dir: /app
 
+  # Measurement campaign (CSV output). See README, section
+  # "Measurement campaign (v2)". Run on an otherwise idle Linux host with the
+  # performance governor and turbo disabled; pin it to fixed cores.
+  measure:
+    build:
+      context: .
+      dockerfile: Dockerfile.measure
+    image: compiler-benchmark-measure:latest
+    cpuset: "2,3"           # adjust to isolated cores on the server
+    security_opt:
+      - seccomp:unconfined  # avoid syscall-filter overhead in timed runs
+    volumes:
+      - ./results_csv:/app/results_csv
+    command: ["--matrix", "config/matrix.yaml", "--reps", "10"]
+

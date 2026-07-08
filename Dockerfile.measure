@@ -1,0 +1,38 @@
+# Lean image for the measurement campaign (no LaTeX/plotting toolchain).
+# debian:trixie ships GCC 14.2 and Clang 19, matching the versions studied
+# in the paper. Pin the Rust nightly with --build-arg RUST_TOOLCHAIN=... for
+# a reproducible toolchain (e.g. nightly-2026-07-01).
+FROM debian:trixie-slim
+
+ARG RUST_TOOLCHAIN=nightly
+ENV PATH="/root/.cargo/bin:${PATH}" \
+    RUSTUP_HOME=/root/.rustup \
+    CARGO_HOME=/root/.cargo \
+    DEBIAN_FRONTEND=noninteractive \
+    LC_ALL=C.UTF-8
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    g++ \
+    clang \
+    binutils \
+    libclang-rt-dev \
+    libasan8 \
+    libubsan1 \
+    python3 \
+    python3-yaml \
+    checksec \
+    curl \
+    ca-certificates \
+    xz-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+    sh -s -- -y --profile minimal --default-toolchain "${RUST_TOOLCHAIN}"
+
+COPY programs /app/programs
+COPY config /app/config
+COPY scripts/campaign.py scripts/measure_exec.c /app/scripts/
+WORKDIR /app
+
+ENTRYPOINT ["python3", "scripts/campaign.py"]
+CMD ["--matrix", "config/matrix.yaml"]
