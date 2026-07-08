@@ -10,7 +10,7 @@ services:
       - ./programs:/app/programs
       - ./scripts:/app/scripts
       - ./results_g++:/app/results_g++
-      - ./results_clang:/app/results_clang
-      - ./results_rust:/app/results_rust
+      - ./results_clang++:/app/results_clang++
+      - ./results_rustc:/app/results_rustc
     working_dir: /app
 
