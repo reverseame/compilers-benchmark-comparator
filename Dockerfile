@@ -34,6 +34,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     binutils-dev \
     libcap-dev \
     libseccomp-dev \
+    libasan8 \
+    libubsan1 \
+    libclang-rt-dev \
     # Dependencias de runtime
     libpython3.11 \
     && rm -rf /var/lib/apt/lists/*
