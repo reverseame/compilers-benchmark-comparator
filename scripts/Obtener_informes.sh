@@ -35,6 +35,4 @@ for dir in results_*; do
     fi
 done
 
-rm -rf results_*
-
 echo "Los informes se han generado y organizado en la carpeta Informes."
