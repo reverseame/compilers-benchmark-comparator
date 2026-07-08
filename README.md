@@ -11,30 +11,30 @@ the accompanying research article.
 - **scripts/campaign.py**: measurement campaign driver (CSV output). This is
   what produces the data used in the article — see "Measurement campaign"
   below.
+- **scripts/measure_exec.c**: minimal fork/execv/wait4 wrapper used to time
+  each benchmark execution and read its resource usage without inheriting
+  the Python driver's memory footprint.
+- **scripts/analyze.py**: turns a campaign's CSVs into the article's LaTeX
+  tables and a data-quality summary.
+- **scripts/plot_results.py**: turns a campaign's CSVs into the article's
+  figures (PDF), with medians and 95% bootstrap confidence intervals.
 - **config/matrix.yaml**: the experimental matrix (compilers × optimization
   levels × security flags × programs). Single source of truth for the
   campaign.
 - **programs**: benchmark source programs. Each benchmark exists as a
   semantically equivalent `.cpp`/`.rs` pair.
-- **Dockerfile.measure**: lean container image for running the campaign on a
-  server.
-- **Pipeline.sh**, **scripts/*.sh**, **scripts/*.py** (plots): legacy
-  report/plot generation flow from the original TFG.
-- **Dockerfile** and **docker-compose.yml**: container deployment for both
-  flows.
+- **Dockerfile.measure** and **docker-compose.yml**: lean container image for
+  running the campaign on a server.
 
 ## Measurement campaign (v2, CSV output)
 
-The measurement campaign used for the article runs through
-`scripts/campaign.py`, which replaces the per-compiler shell scripts
-(`g++.sh`, `clang++.sh`, `rustc.sh`) for the measurement phase. Key
-differences from the legacy flow:
+The measurement campaign runs through `scripts/campaign.py`:
 
 - The experimental matrix is defined in **`config/matrix.yaml`**; adding a
   compiler or a flag requires no code changes.
 - Compilation runs in parallel, but **timed executions are strictly
-  sequential** (the legacy flow ran up to `nproc` combinations concurrently,
-  invalidating the timings).
+  sequential** and sweep-major (one full pass over all binaries per
+  repetition, so slow drift affects all cells equally).
 - Every execution is recorded **individually** in `runs.csv` (no
   aggregation): wall-clock time (`CLOCK_MONOTONIC`), user/system CPU time,
   peak RSS and **exit status** — all from the same execution, via `wait4(2)`.
@@ -65,7 +65,7 @@ docker build -f Dockerfile.measure \
 # 3. Launch the campaign pinned to isolated cores, with no CPU limits:
 docker run --rm --cpuset-cpus=2,3 --security-opt seccomp=unconfined \
   -v "$PWD/results_csv:/app/results_csv" \
-  compiler-benchmark-measure --reps 10
+  compiler-benchmark-measure --reps 50
 ```
 
 Useful options: `--programs suma,final`, `--compilers g++,clang++,rustc`,
@@ -75,86 +75,54 @@ so they can be archived as an artifact).
 Results are written to
 `results_csv/<timestamp>/{runs.csv,binaries.csv,environment.txt,matrix.yaml}`.
 
-## Legacy flow (TFG)
+If the machine has SMT (hyper-threading), also keep the pinned core's
+sibling thread idle (e.g. pin to core 3 and leave core 7 unused on a
+4-core/8-thread CPU); a busy sibling shows up as occasional outlier
+repetitions.
 
-### Requirements
+### How many repetitions?
 
-A program with the same base name in both languages (`.cpp` and `.rs`).
+One full sweep over the 618 binaries takes about 3 minutes on the reference
+server, so the campaign scales linearly at roughly `3 min × (reps + 1)`:
 
-#### Native
+| `--reps` | duration | note |
+|---------:|---------:|------|
+| 10       | ~30 min  | enough for smoke tests |
+| 50       | ~2.5 h   | **recommended for the article**: CI half-width ≈ 0.3% of the median |
+| 100      | ~5 h     | diminishing returns |
 
-- Debian-based system with: build-essential, clang, llvm, curl, python3,
-  python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf,
-  texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, dvipng,
-  cm-super, ghostscript, fonts-liberation, fonts-freefont-otf, binutils-dev,
-  libcap-dev, libseccomp-dev, libasan8, libubsan1, libclang-rt-dev,
-  python3-dev
-- C++, clang++ and rustc (nightly) compilers installed.
-- Python libraries: matplotlib, pandas, seaborn, numpy, scipy, statsmodels.
-- Fonts configured for matplotlib (see Dockerfile).
+Measurement noise is ~1.5% (coefficient of variation), so the confidence
+interval of the median shrinks below any effect of interest well before 100
+repetitions; past that point you are measuring the machine, not the flags.
+Statistics are computed downstream from the raw rows, so the choice of
+`--reps` never changes the analysis code.
 
-```sh
-sudo apt install build-essential clang llvm curl python3 python3-pip jq bc time checksec git aha texlive-latex-base texlive-latex-extra texlive-fonts-recommended dvipng cm-super ghostscript fonts-liberation fonts-freefont-otf binutils-dev libcap-dev libseccomp-dev libasan8 libubsan1 libclang-rt-dev python3-dev
-```
+## Post-processing
 
-> **Note on `wkhtmltopdf`**: recent distributions (Kali Linux, Debian 13,
-> Ubuntu 24.04) no longer ship `wkhtmltopdf` in the official repositories.
-> Install the `.deb` package manually:
-> ```sh
-> wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.bookworm_amd64.deb
-> sudo apt install ./wkhtmltox_0.12.6.1-3.bookworm_amd64.deb
-> ```
+Both tools read a results directory and are pure Python (matplotlib is the
+only third-party dependency, needed for the figures only):
 
 ```sh
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt   # matplotlib
+
+# LaTeX tables + data-quality summary  ->  results_csv/<ts>/tables/
+python3 scripts/analyze.py results_csv/<timestamp>
+
+# Figures (PDF) + per-cell statistics  ->  results_csv/<ts>/figures/
+python3 scripts/plot_results.py results_csv/<timestamp>
 ```
 
-#### Docker
-
-- docker and docker-compose installed.
-- At least 3 GB free for the image.
-
-### Installation and usage
-
-Clone the repository:
-```sh
-git clone https://github.com/DonJulve/Compilers-Benchmark-Comparator
-```
-
-**Note**:
- - `program_name` is the base name of the program to measure, without
-   extension (for `suma.cpp`/`suma.rs`, pass `suma`).
- - `number_of_runs` is optional (default 1) and controls how many runs are
-   averaged.
-
-#### Native
-
-```sh
-./Pipeline <program_name> [<number_of_runs>]
-```
-
-#### Docker
-
-```sh
-# Pull the pre-built image (optional; docker-compose fetches it otherwise)
-docker-compose pull
-
-# Start containers
-docker-compose up -d
-
-# Run the benchmark
-docker-compose run benchmark <program_name> [<number_of_runs>]
-```
-
-**Remove the image**
-```sh
-docker-compose down
-docker rmi compiler-benchmark
-```
+`plot_results.py` reports the **median** of the timed repetitions with a 95%
+percentile **bootstrap confidence interval** (bands on line plots, whiskers
+on bar plots) rather than plain means: the median is robust to the
+occasional interference outlier, and the CI makes it visible when two
+configurations are statistically indistinguishable. It also writes
+`figures/cell_stats.csv` with the median and CI of every cell (time and
+RSS), which is the numeric source behind every figure.
 
 ## Technologies
 
-- **Shell**: scripting language used by the legacy compile/run/measure flow.
-- **Python**: campaign driver, data handling and plot generation.
+- **Python**: campaign driver, data handling, tables and figures.
+- **C**: measurement wrapper (`fork`/`execv`/`wait4`).
 - **Docker**: packaging and reproducible deployment of the toolchains.
 - **C++** and **Rust**: the languages whose compilers are under study.

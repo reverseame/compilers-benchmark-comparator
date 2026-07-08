@@ -1,19 +1,4 @@
-version: '3.8'
-
 services:
-  benchmark:
-    build: .
-    image: ghcr.io/donjulve/compiler-benchmark:latest
-    volumes:
-      - ./Informes:/app/Informes
-      - ./Gráficas:/app/Gráficas
-      - ./programs:/app/programs
-      - ./scripts:/app/scripts
-      - ./results_g++:/app/results_g++
-      - ./results_clang++:/app/results_clang++
-      - ./results_rustc:/app/results_rustc
-    working_dir: /app
-
   # Measurement campaign (CSV output). See README, section
   # "Measurement campaign (v2)". Run on an otherwise idle Linux host with the
   # performance governor and turbo disabled; pin it to fixed cores.
@@ -28,4 +13,3 @@ services:
     volumes:
       - ./results_csv:/app/results_csv
     command: ["--matrix", "config/matrix.yaml", "--reps", "10"]
-

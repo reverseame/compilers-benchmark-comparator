@@ -83,9 +83,13 @@ compilers:
       lto: "-C lto"
       lto_thin: "-C lto=thin"
       asan: "-Z sanitizer=address"
-      # MSan is deliberately absent: rustc refuses to link -Z sanitizer=memory
-      # against an uninstrumented std (ABI mismatch error) and instrumenting
-      # std would require cargo -Zbuild-std, outside this pipeline's scope.
+      # Known to fail to compile: rustc refuses to link -Z sanitizer=memory
+      # against an uninstrumented std (ABI mismatch) and instrumenting std
+      # would require cargo -Zbuild-std, outside this pipeline's scope.
+      # Kept in the matrix on purpose so the failure is recorded in
+      # binaries.csv (compile_ok=0) instead of being silently dropped,
+      # as described in the paper.
+      msan: "-Z sanitizer=memory"
       lsan: "-Z sanitizer=leak"
       relro_full: "-C link-arg=-Wl,-z,relro,-z,now"
       stack_protector_none: "-Z stack-protector=none"
