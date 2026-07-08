@@ -14,7 +14,7 @@ Tener un programa con el mismo nombre que sea cpp y rs.
 
 ### Nativo
 
-- Haber instalado las siguientes dependencias en un sistema basado en debian: build-essential, clang, llvm, curl, python3, python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf, fonts-liberation, fonts-freefont-otf, binutils-dev, libcap-dev, libseccomp-dev, python3-dev
+- Haber instalado las siguientes dependencias en un sistema basado en debian: build-essential, clang, llvm, curl, python3, python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf, texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, dvipng, cm-super, ghostscript, fonts-liberation, fonts-freefont-otf, binutils-dev, libcap-dev, libseccomp-dev, python3-dev
 
 - Tener instalado los compiladores de c++, clang++ y rustc (en su version nightly).
 
@@ -23,7 +23,7 @@ Tener un programa con el mismo nombre que sea cpp y rs.
 - Tener configuradas las fuentes para matplotlib (mirar Dockerfile si hay dudas).
 
 ```sh
-sudo apt install build-essential clang llvm curl python3 python3-pip jq bc time checksec git aha fonts-liberation fonts-freefont-otf binutils-dev libcap-dev libseccomp-dev python3-dev
+sudo apt install build-essential clang llvm curl python3 python3-pip jq bc time checksec git aha texlive-latex-base texlive-latex-extra texlive-fonts-recommended dvipng cm-super ghostscript fonts-liberation fonts-freefont-otf binutils-dev libcap-dev libseccomp-dev python3-dev
 ```
 
 > **Nota para `wkhtmltopdf`**: Si usas distribuciones recientes (como Kali Linux, Debian 13 o Ubuntu 24.04), `wkhtmltopdf` ya no está en los repositorios oficiales. Puedes instalarlo descargando el paquete `.deb` manualmente:
@@ -39,7 +39,7 @@ pip3 install -r requirements.txt
 ### Docker
 
 - Tener instalado docker y docker-compose.
-- Poseer al menos 2 gigas para la imagen de docker.
+- Poseer al menos 3 gigas para la imagen de docker.
 
 ## Instalación y Uso
 

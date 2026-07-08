@@ -22,6 +22,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     # Dependencias para gráficos y PDFs
     aha \
+    texlive-latex-base \
+    texlive-latex-extra \
+    texlive-fonts-recommended \
+    dvipng \
+    cm-super \
+    ghostscript \
     fonts-liberation \
     fonts-freefont-otf \
     # Herramientas de seguridad
