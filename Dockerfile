@@ -33,9 +33,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # 3. Instalar wkhtmltopdf (versión con Qt parcheado)
-RUN curl -L -o /tmp/wkhtmltox.deb https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.bookworm_amd64.deb && \
+RUN apt-get update && \
+    curl -L -o /tmp/wkhtmltox.deb https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.bookworm_amd64.deb && \
     apt-get install -y --no-install-recommends /tmp/wkhtmltox.deb && \
-    rm /tmp/wkhtmltox.deb
+    rm /tmp/wkhtmltox.deb && \
+    rm -rf /var/lib/apt/lists/*
 
 # 4. Instalar Rust y herramientas
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly && \
