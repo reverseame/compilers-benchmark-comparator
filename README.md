@@ -14,7 +14,7 @@ Tener un programa con el mismo nombre que sea cpp y rs.
 
 ### Nativo
 
-- Haber instalado las siguientes dependencias en un sistema basado en debian: build-essential, clang, llvm, curl, python3, python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf, pandoc, texlive-full, lmodern, fonts-freefont-otf, binutils-dev, libcap-dev, libseccomp-dev, libpython3.11.
+- Haber instalado las siguientes dependencias en un sistema basado en debian: build-essential, clang, llvm, curl, python3, python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf, fonts-liberation, fonts-freefont-otf, binutils-dev, libcap-dev, libseccomp-dev, python3-dev
 
 - Tener instalado los compiladores de c++, clang++ y rustc (en su version nightly).
 
@@ -23,8 +23,14 @@ Tener un programa con el mismo nombre que sea cpp y rs.
 - Tener configuradas las fuentes para matplotlib (mirar Dockerfile si hay dudas).
 
 ```sh
-sudo apt install build-essential, clang, llvm, curl, python3, python3-pip, jq, bc, time, checksec, git, aha, wkhtmltopdf, pandoc, texlive-full, lmodern, fonts-freefont-otf, binutils-dev, libcap-dev, libseccomp-dev, libpython3.11
+sudo apt install build-essential clang llvm curl python3 python3-pip jq bc time checksec git aha fonts-liberation fonts-freefont-otf binutils-dev libcap-dev libseccomp-dev python3-dev
 ```
+
+> **Nota para `wkhtmltopdf`**: Si usas distribuciones recientes (como Kali Linux, Debian 13 o Ubuntu 24.04), `wkhtmltopdf` ya no está en los repositorios oficiales. Puedes instalarlo descargando el paquete `.deb` manualmente:
+> ```sh
+> wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.bookworm_amd64.deb
+> sudo apt install ./wkhtmltox_0.12.6.1-3.bookworm_amd64.deb
+> ```
 
 ```sh 
 pip3 install -r requirements.txt
@@ -33,7 +39,7 @@ pip3 install -r requirements.txt
 ### Docker
 
 - Tener instalado docker y docker-compose.
-- Poseer al menos 8 gigas para la imagen de docker.
+- Poseer al menos 2 gigas para la imagen de docker.
 
 ## Instalación y Uso
 
@@ -54,8 +60,13 @@ git clone https://github.com/DonJulve/Compilers-Benchmark-Comparator
 
 ### Docker
 ```sh
-docker-compose build
+# Descargar la imagen pre-construida (opcional, docker-compose la bajará si no la tienes)
+docker-compose pull
+
+# Levantar contenedores
 docker-compose up -d
+
+# Ejecutar el benchmark
 docker-compose run benchmark <nombre_del_programa> [<numero_de_ejecuciones>]
 ```
 

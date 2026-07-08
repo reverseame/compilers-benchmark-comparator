@@ -167,7 +167,10 @@ process_combination() {
             local pid=$!
 
             # Medir tiempo de ejecución con date
-            local TIME_OUTPUT=$(measure_time wait "$pid")
+            local start=$(date +%s.%N)
+            wait "$pid"
+            local end=$(date +%s.%N)
+            local TIME_OUTPUT=$(echo "$end - $start" | bc -l)
 
             # Obtener el uso de CPU
             local CPU_USAGE=$(get_cpu_usage "$pid")

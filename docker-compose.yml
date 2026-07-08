@@ -3,7 +3,7 @@ version: '3.8'
 services:
   benchmark:
     build: .
-    image: compiler-benchmark:latest
+    image: ghcr.io/donjulve/compiler-benchmark:latest
     volumes:
       - ./Informes:/app/Informes
       - ./Gráficas:/app/Gráficas
