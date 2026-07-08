@@ -9,6 +9,9 @@ services:
       - ./Gráficas:/app/Gráficas
       - ./programs:/app/programs
       - ./scripts:/app/scripts
+      - ./results_g++:/app/results_g++
+      - ./results_clang:/app/results_clang
+      - ./results_rust:/app/results_rust
     working_dir: /app
 
 volumes:
@@ -16,3 +19,6 @@ volumes:
   graficas:
   programs:
   scripts:
+  results_g++:
+  results_clang:
+  results_rust:
