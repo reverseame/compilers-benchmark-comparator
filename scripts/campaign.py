@@ -268,6 +268,10 @@ def main():
                     help="keep compiled binaries under the results directory")
     args = ap.parse_args()
 
+    # Progress must be visible under `docker run`/`docker logs`, where stdout
+    # is a pipe and Python would otherwise block-buffer it.
+    sys.stdout.reconfigure(line_buffering=True)
+
     if args.cpu is not None:
         os.sched_setaffinity(0, {args.cpu})
 
