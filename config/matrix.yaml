@@ -14,6 +14,9 @@ programs:
   final:
     description: "31-byte strcpy into 32-byte buffer, 10M iterations (no overflow)"
     expected_output: "310000000"
+  startup:
+    description: "empty main; measures process startup/teardown, where PIE and full RELRO pay their real cost"
+    expected_output: "ok"
 
 compilers:
   g++:

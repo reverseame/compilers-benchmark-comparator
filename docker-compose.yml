@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile.measure
     image: compiler-benchmark-measure:latest
     cpuset: "2,3"           # adjust to isolated cores on the server
+    cap_add:
+      - PERFMON             # per-run hardware counters (optional; empty if denied)
     security_opt:
       - seccomp:unconfined  # avoid syscall-filter overhead in timed runs
     volumes:

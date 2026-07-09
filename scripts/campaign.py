@@ -59,6 +59,12 @@ class Cell:
     compile_ok: bool = False
     compile_stderr: str = ""
     expected_output: str = ""
+    # compile cost (wall is measured under parallel compilation, so
+    # user+sys is the contention-robust figure)
+    compile_wall_s: float = 0.0
+    compile_user_s: float = 0.0
+    compile_sys_s: float = 0.0
+    compile_max_rss_kb: int = 0
     # binary properties
     size_bytes: int = 0
     size_stripped: int = 0
@@ -91,6 +97,30 @@ def load_cells(matrix, programs_filter, compilers_filter, src_dir):
 # Compilation (parallel; happens before any timing)
 # --------------------------------------------------------------------------
 
+def _run_with_rusage(cmd, timeout):
+    """Run cmd, returning (exited_zero, stderr_tail, wall_s, rusage or None).
+
+    Uses os.wait4 instead of subprocess.run so the child's own CPU time and
+    peak RSS are available (per child, which subprocess cannot report)."""
+    with tempfile.NamedTemporaryFile() as errf:
+        t0 = time.monotonic()
+        p = subprocess.Popen(cmd, stdout=errf, stderr=errf)
+        deadline = t0 + timeout
+        while True:
+            pid, status, ru = os.wait4(p.pid, os.WNOHANG)
+            if pid:
+                break
+            if time.monotonic() > deadline:
+                p.kill()
+                deadline = float("inf")  # keep looping until reaped
+            time.sleep(0.02)
+        p.returncode = 0  # reaped by wait4; silence Popen's destructor
+        wall = time.monotonic() - t0
+        stderr = Path(errf.name).read_text(errors="replace")
+    ok = os.WIFEXITED(status) and os.WEXITSTATUS(status) == 0
+    return ok, stderr, wall, ru
+
+
 def compile_cell(cell, matrix, src_dir, bin_dir):
     comp = matrix["compilers"][cell.compiler]
     src = src_dir / f"{cell.program}.{comp['source_ext']}"
@@ -100,14 +130,14 @@ def compile_cell(cell, matrix, src_dir, bin_dir):
                                  flags=cell.sec_flags, out=str(exe))
     cell.command = " ".join(cmd.split())
     cell.exe = exe
-    try:
-        res = subprocess.run(shlex.split(cell.command),
-                             capture_output=True, text=True, timeout=600)
-    except subprocess.TimeoutExpired:
-        cell.compile_stderr = "compile timeout"
-        return cell
-    cell.compile_stderr = res.stderr.strip()[-500:]
-    cell.compile_ok = res.returncode == 0 and exe.exists()
+    ok, stderr, wall, ru = _run_with_rusage(shlex.split(cell.command), 600)
+    cell.compile_stderr = stderr.strip()[-500:]
+    cell.compile_ok = ok and exe.exists()
+    cell.compile_wall_s = round(wall, 3)
+    if ru is not None:
+        cell.compile_user_s = round(ru.ru_utime, 3)
+        cell.compile_sys_s = round(ru.ru_stime, 3)
+        cell.compile_max_rss_kb = ru.ru_maxrss  # KB on Linux
     if cell.compile_ok:
         inspect_binary(cell)
     return cell
@@ -157,11 +187,20 @@ def build_wrapper(root):
     return out
 
 
+# Extra per-execution fields reported by the wrapper. The perf counters and
+# RAPL energy deltas are -1 when the host cannot provide them; those become
+# empty CSV cells so downstream tools can tell "unavailable" from zero.
+EXTRA_FIELDS = ["min_flt", "maj_flt", "vol_cs", "invol_cs",
+                "instructions", "cycles", "branch_misses", "cache_misses",
+                "energy_pkg_uj", "energy_cores_uj"]
+
+
 def run_once(cell, wrapper):
     """Run the binary once; returns a dict with the raw measurements."""
     env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "LC_ALL": "C"}
     fail = {"wall_s": 0.0, "user_s": 0.0, "sys_s": 0.0, "max_rss_kb": 0,
-            "exit_code": -1, "term_signal": "", "output_ok": 0}
+            "exit_code": -1, "term_signal": "", "output_ok": 0,
+            **{k: "" for k in EXTRA_FIELDS}}
     with tempfile.NamedTemporaryFile() as out_f:
         try:
             res = subprocess.run([str(wrapper), out_f.name, str(cell.exe)],
@@ -172,10 +211,11 @@ def run_once(cell, wrapper):
         if res.returncode != 0:
             return {**fail, "spawn_error": f"wrapper: {res.stderr.strip()[:100]}"}
         stdout = Path(out_f.name).read_text(errors="replace").strip()
-    try:
-        wall, user, sys_t, rss, exit_code, sig = res.stdout.split()
-    except ValueError:
+    fields = res.stdout.split()
+    if len(fields) != 6 + len(EXTRA_FIELDS):
         return {**fail, "spawn_error": f"unparseable: {res.stdout[:100]}"}
+    wall, user, sys_t, rss, exit_code, sig = fields[:6]
+    extras = [int(x) for x in fields[6:]]
     exit_code, sig = int(exit_code), int(sig)
     output_ok = int(exit_code == 0 and stdout == cell.expected_output)
     return {"wall_s": round(float(wall), 6),
@@ -183,7 +223,9 @@ def run_once(cell, wrapper):
             "max_rss_kb": int(rss),   # KB on Linux
             "exit_code": exit_code if exit_code >= 0 else "",
             "term_signal": sig if sig else "",
-            "output_ok": output_ok, "spawn_error": ""}
+            "output_ok": output_ok, "spawn_error": "",
+            **{k: (v if v >= 0 else "")
+               for k, v in zip(EXTRA_FIELDS, extras)}}
 
 
 # --------------------------------------------------------------------------
@@ -236,6 +278,10 @@ def capture_environment(args):
     # hot-unplugged).
     add(f"smt_control: {read_first('/sys/devices/system/cpu/smt/control')}")
     add(f"cpus_online: {read_first('/sys/devices/system/cpu/online')}")
+    # Availability of the optional per-execution measurements
+    add(f"perf_event_paranoid: {read_first('/proc/sys/kernel/perf_event_paranoid')}")
+    rapl = Path("/sys/class/powercap/intel-rapl:0/energy_uj")
+    add(f"rapl_energy: {'readable' if os.access(rapl, os.R_OK) else 'unavailable'}")
     add(f"boost: {read_first('/sys/devices/system/cpu/cpufreq/boost')}")
     add(f"cgroup_cpu_max: {read_first('/sys/fs/cgroup/cpu.max')}")
     try:
@@ -338,12 +384,16 @@ def main():
     with open(out_dir / "binaries.csv", "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["compiler", "program", "opt", "flag_id", "sec_flags",
-                    "compile_cmd", "compile_ok", "size_bytes",
-                    "size_stripped_bytes", "relro", "canary", "nx", "pie",
-                    "fortified", "fortifiable", "sha256", "compile_stderr_tail"])
+                    "compile_cmd", "compile_ok", "compile_wall_s",
+                    "compile_user_s", "compile_sys_s", "compile_max_rss_kb",
+                    "size_bytes", "size_stripped_bytes", "relro", "canary",
+                    "nx", "pie", "fortified", "fortifiable", "sha256",
+                    "compile_stderr_tail"])
         for c in cells:
             w.writerow([c.compiler, c.program, c.opt, c.flag_id, c.sec_flags,
-                        c.command, int(c.compile_ok), c.size_bytes,
+                        c.command, int(c.compile_ok), c.compile_wall_s,
+                        c.compile_user_s, c.compile_sys_s, c.compile_max_rss_kb,
+                        c.size_bytes,
                         c.size_stripped, cs_get(c, "relro"), cs_get(c, "canary"),
                         cs_get(c, "nx"), cs_get(c, "pie"), cs_get(c, "fortified"),
                         cs_get(c, "fortify-able") or cs_get(c, "fortifiable"),
@@ -357,8 +407,8 @@ def main():
         w = csv.writer(f)
         w.writerow(["compiler", "program", "opt", "flag_id", "sweep",
                     "is_warmup", "wall_s", "user_s", "sys_s", "max_rss_kb",
-                    "exit_code", "term_signal", "output_ok", "epoch_s",
-                    "error"])
+                    "exit_code", "term_signal", "output_ok",
+                    *EXTRA_FIELDS, "epoch_s", "error"])
         total_sweeps = warmups + reps
         for sweep in range(total_sweeps):
             is_warmup = int(sweep < warmups)
@@ -371,8 +421,9 @@ def main():
                 w.writerow([c.compiler, c.program, c.opt, c.flag_id, sweep,
                             is_warmup, m["wall_s"], m["user_s"], m["sys_s"],
                             m["max_rss_kb"], m["exit_code"], m["term_signal"],
-                            m["output_ok"], int(time.time()),
-                            m.get("spawn_error", "")])
+                            m["output_ok"],
+                            *[m[k] for k in EXTRA_FIELDS],
+                            int(time.time()), m.get("spawn_error", "")])
                 f.flush()
 
     print(f"[campaign] done. Results in {out_dir}")

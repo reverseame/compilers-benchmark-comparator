@@ -37,8 +37,25 @@ The measurement campaign runs through `scripts/campaign.py`:
   repetition, so slow drift affects all cells equally).
 - Every execution is recorded **individually** in `runs.csv` (no
   aggregation): wall-clock time (`CLOCK_MONOTONIC`), user/system CPU time,
-  peak RSS and **exit status** — all from the same execution, via `wait4(2)`.
-  A warmup sweep is recorded flagged with `is_warmup=1`.
+  peak RSS, page faults, context switches and **exit status** — all from the
+  same execution, via `wait4(2)`. A warmup sweep is recorded flagged with
+  `is_warmup=1`.
+- When the host allows it, each execution also records **hardware counters**
+  (instructions, cycles, branch misses, cache misses; user space only,
+  attached before `exec` so process startup is included) and **RAPL energy
+  deltas** (package and core domains). Both degrade gracefully to empty CSV
+  cells when unavailable. Counters need `perf_event_paranoid <= 2` or
+  `--cap-add PERFMON`; RAPL needs a root container on an Intel host
+  (`/sys/class/powercap` readable). Note that RAPL counts the whole package,
+  not just the pinned core.
+- Compilation cost is recorded per binary in `binaries.csv`
+  (`compile_wall_s`, `compile_user_s`, `compile_sys_s`,
+  `compile_max_rss_kb`). Compilations run in parallel, so wall time is
+  contended; user+sys is the robust figure.
+- The corpus includes a `startup` benchmark (empty `main`) that isolates
+  process startup and teardown, which is where PIE and full RELRO
+  (`-z now`, eager binding) pay their real cost; the loop benchmarks
+  amortize it away.
 - If a binary does not exit 0 with the expected output, the row is flagged
   (`output_ok=0`) and the campaign warns at the end: a crashing execution can
   never masquerade as a valid measurement.
@@ -64,6 +81,7 @@ docker build -f Dockerfile.measure \
 
 # 3. Launch the campaign pinned to isolated cores, with no CPU limits:
 docker run --rm --cpuset-cpus=2,3 --security-opt seccomp=unconfined \
+  --cap-add PERFMON \
   -v "$PWD/results_csv:/app/results_csv" \
   compiler-benchmark-measure --reps 50
 ```
