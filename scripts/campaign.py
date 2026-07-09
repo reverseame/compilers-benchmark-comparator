@@ -246,6 +246,23 @@ def capture_environment(args):
                 f"{out[0] if out else 'unavailable'}")
         except Exception:
             add(f"{cmd[0]}: unavailable")
+    # Exact C-library build. "glibc 2.41" is not enough: benchmarks whose hot
+    # loop runs inside libc (strcpy/memcpy/printf) can change speed by
+    # integer factors between two package builds of the same glibc version,
+    # so record the Debian package revision and the hash of the shared object.
+    try:
+        pkg = subprocess.run(["dpkg-query", "-W", "libc6"], capture_output=True,
+                             text=True, timeout=30).stdout.strip()
+        add(f"libc6_package: {pkg or 'unavailable'}")
+    except Exception:
+        add("libc6_package: unavailable")
+    try:
+        libc = subprocess.run(
+            ["sh", "-c", "sha256sum $(ldconfig -p | awk '/libc.so.6 /{print $NF; exit}')"],
+            capture_output=True, text=True, timeout=30).stdout.strip()
+        add(f"libc_so_sha256: {libc or 'unavailable'}")
+    except Exception:
+        add("libc_so_sha256: unavailable")
     add(f"campaign_args: {vars(args)}")
     return "\n".join(lines) + "\n"
 
