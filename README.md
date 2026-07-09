@@ -49,11 +49,13 @@ The measurement campaign runs through `scripts/campaign.py`:
     (Debian patches the kernel with a level 3 that blocks `perf_event_open`
     even with `--cap-add PERFMON`; restore the original value afterwards)
     plus `--security-opt apparmor=unconfined`;
-  - energy: `sudo modprobe intel_rapl_msr` on the host and an explicit
-    bind mount, `-v /sys/devices/virtual/powercap:/sys/devices/virtual/powercap:ro`,
-    because the container's sysfs lists `/sys/class/powercap` entries but
-    does not materialize their targets. RAPL counts the whole package, not
-    just the pinned core.
+  - energy: `sudo modprobe intel_rapl_msr` on the host and a bind mount of
+    the powercap tree at `/rapl`,
+    `-v /sys/devices/virtual/powercap:/rapl:ro`, because the container's
+    sysfs lists `/sys/class/powercap` entries without materializing their
+    targets (and bind mounts under `/sys` do not take effect either); the
+    wrapper checks `/rapl` as a fallback. RAPL counts the whole package,
+    not just the pinned core.
   Check `environment.txt` (`perf_event_paranoid`, `rapl_energy`) to confirm
   both were active during a campaign.
 - Compilation cost is recorded per binary in `binaries.csv`
@@ -95,7 +97,7 @@ sudo modprobe intel_rapl_msr
 # 4. Launch the campaign pinned to isolated cores, with no CPU limits:
 docker run --rm --cpuset-cpus=2,3 --cap-add PERFMON \
   --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
-  -v /sys/devices/virtual/powercap:/sys/devices/virtual/powercap:ro \
+  -v /sys/devices/virtual/powercap:/rapl:ro \
   -v "$PWD/results_csv:/app/results_csv" \
   compiler-benchmark-measure --reps 50
 ```

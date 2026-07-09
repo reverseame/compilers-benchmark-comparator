@@ -280,8 +280,12 @@ def capture_environment(args):
     add(f"cpus_online: {read_first('/sys/devices/system/cpu/online')}")
     # Availability of the optional per-execution measurements
     add(f"perf_event_paranoid: {read_first('/proc/sys/kernel/perf_event_paranoid')}")
-    rapl = Path("/sys/class/powercap/intel-rapl:0/energy_uj")
-    add(f"rapl_energy: {'readable' if os.access(rapl, os.R_OK) else 'unavailable'}")
+    # /rapl is where campaigns bind-mount the host's powercap tree, since
+    # Docker's sysfs does not materialize /sys/class/powercap targets.
+    rapl_ok = any(os.access(p, os.R_OK) for p in
+                  ("/sys/class/powercap/intel-rapl:0/energy_uj",
+                   "/rapl/intel-rapl:0/energy_uj"))
+    add(f"rapl_energy: {'readable' if rapl_ok else 'unavailable'}")
     add(f"boost: {read_first('/sys/devices/system/cpu/cpufreq/boost')}")
     add(f"cgroup_cpu_max: {read_first('/sys/fs/cgroup/cpu.max')}")
     try:

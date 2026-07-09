@@ -80,8 +80,32 @@ static long long rapl_delta(const char *dir, long long before, long long after) 
     return range > 0 ? after + range - before : -1;
 }
 
-#define RAPL_PKG   "/sys/class/powercap/intel-rapl:0"
-#define RAPL_CORES "/sys/class/powercap/intel-rapl:0:0"
+/* RAPL domain directories. The canonical sysfs location comes first; the
+ * /rapl fallback exists because Docker's sysfs lists /sys/class/powercap
+ * entries without materializing their targets, so campaigns bind-mount the
+ * host's /sys/devices/virtual/powercap at /rapl instead. */
+static char rapl_pkg[64], rapl_cores[64];
+
+static void rapl_locate(void) {
+    const char *roots[] = {"/sys/class/powercap", "/rapl"};
+    for (unsigned i = 0; i < sizeof(roots) / sizeof(roots[0]); i++) {
+        char probe[96];
+        snprintf(probe, sizeof(probe), "%s/intel-rapl:0/energy_uj", roots[i]);
+        if (access(probe, R_OK) == 0) {
+            snprintf(rapl_pkg, sizeof(rapl_pkg), "%s/intel-rapl:0", roots[i]);
+            snprintf(rapl_cores, sizeof(rapl_cores), "%s/intel-rapl:0:0", roots[i]);
+            return;
+        }
+    }
+    snprintf(rapl_pkg, sizeof(rapl_pkg), "/nonexistent");
+    snprintf(rapl_cores, sizeof(rapl_cores), "/nonexistent");
+}
+
+static long long rapl_energy(const char *dir) {
+    char path[128];
+    snprintf(path, sizeof(path), "%s/energy_uj", dir);
+    return rapl_read(path);
+}
 
 int main(int argc, char **argv) {
     if (argc < 3) {
@@ -95,8 +119,9 @@ int main(int argc, char **argv) {
     int gate[2];
     if (pipe(gate) < 0) { perror("pipe"); return 125; }
 
-    long long e_pkg0 = rapl_read(RAPL_PKG "/energy_uj");
-    long long e_cor0 = rapl_read(RAPL_CORES "/energy_uj");
+    rapl_locate();
+    long long e_pkg0 = rapl_energy(rapl_pkg);
+    long long e_cor0 = rapl_energy(rapl_cores);
 
     struct timespec t0, t1;
     pid_t pid = fork();
@@ -135,8 +160,8 @@ int main(int argc, char **argv) {
     if (wait4(pid, &status, 0, &ru) < 0) { perror("wait4"); return 125; }
     clock_gettime(CLOCK_MONOTONIC, &t1);
 
-    long long e_pkg1 = rapl_read(RAPL_PKG "/energy_uj");
-    long long e_cor1 = rapl_read(RAPL_CORES "/energy_uj");
+    long long e_pkg1 = rapl_energy(rapl_pkg);
+    long long e_cor1 = rapl_energy(rapl_cores);
 
     double wall = (double)(t1.tv_sec - t0.tv_sec) +
                   (double)(t1.tv_nsec - t0.tv_nsec) / 1e9;
@@ -153,7 +178,7 @@ int main(int argc, char **argv) {
            (long)ru.ru_nvcsw, (long)ru.ru_nivcsw,
            perf_read(pf_ins), perf_read(pf_cyc),
            perf_read(pf_brm), perf_read(pf_cam),
-           rapl_delta(RAPL_PKG, e_pkg0, e_pkg1),
-           rapl_delta(RAPL_CORES, e_cor0, e_cor1));
+           rapl_delta(rapl_pkg, e_pkg0, e_pkg1),
+           rapl_delta(rapl_cores, e_cor0, e_cor1));
     return 0;
 }
