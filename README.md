@@ -75,10 +75,20 @@ so they can be archived as an artifact).
 Results are written to
 `results_csv/<timestamp>/{runs.csv,binaries.csv,environment.txt,matrix.yaml}`.
 
-If the machine has SMT (hyper-threading), also keep the pinned core's
-sibling thread idle (e.g. pin to core 3 and leave core 7 unused on a
-4-core/8-thread CPU); a busy sibling shows up as occasional outlier
+If the machine has SMT (hyper-threading), take the pinned core's sibling
+thread offline for the campaign (`echo 0 | sudo tee
+/sys/devices/system/cpu/cpu7/online` for core 3 on a 4-core/8-thread CPU,
+re-enable with `echo 1` afterwards): a busy sibling shows up as outlier
 repetitions.
+
+**Warning — SMT state changes more than noise.** glibc selects among
+implementations of its string routines at process startup using per-thread
+cache estimates derived from the visible CPU topology. On benchmarks whose
+hot loop runs inside libc (e.g. a `strcpy` loop), we measured **~2.8x**
+runtime differences between otherwise identical campaigns depending solely
+on whether the sibling was online. Pick one SMT state, keep it for every
+campaign you intend to compare, and check it is recorded in
+`environment.txt` (`smt_control` / `cpus_online`).
 
 ### How many repetitions?
 

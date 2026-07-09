@@ -228,6 +228,13 @@ def capture_environment(args):
     add(f"cpu_affinity: {sorted(os.sched_getaffinity(0))}")
     add(f"governor: {read_first('/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor')}")
     add(f"intel_no_turbo: {read_first('/sys/devices/system/cpu/intel_pstate/no_turbo')}")
+    # SMT state matters beyond scheduling noise: glibc sizes its per-thread
+    # cache estimates from the visible CPU topology when choosing among
+    # string-routine implementations, and we have measured ~2.8x runtime
+    # differences on a strcpy-bound benchmark depending solely on whether
+    # the pinned core's sibling thread was online.
+    add(f"smt_control: {read_first('/sys/devices/system/cpu/smt/control')}")
+    add(f"cpus_online: {read_first('/sys/devices/system/cpu/online')}")
     add(f"boost: {read_first('/sys/devices/system/cpu/cpufreq/boost')}")
     add(f"cgroup_cpu_max: {read_first('/sys/fs/cgroup/cpu.max')}")
     try:
