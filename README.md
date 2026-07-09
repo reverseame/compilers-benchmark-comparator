@@ -44,10 +44,18 @@ The measurement campaign runs through `scripts/campaign.py`:
   (instructions, cycles, branch misses, cache misses; user space only,
   attached before `exec` so process startup is included) and **RAPL energy
   deltas** (package and core domains). Both degrade gracefully to empty CSV
-  cells when unavailable. Counters need `perf_event_paranoid <= 2` or
-  `--cap-add PERFMON`; RAPL needs a root container on an Intel host
-  (`/sys/class/powercap` readable). Note that RAPL counts the whole package,
-  not just the pinned core.
+  cells when unavailable. In practice, under Docker on Debian they need:
+  - counters: `sudo sysctl kernel.perf_event_paranoid=1` on the host
+    (Debian patches the kernel with a level 3 that blocks `perf_event_open`
+    even with `--cap-add PERFMON`; restore the original value afterwards)
+    plus `--security-opt apparmor=unconfined`;
+  - energy: `sudo modprobe intel_rapl_msr` on the host and an explicit
+    bind mount, `-v /sys/devices/virtual/powercap:/sys/devices/virtual/powercap:ro`,
+    because the container's sysfs lists `/sys/class/powercap` entries but
+    does not materialize their targets. RAPL counts the whole package, not
+    just the pinned core.
+  Check `environment.txt` (`perf_event_paranoid`, `rapl_energy`) to confirm
+  both were active during a campaign.
 - Compilation cost is recorded per binary in `binaries.csv`
   (`compile_wall_s`, `compile_user_s`, `compile_sys_s`,
   `compile_max_rss_kb`). Compilations run in parallel, so wall time is
@@ -79,9 +87,15 @@ docker build -f Dockerfile.measure \
   --build-arg RUST_TOOLCHAIN=nightly-2026-07-01 \
   -t compiler-benchmark-measure .
 
-# 3. Launch the campaign pinned to isolated cores, with no CPU limits:
-docker run --rm --cpuset-cpus=2,3 --security-opt seccomp=unconfined \
-  --cap-add PERFMON \
+# 3. Optional, for hardware counters and RAPL energy (see the metrics
+#    section above; restore afterwards):
+sudo sysctl kernel.perf_event_paranoid=1
+sudo modprobe intel_rapl_msr
+
+# 4. Launch the campaign pinned to isolated cores, with no CPU limits:
+docker run --rm --cpuset-cpus=2,3 --cap-add PERFMON \
+  --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
+  -v /sys/devices/virtual/powercap:/sys/devices/virtual/powercap:ro \
   -v "$PWD/results_csv:/app/results_csv" \
   compiler-benchmark-measure --reps 50
 ```
