@@ -33,6 +33,7 @@ standard library.
 import argparse
 import csv
 import random
+import shutil
 import statistics
 import sys
 from collections import defaultdict
@@ -44,6 +45,39 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 SEED = 20260708
+
+# Set in main(): True when a LaTeX installation renders the figure text.
+USETEX = False
+
+
+def setup_fonts():
+    """Render figure text with LaTeX so it matches the article's font
+    (STIX Two, loaded by the journal class). Falls back to matplotlib's
+    bundled STIX fonts when no LaTeX installation is available."""
+    global USETEX
+    if shutil.which("latex"):
+        USETEX = True
+        plt.rcParams.update({
+            "text.usetex": True,
+            "font.family": "serif",
+            "text.latex.preamble": r"\usepackage[T1]{fontenc}\usepackage{stix2}",
+        })
+    else:
+        plt.rcParams.update({
+            "font.family": "STIXGeneral",
+            "mathtext.fontset": "stix",
+        })
+        print("[plot] latex not found; using matplotlib's bundled STIX fonts")
+
+
+def esc(s):
+    """Escape plain text for LaTeX rendering."""
+    return s.replace("%", r"\%").replace("_", r"\_") if USETEX else s
+
+
+def code(s):
+    """Typeset an identifier (flag name) in monospace."""
+    return r"\texttt{" + s.replace("_", r"\_") + "}" if USETEX else s
 
 COMPILERS = ["g++", "clang++", "rustc"]
 COMPILER_LABEL = {"g++": "GCC", "clang++": "Clang", "rustc": "Rustc"}
@@ -206,7 +240,7 @@ def grouped_barh(ax, flags, data, to_x):
                 label=COMPILER_LABEL[comp])
         ax.errorbar(xs, ys, xerr=[err_lo, err_hi], fmt="none",
                     ecolor="black", elinewidth=0.7, capsize=1.5)
-    ax.set_yticks(range(len(flags)), flags)
+    ax.set_yticks(range(len(flags)), [code(f) for f in flags])
     ax.invert_yaxis()
     ax.legend(frameon=False, fontsize=8)
 
@@ -217,7 +251,7 @@ def fig_overhead_cheap(runs, program, outdir, rng, resamples):
     fig, ax = new_axes(height=0.32 * len(flags) + 1.2)
     grouped_barh(ax, flags, data, to_x=lambda r: (r - 1.0) * 100.0)
     ax.axvline(0, color="black", linewidth=0.8)
-    ax.set_xlabel("Runtime overhead vs. baseline at -O3 (%)")
+    ax.set_xlabel(esc("Runtime overhead vs. baseline at -O3 (%)"))
     save(fig, outdir, f"overhead_cheap_{program}.pdf")
 
 
@@ -271,7 +305,7 @@ def fig_size(binaries, program, outdir):
             xs.append(int(row["size_stripped_bytes"]) / 1024.0)
         ax.barh(ys, xs, height=bar_h * 0.9, color=COMPILER_COLOR[comp],
                 label=COMPILER_LABEL[comp])
-    ax.set_yticks(range(len(flags)), flags)
+    ax.set_yticks(range(len(flags)), [code(f) for f in flags])
     ax.invert_yaxis()
     ax.set_xscale("log")
     ax.set_xlabel("Stripped binary size at -O3 (KB, log scale)")
@@ -327,6 +361,7 @@ def main():
     outdir.mkdir(exist_ok=True)
 
     plt.rcParams.update({"font.size": 9, "pdf.fonttype": 42})
+    setup_fonts()
     rng = random.Random(SEED)
 
     for program in programs:
