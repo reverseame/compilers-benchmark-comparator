@@ -1,10 +1,11 @@
 # Lean image for the measurement campaign (no LaTeX/plotting toolchain).
 # debian:trixie ships GCC 14.2 and Clang 19, matching the versions studied
-# in the paper. Pin the Rust nightly with --build-arg RUST_TOOLCHAIN=... for
-# a reproducible toolchain (e.g. nightly-2026-07-01).
+# in the paper. The Rust nightly is pinned by default so that registry
+# builds are reproducible; override with --build-arg RUST_TOOLCHAIN=... to
+# test another toolchain.
 FROM debian:trixie-slim
 
-ARG RUST_TOOLCHAIN=nightly
+ARG RUST_TOOLCHAIN=nightly-2026-06-30
 ENV PATH="/root/.cargo/bin:${PATH}" \
     RUSTUP_HOME=/root/.rustup \
     CARGO_HOME=/root/.cargo \
