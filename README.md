@@ -81,12 +81,14 @@ thread offline for the campaign (`echo 0 | sudo tee
 re-enable with `echo 1` afterwards): a busy sibling shows up as outlier
 repetitions.
 
-**Warning — SMT state changes more than noise.** glibc selects among
-implementations of its string routines at process startup using per-thread
-cache estimates derived from the visible CPU topology. On benchmarks whose
-hot loop runs inside libc (e.g. a `strcpy` loop), we measured **~2.8x**
-runtime differences between otherwise identical campaigns depending solely
-on whether the sibling was online. Pick one SMT state, keep it for every
+**Warning — SMT state changes more than noise.** On benchmarks with a
+store-heavy hot loop (e.g. a `strcpy` loop inside libc) we measured
+**~2.8x** runtime differences between otherwise identical campaigns
+depending solely on whether the pinned core's sibling was online — with
+byte-identical binaries and glibc's `ld.so --list-diagnostics` output
+identical in both states, i.e. a hardware effect (the core appears to keep
+its execution resources statically partitioned when the sibling is
+hot-unplugged), not a software one. Pick one SMT state, keep it for every
 campaign you intend to compare, and check it is recorded in
 `environment.txt` (`smt_control` / `cpus_online`).
 
