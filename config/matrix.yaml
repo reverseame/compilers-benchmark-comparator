@@ -37,6 +37,10 @@ compilers:
       no_plt: "-fno-plt"
       asan: "-fsanitize=address"
       ubsan: "-fsanitize=undefined"
+      # Multi-flag cell: the paper's recommended hardening baseline for
+      # performance-critical builds, measured as a combination so the
+      # recommendation does not rest on summing single-flag costs.
+      hardening_baseline: "-fstack-protector-strong -D_FORTIFY_SOURCE=2 -Wl,-z,relro,-z,now -z noexecstack -fPIE -pie"
 
   clang++:
     source_ext: cpp
@@ -64,6 +68,8 @@ compilers:
       msan: "-fsanitize=memory"
       safe_stack: "-fsanitize=safe-stack"
       lto: "-flto"
+      # Multi-flag cell: see the g++ hardening_baseline comment.
+      hardening_baseline: "-fstack-protector-strong -D_FORTIFY_SOURCE=2 -Wl,-z,relro,-z,now -z noexecstack -fPIE -pie"
 
   rustc:
     source_ext: rs
@@ -99,3 +105,6 @@ compilers:
       execstack: "-C link-arg=-Wl,-z,execstack"
       pie: "-C relocation-model=pic -C link-arg=-pie"
       no_pie: "-C relocation-model=static -C link-arg=-no-pie"
+      # Multi-flag cell: the paper's recommended hardening baseline for
+      # security-critical Rust builds (see the g++ comment).
+      hardening_baseline: "-Z stack-protector=strong -C link-arg=-Wl,-z,relro,-z,now"
