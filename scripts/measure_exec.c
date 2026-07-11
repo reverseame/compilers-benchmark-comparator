@@ -84,16 +84,32 @@ static long long rapl_delta(const char *dir, long long before, long long after) 
  * /rapl fallback exists because Docker's sysfs lists /sys/class/powercap
  * entries without materializing their targets, so campaigns bind-mount the
  * host's /sys/devices/virtual/powercap at /rapl instead. */
-static char rapl_pkg[64], rapl_cores[64];
+static char rapl_pkg[96], rapl_cores[96];
 
+/* /sys/class/powercap exposes every zone as a flat symlink
+ * (intel-rapl:0, intel-rapl:0:0, ...); the devices tree that campaigns
+ * bind-mount at /rapl nests them (intel-rapl/intel-rapl:0/intel-rapl:0:0).
+ * Probe both layouts, and both locations for the cores subdomain. */
 static void rapl_locate(void) {
     const char *roots[] = {"/sys/class/powercap", "/rapl"};
+    const char *subs[] = {"", "/intel-rapl"};
     for (unsigned i = 0; i < sizeof(roots) / sizeof(roots[0]); i++) {
-        char probe[96];
-        snprintf(probe, sizeof(probe), "%s/intel-rapl:0/energy_uj", roots[i]);
-        if (access(probe, R_OK) == 0) {
-            snprintf(rapl_pkg, sizeof(rapl_pkg), "%s/intel-rapl:0", roots[i]);
-            snprintf(rapl_cores, sizeof(rapl_cores), "%s/intel-rapl:0:0", roots[i]);
+        for (unsigned j = 0; j < sizeof(subs) / sizeof(subs[0]); j++) {
+            char probe[128];
+            snprintf(probe, sizeof(probe), "%s%s/intel-rapl:0/energy_uj",
+                     roots[i], subs[j]);
+            if (access(probe, R_OK) != 0)
+                continue;
+            snprintf(rapl_pkg, sizeof(rapl_pkg), "%s%s/intel-rapl:0",
+                     roots[i], subs[j]);
+            snprintf(probe, sizeof(probe), "%s/intel-rapl:0:0/energy_uj",
+                     rapl_pkg);
+            if (access(probe, R_OK) == 0)
+                snprintf(rapl_cores, sizeof(rapl_cores),
+                         "%s/intel-rapl:0:0", rapl_pkg);
+            else
+                snprintf(rapl_cores, sizeof(rapl_cores),
+                         "%s%s/intel-rapl:0:0", roots[i], subs[j]);
             return;
         }
     }

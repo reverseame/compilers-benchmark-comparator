@@ -284,7 +284,8 @@ def capture_environment(args):
     # Docker's sysfs does not materialize /sys/class/powercap targets.
     rapl_ok = any(os.access(p, os.R_OK) for p in
                   ("/sys/class/powercap/intel-rapl:0/energy_uj",
-                   "/rapl/intel-rapl:0/energy_uj"))
+                   "/rapl/intel-rapl:0/energy_uj",
+                   "/rapl/intel-rapl/intel-rapl:0/energy_uj"))
     add(f"rapl_energy: {'readable' if rapl_ok else 'unavailable'}")
     add(f"boost: {read_first('/sys/devices/system/cpu/cpufreq/boost')}")
     add(f"cgroup_cpu_max: {read_first('/sys/fs/cgroup/cpu.max')}")
