@@ -1,10 +1,23 @@
 name: Docker Publish
 
+# Rebuilds only when something that actually enters the image changes:
+# a rebuild moves the :latest digest even if the contents are identical,
+# and the article pins the digest of the campaign image.
 on:
   push:
     branches: [ "main", "master" ]
+    paths:
+      - "Dockerfile.measure"
+      - "scripts/**"
+      - "config/**"
+      - "programs/**"
   pull_request:
     branches: [ "main", "master" ]
+    paths:
+      - "Dockerfile.measure"
+      - "scripts/**"
+      - "config/**"
+      - "programs/**"
   workflow_dispatch:
 
 env:
