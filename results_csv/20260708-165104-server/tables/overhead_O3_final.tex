@@ -1,0 +1,10 @@
+\begin{tabular*}{\columnwidth}{@{\extracolsep\fill}lccc@{\extracolsep\fill}}
+\toprule
+\textbf{Flag} & \textbf{Clang} & \textbf{GCC} & \textbf{Rustc} \\
+\midrule
+\texttt{stack\_protector\_strong} & 91.34$\to$90.26 & 90.40$\to$91.16 & 121.56$\to$102.61 \\
+\texttt{fortify2} & 91.34$\to$63.93 & 90.40$\to$68.98 & N/A \\
+\texttt{asan} & 91.34$\to$362.29 & 90.40$\to$421.57 & 121.56$\to$227.71 \\
+\texttt{msan} & 91.34$\to$557.50 & N/A & N/A \\
+\bottomrule
+\end{tabular*}

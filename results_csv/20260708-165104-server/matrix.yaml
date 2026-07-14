@@ -1,0 +1,97 @@
+# Experimental matrix: compilers x optimization levels x security flags.
+# This file is the single source of truth for the measurement campaign
+# (scripts/campaign.py). Flag ids are canonical across compilers so results
+# can be joined by (program, flag_id) in the analysis.
+
+defaults:
+  reps: 10        # timed repetitions per binary (plus one warmup sweep)
+  warmup: 1
+
+programs:
+  suma:
+    description: "1M-element vector reduction, 200 iterations"
+    expected_output: "13800000000"
+  final:
+    description: "31-byte strcpy into 32-byte buffer, 10M iterations (no overflow)"
+    expected_output: "310000000"
+
+compilers:
+  g++:
+    source_ext: cpp
+    command: "g++ {src} {opt} {flags} -o {out}"
+    opt_levels: ["-O0", "-O1", "-O2", "-O3", "-Os"]
+    security_flags:
+      baseline: ""
+      pie: "-fPIE -pie"
+      no_pie: "-no-pie"
+      fortify1: "-D_FORTIFY_SOURCE=1"
+      fortify2: "-D_FORTIFY_SOURCE=2"
+      fortify_off: "-U_FORTIFY_SOURCE"
+      noexecstack: "-z noexecstack"
+      execstack: "-z execstack"
+      relro_full: "-Wl,-z,relro,-z,now"
+      no_stack_protector: "-fno-stack-protector"
+      stack_protector: "-fstack-protector"
+      stack_protector_strong: "-fstack-protector-strong"
+      stack_protector_all: "-fstack-protector-all"
+      no_plt: "-fno-plt"
+      asan: "-fsanitize=address"
+      ubsan: "-fsanitize=undefined"
+
+  clang++:
+    source_ext: cpp
+    command: "clang++ {src} {opt} {flags} -o {out}"
+    opt_levels: ["-O0", "-O1", "-O2", "-O3", "-Ofast", "-Os", "-Oz"]
+    security_flags:
+      baseline: ""
+      pie: "-fPIE -pie"
+      no_pie: "-no-pie"
+      fortify1: "-D_FORTIFY_SOURCE=1"
+      fortify2: "-D_FORTIFY_SOURCE=2"
+      fortify_off: "-D_FORTIFY_SOURCE=0"
+      noexecstack: "-z noexecstack"
+      execstack: "-Wl,-z,execstack"
+      relro_full: "-Wl,-z,relro,-z,now"
+      no_stack_protector: "-fno-stack-protector"
+      stack_protector: "-fstack-protector"
+      stack_protector_strong: "-fstack-protector-strong"
+      stack_protector_all: "-fstack-protector-all"
+      no_plt: "-fno-plt"
+      asan: "-fsanitize=address"
+      ubsan: "-fsanitize=undefined"
+      # MSan needs an instrumented C++ standard library to avoid false
+      # positives; runs are recorded with their exit status either way.
+      msan: "-fsanitize=memory"
+      safe_stack: "-fsanitize=safe-stack"
+      lto: "-flto"
+
+  rustc:
+    source_ext: rs
+    command: "rustc --edition 2021 {src} {opt} {flags} -o {out}"
+    opt_levels:
+      - "-C opt-level=0"
+      - "-C opt-level=1"
+      - "-C opt-level=2"
+      - "-C opt-level=3"
+      - "-C opt-level=s"
+      - "-C opt-level=z"
+    security_flags:
+      baseline: ""
+      overflow_checks: "-C overflow-checks=on"
+      debug_assertions: "-C debug-assertions=on"
+      panic_abort: "-C panic=abort"
+      lto: "-C lto"
+      lto_thin: "-C lto=thin"
+      asan: "-Z sanitizer=address"
+      # MSan without -Zbuild-std produces false positives (uninstrumented std);
+      # kept in the matrix so the failure is recorded explicitly.
+      msan: "-Z sanitizer=memory"
+      lsan: "-Z sanitizer=leak"
+      relro_full: "-C link-arg=-Wl,-z,relro,-z,now"
+      stack_protector_none: "-Z stack-protector=none"
+      stack_protector: "-Z stack-protector=basic"
+      stack_protector_strong: "-Z stack-protector=strong"
+      noexecstack: "-C link-arg=-Wl,-z,noexecstack"
+      execstack: "-C link-arg=-Wl,-z,execstack"
+      pie: "-C relocation-model=pic -C link-arg=-pie"
+      no_pie: "-C relocation-model=static -C link-arg=-no-pie"

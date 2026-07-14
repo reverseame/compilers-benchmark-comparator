@@ -1,0 +1,46 @@
+valid timed executions: 49050
+cells with measurements: 981
+EXCLUDED executions (crash/wrong output): 0
+compile failures: 18
+  no-compile: rustc suma -C opt-level=0 msan
+  no-compile: rustc suma -C opt-level=1 msan
+  no-compile: rustc suma -C opt-level=2 msan
+  no-compile: rustc suma -C opt-level=3 msan
+  no-compile: rustc suma -C opt-level=s msan
+  no-compile: rustc suma -C opt-level=z msan
+  no-compile: rustc final -C opt-level=0 msan
+  no-compile: rustc final -C opt-level=1 msan
+  no-compile: rustc final -C opt-level=2 msan
+  no-compile: rustc final -C opt-level=3 msan
+  no-compile: rustc final -C opt-level=s msan
+  no-compile: rustc final -C opt-level=z msan
+  no-compile: rustc startup -C opt-level=0 msan
+  no-compile: rustc startup -C opt-level=1 msan
+  no-compile: rustc startup -C opt-level=2 msan
+  no-compile: rustc startup -C opt-level=3 msan
+  no-compile: rustc startup -C opt-level=s msan
+  no-compile: rustc startup -C opt-level=z msan
+
+== final ==
+Clang: baseline@O3 255.17 ms; worst flag msan = 1439.05 ms (5.64x)
+GCC: baseline@O3 248.47 ms; worst flag asan = 1165.90 ms (4.69x)
+Rustc: baseline@O3 209.23 ms; worst flag asan = 405.09 ms (1.94x)
+Clang: ASan RSS 10804 KB vs 3804 KB (2.8x)
+GCC: ASan RSS 12000 KB vs 1588 KB (7.6x)
+Rustc: ASan RSS 8436 KB vs 2076 KB (4.1x)
+
+== startup ==
+Clang: baseline@O3 1.20 ms; worst flag asan = 18.87 ms (15.75x)
+GCC: baseline@O3 0.52 ms; worst flag asan = 14.70 ms (28.25x)
+Rustc: baseline@O3 0.72 ms; worst flag asan = 28.01 ms (38.74x)
+Clang: ASan RSS 11512 KB vs 3580 KB (3.2x)
+GCC: ASan RSS 10408 KB vs 1372 KB (7.6x)
+Rustc: ASan RSS 10036 KB vs 2082 KB (4.8x)
+
+== suma ==
+Clang: baseline@O3 56.59 ms; worst flag ubsan = 358.06 ms (6.33x)
+GCC: baseline@O3 44.22 ms; worst flag ubsan = 416.81 ms (9.43x)
+Rustc: baseline@O3 50.65 ms; worst flag asan = 166.11 ms (3.28x)
+Clang: ASan RSS 16140 KB vs 6858 KB (2.4x)
+GCC: ASan RSS 16206 KB vs 6896 KB (2.4x)
+Rustc: ASan RSS 12854 KB vs 5774 KB (2.2x)
