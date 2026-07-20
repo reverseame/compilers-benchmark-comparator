@@ -104,6 +104,7 @@ compilers:
       stack_protector_none: "-Z stack-protector=none"
       stack_protector: "-Z stack-protector=basic"
       stack_protector_strong: "-Z stack-protector=strong"
+      stack_protector_all: "-Z stack-protector=all"
       noexecstack: "-C link-arg=-Wl,-z,noexecstack"
       execstack: "-C link-arg=-Wl,-z,execstack"
       pie: "-C relocation-model=pic -C link-arg=-pie"
