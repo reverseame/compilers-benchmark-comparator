@@ -1,0 +1,42 @@
+# Supplementary sweep: Rustc stack-protector variants INCLUDING `all`,
+# which the canonical matrix (config/matrix.yaml) does not evaluate.
+# Measured together with its own baseline so ratios are computed within
+# this campaign (frequency-ramp rule; see the article, Section 6).
+# The none/basic/strong cells duplicate the canonical campaign on purpose:
+# they double as a reproducibility check against 20260711-061031.
+#
+# Same protocol as the canonical campaign: SMT sibling of the pinned core
+# offline, governor performance, turbo off, --reps 50.
+
+defaults:
+  reps: 50
+  warmup: 1
+
+programs:
+  suma:
+    description: "1M-element vector reduction, 200 iterations"
+    expected_output: "13800000000"
+  final:
+    description: "31-byte strcpy into 32-byte buffer, 10M iterations (no overflow)"
+    expected_output: "310000000"
+  startup:
+    description: "empty main; measures process startup/teardown"
+    expected_output: "ok"
+
+compilers:
+  rustc:
+    source_ext: rs
+    command: "rustc --edition 2021 {src} {opt} {flags} -o {out}"
+    opt_levels:
+      - "-C opt-level=0"
+      - "-C opt-level=1"
+      - "-C opt-level=2"
+      - "-C opt-level=3"
+      - "-C opt-level=s"
+      - "-C opt-level=z"
+    security_flags:
+      baseline: ""
+      stack_protector_none: "-Z stack-protector=none"
+      stack_protector: "-Z stack-protector=basic"
+      stack_protector_strong: "-Z stack-protector=strong"
+      stack_protector_all: "-Z stack-protector=all"
