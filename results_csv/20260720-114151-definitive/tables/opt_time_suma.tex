@@ -1,0 +1,13 @@
+\begin{tabular*}{\columnwidth}{@{\extracolsep\fill}cccc@{\extracolsep\fill}}
+\toprule
+\textbf{Level} & \textbf{Clang} & \textbf{GCC} & \textbf{Rustc} \\
+\midrule
+\texttt{-O0} & 1781.65 & 1747.90 & 5245.77 \\
+\texttt{-O1} & 121.25 (-93\%) & 85.82 (-95\%) & 166.84 (-97\%) \\
+\texttt{-O2} & 56.59 (-97\%) & 44.28 (-97\%) & 50.73 (-99\%) \\
+\texttt{-O3} & 56.59 (-97\%) & 44.25 (-97\%) & 50.67 (-99\%) \\
+\texttt{-Os} & 67.90 (-96\%) & 94.49 (-95\%) & 120.85 (-98\%) \\
+\texttt{-Oz} & 88.94 (-95\%) & N/A & 120.90 (-98\%) \\
+\texttt{-Ofast} & 56.85 (-97\%) & N/A & N/A \\
+\bottomrule
+\end{tabular*}

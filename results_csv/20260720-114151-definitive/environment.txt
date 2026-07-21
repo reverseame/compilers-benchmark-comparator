@@ -1,0 +1,25 @@
+date_utc: 2026-07-20T11:41:51Z
+uname: Linux b5af4304ebda 6.1.0-49-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.174-1 (2026-05-26) x86_64
+in_container: True
+os_release: Debian GNU/Linux 13 (trixie)
+cpu_model: Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz
+nproc: 7
+cpu_affinity: [3]
+governor: performance
+intel_no_turbo: 1
+smt_control: on
+cpus_online: 0-6
+perf_event_paranoid: 1
+rapl_energy: readable
+boost: unavailable
+cgroup_cpu_max: max 100000
+meminfo: MemTotal:       32742812 kB
+getconf_GNU_LIBC_VERSION: glibc 2.41
+g++: g++ (Debian 14.2.0-19) 14.2.0
+clang++: Debian clang version 19.1.7 (3+b1)
+rustc: rustc 1.98.0-nightly (096694416 2026-06-29)
+checksec: checksec v2.6.0, Brian Davis, github.com/slimm609/checksec.sh, Dec 2015
+python3: Python 3.13.5
+libc6_package: libc6:amd64	2.41-12+deb13u3
+libc_so_sha256: fa430b8f298f817a266046af84a77533185ad6fc4406c7d3787b5a0a0c207826  /lib/x86_64-linux-gnu/libc.so.6
+campaign_args: {'matrix': 'config/matrix.yaml', 'reps': 50, 'programs': '', 'compilers': '', 'out': 'results_csv', 'cpu': None, 'keep_binaries': True}
