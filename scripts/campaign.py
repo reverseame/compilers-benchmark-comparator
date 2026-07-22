@@ -137,7 +137,7 @@ def compile_cell(cell, matrix, src_dir, bin_dir):
     if ru is not None:
         cell.compile_user_s = round(ru.ru_utime, 3)
         cell.compile_sys_s = round(ru.ru_stime, 3)
-        cell.compile_max_rss_kb = ru.ru_maxrss  # KB on Linux
+        cell.compile_max_rss_kb = ru.ru_maxrss  # KiB on Linux
     if cell.compile_ok:
         inspect_binary(cell)
     return cell
@@ -220,7 +220,7 @@ def run_once(cell, wrapper):
     output_ok = int(exit_code == 0 and stdout == cell.expected_output)
     return {"wall_s": round(float(wall), 6),
             "user_s": float(user), "sys_s": float(sys_t),
-            "max_rss_kb": int(rss),   # KB on Linux
+            "max_rss_kb": int(rss),   # KiB on Linux
             "exit_code": exit_code if exit_code >= 0 else "",
             "term_signal": sig if sig else "",
             "output_ok": output_ok, "spawn_error": "",

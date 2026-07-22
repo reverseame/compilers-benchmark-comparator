@@ -308,7 +308,7 @@ def fig_size(binaries, program, outdir):
     ax.set_yticks(range(len(flags)), [code(f) for f in flags])
     ax.invert_yaxis()
     ax.set_xscale("log")
-    ax.set_xlabel("Stripped binary size at -O3 (KB, log scale)")
+    ax.set_xlabel("Stripped binary size at -O3 (KiB, log scale)")
     ax.legend(frameon=False, fontsize=8)
     save(fig, outdir, f"size_{program}.pdf")
 

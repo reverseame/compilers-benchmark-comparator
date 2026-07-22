@@ -179,7 +179,7 @@ def summary(runs, excluded, binaries, programs):
             b = mean_rss(runs, (c, prog, O3[c], "baseline"))
             a = mean_rss(runs, (c, prog, O3[c], "asan"))
             if b and a:
-                out.append(f"{COMP_LABEL[c]}: ASan RSS {a:.0f} KB vs {b:.0f} KB "
+                out.append(f"{COMP_LABEL[c]}: ASan RSS {a:.0f} KiB vs {b:.0f} KiB "
                            f"({a / b:.1f}x)")
     return "\n".join(out) + "\n"
 
