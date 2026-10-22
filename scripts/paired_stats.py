@@ -11,6 +11,10 @@ The script also uses the cells whose binary is byte-identical to its baseline
 (same SHA-256) as an A/A control: any difference they show is measurement
 noise or run-order position, never a flag effect.
 
+When runs.csv has a position column (campaign.py --order rotate|random),
+the script also reports the run-order effect: the median deviation of each
+execution from its cell's median, by position decile within the sweep.
+
 Only valid measurements are used: is_warmup == 0 and output_ok == 1.
 
 Usage:
@@ -47,16 +51,19 @@ EXCLUDED = {("clang++", "suma", "-O2", "no_pie"),
 
 def load(results_dir):
     runs = defaultdict(dict)  # key -> {sweep: wall_s}
+    positions = {}            # (key, sweep) -> position within the sweep
     with open(results_dir / "runs.csv") as f:
         for row in csv.DictReader(f):
             if row["is_warmup"] == "1" or row["output_ok"] != "1":
                 continue
             key = (row["compiler"], row["program"], row["opt"], row["flag_id"])
             runs[key][int(row["sweep"])] = float(row["wall_s"])
+            if row.get("position"):
+                positions[(key, int(row["sweep"]))] = int(row["position"])
     with open(results_dir / "binaries.csv") as f:
         binaries = {(r["compiler"], r["program"], r["opt"], r["flag_id"]): r
                     for r in csv.DictReader(f)}
-    return runs, binaries
+    return runs, binaries, positions
 
 
 def paired_quantiles(cell, base, rng, resamples, qs):
@@ -81,7 +88,7 @@ def main():
                     help="resamples for the Bonferroni family bound "
                          "(default: 40000)")
     args = ap.parse_args()
-    runs, binaries = load(args.results_dir)
+    runs, binaries, positions = load(args.results_dir)
     rng = random.Random(SEED)
     out = []
 
@@ -149,21 +156,25 @@ def main():
     out.append(f"\n== Classical defenses, release levels, loop programs: "
                f"{len(sel)} cells ({len(sel) - len(differ)} byte-identical "
                f"to baseline, {len(differ)} different binaries)")
-    ratios = [float(by_key[k]["ratio"]) for k in sel]
-    out.append(f"ratio of medians: [{min(ratios):.4f}, {max(ratios):.4f}]")
-    for name, group in (("all cells", sel), ("different binaries", differ)):
-        hi = max((float(by_key[k]["paired_ci95_hi"]), k)
-                 for k in group)
-        out.append(f"max pointwise paired 95% upper limit, {name}: "
-                   f"{hi[0]:.4f} {hi[1]}")
-    m = len(differ)
-    q = 1 - 0.05 / m
-    fam = max((paired_quantiles(runs[k], runs[base_of(k)], rng,
-                                args.family_resamples, (q,))[0], k)
-              for k in differ)
-    out.append(f"Bonferroni one-sided simultaneous 95% upper limit over the "
-               f"{m} different binaries (quantile {q:.5f}, "
-               f"{args.family_resamples} resamples): {fam[0]:.4f} {fam[1]}")
+    # absent in subset campaigns (e.g. --programs startup)
+    if differ:
+        ratios = [float(by_key[k]["ratio"]) for k in sel]
+        out.append(f"ratio of medians: [{min(ratios):.4f}, "
+                   f"{max(ratios):.4f}]")
+        for name, group in (("all cells", sel),
+                            ("different binaries", differ)):
+            hi = max((float(by_key[k]["paired_ci95_hi"]), k)
+                     for k in group)
+            out.append(f"max pointwise paired 95% upper limit, {name}: "
+                       f"{hi[0]:.4f} {hi[1]}")
+        m = len(differ)
+        q = 1 - 0.05 / m
+        fam = max((paired_quantiles(runs[k], runs[base_of(k)], rng,
+                                    args.family_resamples, (q,))[0], k)
+                  for k in differ)
+        out.append(f"Bonferroni one-sided simultaneous 95% upper limit "
+                   f"over the {m} different binaries (quantile {q:.5f}, "
+                   f"{args.family_resamples} resamples): {fam[0]:.4f} {fam[1]}")
 
     # ---- A/A control ------------------------------------------------------
     out.append("\n== A/A control: byte-identical cells, all levels")
@@ -196,6 +207,27 @@ def main():
             ds = [float(by_key[k]["delta_us"]) for k in rel]
             out.append(f"{'':8s} release levels only: n={len(rel)} "
                        f"delta_us [{min(ds):.0f}, {max(ds):.0f}]")
+
+    # ---- run-order position (non-fixed order only) -----------------------
+    if any(len({positions.get((k, sw)) for sw in runs[k]}) > 1
+           for k in runs):
+        out.append("\n== Run-order position: median deviation from the cell "
+                   "median (%), by position decile within the sweep")
+        span = max(positions.values()) + 1
+        for prog in ("suma", "final", "startup"):
+            dev = defaultdict(list)
+            for k in runs:
+                if k[1] != prog:
+                    continue
+                med = statistics.median(runs[k].values())
+                for sw, t in runs[k].items():
+                    if (k, sw) in positions:
+                        dev[positions[(k, sw)] * 10 // span].append(
+                            (t / med - 1) * 100)
+            if dev:
+                out.append(f"{prog:8s} " + " ".join(
+                    f"{statistics.median(dev[d]):+.2f}" if dev[d] else "  n/a"
+                    for d in range(10)))
 
     text = "\n".join(out) + "\n"
     (tables / "paired_stats.txt").write_text(text)

@@ -6,7 +6,8 @@ Replaces the per-compiler shell scripts with a single orchestrator that:
   * reads the experimental matrix from a YAML file (compilers x optimization
     levels x security flags x programs);
   * compiles every cell (in parallel: compilation does not affect timing);
-  * runs every binary serially, N repetitions plus a warmup sweep, recording
+  * runs every binary serially, N repetitions plus a warmup sweep, in a
+    fixed, rotated or seeded-random order within each sweep, recording
     EVERY repetition individually (no aggregation) together with its exit
     status, so failed executions can never masquerade as measurements;
   * measures wall time (CLOCK_MONOTONIC), user/sys CPU time and peak RSS of
@@ -23,6 +24,7 @@ Usage:
   python3 scripts/campaign.py --matrix config/matrix.yaml [--reps 10]
       [--programs suma,final] [--compilers g++,clang++,rustc]
       [--out results_csv] [--cpu N] [--keep-binaries]
+      [--order fixed|rotate|random] [--seed N]
 """
 
 import argparse
@@ -31,6 +33,7 @@ import csv
 import hashlib
 import json
 import os
+import random
 import shlex
 import shutil
 import subprocess
@@ -343,6 +346,13 @@ def main():
                     help="pin the campaign (and children) to this CPU")
     ap.add_argument("--keep-binaries", action="store_true",
                     help="keep compiled binaries under the results directory")
+    ap.add_argument("--order", choices=("fixed", "rotate", "random"),
+                    default="fixed",
+                    help="cell order within each sweep: fixed (the same in "
+                         "every sweep), rotate (start offset shifted evenly "
+                         "across sweeps), random (shuffled per sweep)")
+    ap.add_argument("--seed", type=int, default=20260708,
+                    help="seed for --order random")
     args = ap.parse_args()
 
     # Progress must be visible under `docker run`/`docker logs`, where stdout
@@ -407,26 +417,36 @@ def main():
 
     # ---- Phase 2: serial measurement, sweep-major order -------------------
     runnable = [c for c in cells if c.compile_ok]
+    rng = random.Random(args.seed)
     runs_path = out_dir / "runs.csv"
     bad_runs = 0
     with open(runs_path, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["compiler", "program", "opt", "flag_id", "sweep",
-                    "is_warmup", "wall_s", "user_s", "sys_s", "max_rss_kb",
-                    "exit_code", "term_signal", "output_ok",
+                    "position", "is_warmup", "wall_s", "user_s", "sys_s",
+                    "max_rss_kb", "exit_code", "term_signal", "output_ok",
                     *EXTRA_FIELDS, "epoch_s", "error"])
         total_sweeps = warmups + reps
         for sweep in range(total_sweeps):
             is_warmup = int(sweep < warmups)
             label = "warmup" if is_warmup else f"rep {sweep - warmups + 1}/{reps}"
             print(f"[campaign] sweep {sweep + 1}/{total_sweeps} ({label})")
-            for c in runnable:
+            # position = index of the execution within its sweep, so a
+            # non-fixed order can be used to estimate run-order effects
+            order = runnable
+            if args.order == "rotate":
+                k = sweep * len(runnable) // total_sweeps
+                order = runnable[k:] + runnable[:k]
+            elif args.order == "random":
+                order = runnable[:]
+                rng.shuffle(order)
+            for position, c in enumerate(order):
                 m = run_once(c, wrapper)
                 if not is_warmup and not m["output_ok"]:
                     bad_runs += 1
                 w.writerow([c.compiler, c.program, c.opt, c.flag_id, sweep,
-                            is_warmup, m["wall_s"], m["user_s"], m["sys_s"],
-                            m["max_rss_kb"], m["exit_code"], m["term_signal"],
+                            position, is_warmup, m["wall_s"], m["user_s"],
+                            m["sys_s"], m["max_rss_kb"], m["exit_code"], m["term_signal"],
                             m["output_ok"],
                             *[m[k] for k in EXTRA_FIELDS],
                             int(time.time()), m.get("spawn_error", "")])

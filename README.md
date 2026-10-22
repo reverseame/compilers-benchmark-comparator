@@ -27,6 +27,10 @@ the accompanying research article.
 - **scripts/rapl_window_check.c**: instrumented copy of the published
   `measure_exec.c` that measures how far the RAPL window extends beyond the
   wall-clock window — see "Energy window".
+- **scripts/smt_stalls.sh**, **scripts/smt_stalls.py** and
+  **scripts/count_events.c**: store-buffer stall counters with the
+  measurement core's SMT sibling offline and online — see "SMT state and
+  store-buffer stalls".
 - **config/matrix.yaml**: the experimental matrix (compilers × optimization
   levels × security flags × programs). Single source of truth for the
   campaign.
@@ -44,8 +48,15 @@ The measurement campaign runs through `scripts/campaign.py`:
 - The experimental matrix is defined in **`config/matrix.yaml`**; adding a
   compiler or a flag requires no code changes.
 - Compilations run concurrently (a thread pool), but **timed executions
-  are strictly sequential** and sweep-major (one full pass over all binaries per
-  repetition, so slow drift affects all cells equally).
+  are strictly sequential** and sweep-major (one full pass over all binaries
+  per repetition, so slow drift affects all cells equally).
+- Within each sweep the cells run in a fixed order by default (as in the
+  article's campaign). `--order rotate` shifts the starting cell evenly
+  across sweeps; `--order random` shuffles the cells in every sweep (seeded
+  with `--seed`). Each row of `runs.csv` records its `position` within the
+  sweep, so run-order effects can be estimated (see `paired_stats.py`).
+  `rotate` changes a cell's absolute position but keeps its neighbors;
+  only `random` also breaks neighbor effects.
 - Every execution is recorded **individually** in `runs.csv` (no
   aggregation): wall-clock time (`CLOCK_MONOTONIC`), user/system CPU time,
   peak RSS, page faults, context switches and **exit status** — all from the
@@ -120,8 +131,8 @@ docker run --rm --cpuset-cpus=2,3 --cap-add PERFMON \
 ```
 
 Useful options: `--programs suma,final`, `--compilers g++,clang++,rustc`,
-`--reps N`, `--keep-binaries` (keeps the compiled binaries next to the CSVs
-so they can be archived as an artifact).
+`--reps N`, `--order random --seed N`, `--keep-binaries` (keeps the
+compiled binaries next to the CSVs so they can be archived as an artifact).
 
 Results are written to
 `results_csv/<timestamp>/{runs.csv,binaries.csv,environment.txt,matrix.yaml}`.
@@ -200,6 +211,25 @@ control. It writes `tables/paired_stats.txt` and `tables/paired_cells.csv`;
 run `plot_results.py` first, because the A/A control also reads
 `figures/cell_stats.csv`.
 
+For a campaign run with `--order rotate` or `--order random`, it also
+reports the run-order effect: the median deviation of each execution from
+its cell's median, by position decile within the sweep. With a random order,
+the A/A control no longer confounds a cell's position with its identity.
+To repeat the article's A/A check on `startup` with a random order (the
+published image accepts the newer `campaign.py` mounted over its own):
+
+```sh
+docker run --rm --cpuset-cpus=3 --cap-add PERFMON \
+  --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
+  -v /sys/devices/virtual/powercap:/rapl:ro \
+  -v "$PWD/scripts/campaign.py:/app/scripts/campaign.py:ro" \
+  -v "$PWD/scripts/measure_exec.c:/app/scripts/measure_exec.c:ro" \
+  -v "$PWD/results_csv:/app/results_csv" \
+  compiler-benchmark-measure --programs startup --reps 50 --order random
+python3 scripts/plot_results.py results_csv/<timestamp>
+python3 scripts/paired_stats.py results_csv/<timestamp>
+```
+
 ## Compilation cost
 
 `build_cost.py` repeats the compilations of a subset of the matrix strictly
@@ -225,6 +255,32 @@ In the published campaign, `measure_exec.c` read RAPL before `fork` and after
 its header gives the exact `docker run` invocation. The current
 `measure_exec.c` reads RAPL right before starting the clock, so the two
 windows coincide in future campaigns.
+
+## SMT state and store-buffer stalls
+
+The article attributes the copy workload's slowdown with the pinned core's
+SMT sibling offline to a statically partitioned store buffer, as a
+hypothesis. `smt_stalls.sh` tests it: it alternates the sibling between
+offline and online over several rounds and, in each state, runs
+`smt_stalls.py` inside the image. That script compiles the selected cells
+with `campaign.py`'s own code (the binaries are byte-identical to the
+campaign's) and runs each one through `count_events.c`, which reads cycles,
+instructions, `RESOURCE_STALLS.SB` and `RESOURCE_STALLS.ANY` as one counter
+group. By default it measures `copy` (`final`) with and without
+`_FORTIFY_SOURCE=2` and `sum` as the control, on g++ and clang++ at `-O3`.
+
+```sh
+sudo sysctl kernel.perf_event_paranoid=1      # restore afterwards
+sudo CPU=3 SIBLING=7 ROUNDS=3 REPS=20 scripts/smt_stalls.sh
+```
+
+It must run as root (CPU hotplug) and restores the sibling's state on exit.
+Results go to `results_csv/<timestamp>-smt-stalls/` (`stalls.csv`,
+`binaries.csv`, one `environment-<state>-<round>.txt` per container).
+The hypothesis predicts many more store-buffer stalls per cycle on `copy`
+with the sibling offline, and no comparable change on `sum`. The default
+event encodings are for Skylake; pass `--events` to `smt_stalls.py` for
+other microarchitectures.
 
 ## Image used in the article
 
