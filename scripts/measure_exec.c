@@ -22,9 +22,10 @@
  * startup, consistently with wall_s); they need perf_event_paranoid <= 2 or
  * CAP_PERFMON and are printed as -1 when unavailable. The energy fields are
  * Intel RAPL deltas (package and core domains) read around the child's
- * lifetime; they need a readable /sys/class/powercap (root) and are -1 when
- * unavailable. Note that RAPL counts the whole package, not just the
- * benchmark's core.
+ * lifetime, over the same interval as wall_s (from the gate release to
+ * the return of wait4); they need a readable /sys/class/powercap (root) and
+ * are -1 when unavailable. Note that RAPL counts the whole package, not just
+ * the benchmark's core.
  *
  * Wrapper exit code: 0 on success, 125 on internal failure (127 in the child
  * if exec fails, which surfaces as exit_code=127).
@@ -136,8 +137,6 @@ int main(int argc, char **argv) {
     if (pipe(gate) < 0) { perror("pipe"); return 125; }
 
     rapl_locate();
-    long long e_pkg0 = rapl_energy(rapl_pkg);
-    long long e_cor0 = rapl_energy(rapl_cores);
 
     struct timespec t0, t1;
     pid_t pid = fork();
@@ -166,7 +165,11 @@ int main(int argc, char **argv) {
         if (pfds[i] >= 0) ioctl(pfds[i], PERF_EVENT_IOC_ENABLE, 0);
 
     /* the wall clock starts when the gate opens: the child execs only after
-     * this point, so fork and counter-setup overhead stay out of wall_s */
+     * this point, so fork and counter-setup overhead stay out of wall_s.
+     * RAPL is sampled here too, so that the energy interval matches the
+     * wall-clock interval instead of also covering fork and counter setup. */
+    long long e_pkg0 = rapl_energy(rapl_pkg);
+    long long e_cor0 = rapl_energy(rapl_cores);
     clock_gettime(CLOCK_MONOTONIC, &t0);
     if (write(gate[1], "x", 1) != 1) { perror("write"); return 125; }
     close(gate[1]);

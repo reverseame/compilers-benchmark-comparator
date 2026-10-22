@@ -1,0 +1,45 @@
+== ELF properties of the empty-flag baselines (checksec)
+clang++  pie=yes nx=yes relro=partial canary=no fortified=0  (21 binaries)
+g++      pie=yes nx=yes relro=partial canary=no fortified=0  (15 binaries)
+rustc    pie=yes nx=yes relro=full canary=no fortified=0  (18 binaries)
+
+== Cells byte-identical to their same-level baseline
+clang++  fortify1                  15/21
+clang++  fortify2                   9/21
+clang++  fortify_off               21/21
+clang++  no_stack_protector        21/21
+clang++  noexecstack               21/21
+clang++  pie                       21/21
+clang++  stack_protector           14/21
+clang++  stack_protector_strong    12/21
+g++      fortify1                  11/15
+g++      fortify2                   7/15
+g++      fortify_off               15/15
+g++      no_stack_protector        15/15
+g++      noexecstack               15/15
+g++      pie                       15/15
+g++      stack_protector            9/15
+g++      stack_protector_strong     7/15
+rustc    debug_assertions           8/18
+rustc    hardening_baseline         4/18
+rustc    noexecstack               18/18
+rustc    overflow_checks            8/18
+rustc    pie                       18/18
+rustc    relro_full                18/18
+rustc    stack_protector            4/18
+rustc    stack_protector_none      18/18
+rustc    stack_protector_strong     4/18
+
+== Classical defenses, release levels, loop programs: 123 cells (55 byte-identical to baseline, 68 different binaries)
+ratio of medians: [0.9910, 1.0056]
+max pointwise paired 95% upper limit, all cells: 1.0086 ('rustc', 'final', '-C opt-level=3', 'no_pie')
+max pointwise paired 95% upper limit, different binaries: 1.0086 ('rustc', 'final', '-C opt-level=3', 'no_pie')
+Bonferroni one-sided simultaneous 95% upper limit over the 68 different binaries (quantile 0.99926, 40000 resamples): 1.0123 ('rustc', 'final', '-C opt-level=3', 'no_pie')
+
+== A/A control: byte-identical cells, all levels
+suma     n=106 ratio [0.9964, 1.0024] delta_us [-6884, 3054] CI95 excludes 1: paired 5, independent 5
+         release levels only: n=42 delta_us [-87, 88]
+final    n= 78 ratio [0.9990, 1.0016] delta_us [-292, 4934] CI95 excludes 1: paired 1, independent 1
+         release levels only: n=28 delta_us [-94, 114]
+startup  n=144 ratio [0.9146, 1.0383] delta_us [-112, 28] CI95 excludes 1: paired 30, independent 30
+         release levels only: n=58 delta_us [-3, 26]

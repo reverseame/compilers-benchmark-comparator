@@ -297,7 +297,8 @@ def capture_environment(args):
         pass
     for cmd in (["getconf", "GNU_LIBC_VERSION"], ["g++", "--version"],
                 ["clang++", "--version"], ["rustc", "--version"],
-                ["checksec", "--version"], ["python3", "--version"]):
+                ["checksec", "--version"], ["strip", "--version"],
+                ["python3", "--version"]):
         try:
             out = subprocess.run(cmd, capture_output=True, text=True,
                                  timeout=30).stdout.strip().splitlines()

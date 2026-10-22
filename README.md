@@ -18,11 +18,22 @@ the accompanying research article.
   tables and a data-quality summary.
 - **scripts/plot_results.py**: turns a campaign's CSVs into the article's
   figures (PDF), with medians and 95% bootstrap confidence intervals.
+- **scripts/paired_stats.py**: sweep-paired bootstrap, simultaneous
+  (Bonferroni) bound, A/A control on byte-identical binaries, and baseline
+  ELF properties — see "Post-processing".
+- **scripts/build_cost.py**: isolated, repeated measurement of compilation
+  cost (serial builds, several repetitions per cell) — see "Compilation
+  cost".
+- **scripts/rapl_window_check.c**: instrumented copy of the published
+  `measure_exec.c` that measures how far the RAPL window extends beyond the
+  wall-clock window — see "Energy window".
 - **config/matrix.yaml**: the experimental matrix (compilers × optimization
   levels × security flags × programs). Single source of truth for the
   campaign.
 - **programs**: benchmark source programs. Each benchmark exists as a
-  semantically equivalent `.cpp`/`.rs` pair.
+  functionally analogous `.cpp`/`.rs` pair (same algorithm and output; the
+  libraries used and the safety semantics differ, e.g. `copy` calls glibc's
+  `strcpy`/`strlen` in C++ while the Rust search is inlined).
 - **Dockerfile.measure** and **docker-compose.yml**: lean container image for
   running the campaign on a server.
 
@@ -32,8 +43,8 @@ The measurement campaign runs through `scripts/campaign.py`:
 
 - The experimental matrix is defined in **`config/matrix.yaml`**; adding a
   compiler or a flag requires no code changes.
-- Compilation runs in parallel, but **timed executions are strictly
-  sequential** and sweep-major (one full pass over all binaries per
+- Compilations run concurrently (a thread pool), but **timed executions
+  are strictly sequential** and sweep-major (one full pass over all binaries per
   repetition, so slow drift affects all cells equally).
 - Every execution is recorded **individually** in `runs.csv` (no
   aggregation): wall-clock time (`CLOCK_MONOTONIC`), user/system CPU time,
@@ -60,10 +71,16 @@ The measurement campaign runs through `scripts/campaign.py`:
   both were active during a campaign.
 - Compilation cost is recorded per binary in `binaries.csv`
   (`compile_wall_s`, `compile_user_s`, `compile_sys_s`,
-  `compile_max_rss_kb`). Compilations run in parallel, so wall time is
-  contended; user+sys is the robust figure.
-- The corpus includes a `startup` benchmark (empty `main`) that isolates
-  process startup and teardown, which is where PIE and full RELRO
+  `compile_max_rss_kb`). Compilations run concurrently in a thread pool of
+  `os.cpu_count()` workers; when the container is pinned to a single CPU
+  they time-share that CPU, so wall time includes waiting for it and user+sys
+  is the more robust figure. Each cell is compiled once, so these figures
+  are descriptive; `scripts/build_cost.py` provides a repeated measurement.
+- The corpus includes a `startup` benchmark (minimal program) that
+  measures exec-to-exit time: the clock starts after `fork`, just before
+  `execv`, and stops when `wait4` returns, so it covers exec, dynamic
+  loading, initialization, output and termination but not `fork`. This is
+  where PIE and full RELRO
   (`-z now`, eager binding) pay their real cost; the loop benchmarks
   amortize it away.
 - If a binary does not exit 0 with the expected output, the row is flagged
@@ -165,6 +182,58 @@ occasional interference outlier, and the CI makes it visible when two
 configurations are statistically indistinguishable. It also writes
 `figures/cell_stats.csv` with the median and CI of every cell (time and
 RSS), which is the numeric source behind every figure.
+
+### Paired statistics and A/A control
+
+`paired_stats.py` re-analyzes `runs.csv` and `binaries.csv` (standard library
+only, about 90 s); it does not need the container:
+
+```sh
+python3 scripts/paired_stats.py results_csv/20260720-114151-definitive
+```
+
+It resamples each flag cell and its baseline together by sweep (5000
+resamples, seed 20260708), computes a Bonferroni simultaneous bound over the
+classical-defense cells whose binary differs from the baseline, and uses the
+cells that are byte-identical to their baseline (same SHA-256) as an A/A
+control. It writes `tables/paired_stats.txt` and `tables/paired_cells.csv`;
+run `plot_results.py` first, because the A/A control also reads
+`figures/cell_stats.csv`.
+
+## Compilation cost
+
+`build_cost.py` repeats the compilations of a subset of the matrix strictly
+serially, several times per cell, with the cell order shuffled in every
+repetition. It is not copied into the image, so mount it:
+
+```sh
+docker run --rm --cpuset-cpus=3 --entrypoint python3 \
+  -v "$PWD/scripts/build_cost.py:/app/scripts/build_cost.py" \
+  -v "$PWD/results_csv:/app/results_csv" \
+  compiler-benchmark-measure \
+  scripts/build_cost.py --matrix config/matrix.yaml --programs suma --reps 10
+```
+
+Results go to `results_csv/<timestamp>-build/` (`builds.csv`,
+`build_summary.csv`, `environment.txt`).
+
+## Energy window
+
+In the published campaign, `measure_exec.c` read RAPL before `fork` and after
+`wait4`, so the energy window was slightly longer than the wall-clock window.
+`rapl_window_check.c` is that wrapper instrumented to report the difference;
+its header gives the exact `docker run` invocation. The current
+`measure_exec.c` reads RAPL right before starting the clock, so the two
+windows coincide in future campaigns.
+
+## Image used in the article
+
+The article's campaign used the image
+`ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163`,
+built before the RAPL change to `measure_exec.c` and the `strip --version`
+entry in `campaign.py`. Rebuilding `Dockerfile.measure` from a later commit
+produces a different digest; use the digest above to reproduce the published
+data, and mount the newer scripts into it as shown above.
 
 ## Technologies
 
