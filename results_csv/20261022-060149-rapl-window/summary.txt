@@ -1,0 +1,4 @@
+runs: 300 (perf counters on in 300, RAPL on in 300)
+pre_us    median   210.1  p95   219.9
+post_us   median    88.6  p95    96.1
+total_us  median   299.6  p95   321.6

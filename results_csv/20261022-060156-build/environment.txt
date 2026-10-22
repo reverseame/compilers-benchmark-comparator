@@ -1,0 +1,11 @@
+date_utc: 2026-10-22T06:01:56Z
+cpu_affinity: [3]
+nproc: 7
+reps: 10
+seed: 20260708
+g++: g++ (Debian 14.2.0-19) 14.2.0
+clang++: Debian clang version 19.1.7 (3+b1)
+rustc: rustc 1.98.0-nightly (096694416 2026-06-29)
+strip: GNU strip (GNU Binutils for Debian) 2.44
+ld: GNU ld (GNU Binutils for Debian) 2.44
+cpu_model: Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz

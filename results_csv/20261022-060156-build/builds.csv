@@ -1,0 +1,551 @@
+compiler,program,opt,flag_id,rep,ok,wall_s,cpu_s,max_rss_kb
+clang++,suma,-O3,relro_full,0,1,0.8704,0.3782,112928
+g++,suma,-O3,baseline,0,1,0.5986,0.2852,48676
+rustc,suma,-C opt-level=3,no_pie,0,1,1.8089,0.2158,113936
+clang++,suma,-O3,lto,0,1,0.3754,0.3679,110240
+rustc,suma,-C opt-level=3,stack_protector,0,1,0.1754,0.1270,113728
+rustc,suma,-C opt-level=3,msan,0,0,0.0980,0.0371,95128
+clang++,suma,-O3,fortify2,0,1,0.3509,0.3491,114352
+rustc,suma,-C opt-level=3,pie,0,1,0.1212,0.1201,114980
+g++,suma,-O3,stack_protector_strong,0,1,0.2577,0.2574,48696
+clang++,suma,-O3,no_stack_protector,0,1,0.3382,0.3379,113624
+clang++,suma,-O3,no_plt,0,1,0.3378,0.3375,114528
+clang++,suma,-O3,msan,0,1,0.6182,0.5212,114124
+rustc,suma,-C opt-level=3,debug_assertions,0,1,0.1309,0.1268,112468
+clang++,suma,-O3,pie,0,1,0.3378,0.3374,114012
+g++,suma,-O3,noexecstack,0,1,0.2587,0.2584,48692
+g++,suma,-O3,asan,0,1,0.3324,0.2836,49956
+g++,suma,-O3,fortify_off,0,1,0.2585,0.2582,48896
+clang++,suma,-O3,fortify_off,0,1,0.3384,0.3382,114124
+rustc,suma,-C opt-level=3,lsan,0,1,0.1717,0.1303,116840
+rustc,suma,-C opt-level=3,asan,0,1,0.5531,0.1615,112848
+rustc,suma,-C opt-level=3,relro_full,0,1,0.1215,0.1203,116104
+g++,suma,-O3,stack_protector,0,1,0.2593,0.2590,48864
+g++,suma,-O3,relro_full,0,1,0.2589,0.2586,48820
+clang++,suma,-O3,baseline,0,1,0.3392,0.3389,114480
+rustc,suma,-C opt-level=3,stack_protector_strong,0,1,0.1559,0.1212,116324
+clang++,suma,-O3,stack_protector_all,0,1,0.3390,0.3386,113948
+clang++,suma,-O3,execstack,0,1,0.3369,0.3366,114480
+rustc,suma,-C opt-level=3,panic_abort,0,1,0.1583,0.1205,116268
+clang++,suma,-O3,no_pie,0,1,0.3369,0.3358,114172
+rustc,suma,-C opt-level=3,lto_thin,0,1,4.6042,4.5405,182240
+clang++,suma,-O3,hardening_baseline,0,1,0.3482,0.3478,113876
+rustc,suma,-C opt-level=3,overflow_checks,0,1,0.1205,0.1193,116800
+g++,suma,-O3,execstack,0,1,0.2602,0.2598,48864
+g++,suma,-O3,fortify2,0,1,0.2647,0.2638,49200
+clang++,suma,-O3,fortify1,0,1,0.3420,0.3417,114528
+g++,suma,-O3,no_stack_protector,0,1,0.2587,0.2584,48840
+clang++,suma,-O3,asan,0,1,0.6950,0.5522,114696
+clang++,suma,-O3,stack_protector_strong,0,1,0.3362,0.3359,114236
+g++,suma,-O3,stack_protector_all,0,1,0.2990,0.2615,49476
+rustc,suma,-C opt-level=3,noexecstack,0,1,0.1222,0.1203,116572
+rustc,suma,-C opt-level=3,stack_protector_none,0,1,0.1213,0.1201,116164
+clang++,suma,-O3,ubsan,0,1,0.4963,0.4568,114220
+g++,suma,-O3,ubsan,0,1,0.2928,0.2849,50708
+g++,suma,-O3,no_plt,0,1,0.2602,0.2599,48972
+rustc,suma,-C opt-level=3,lto,0,1,3.6058,3.5913,185416
+g++,suma,-O3,pie,0,1,0.2638,0.2634,48820
+g++,suma,-O3,hardening_baseline,0,1,0.2651,0.2648,49244
+rustc,suma,-C opt-level=3,baseline,0,1,0.1212,0.1207,113680
+clang++,suma,-O3,noexecstack,0,1,0.3382,0.3379,114228
+g++,suma,-O3,fortify1,0,1,0.2619,0.2617,49136
+clang++,suma,-O3,stack_protector,0,1,0.3388,0.3385,114316
+rustc,suma,-C opt-level=3,hardening_baseline,0,1,0.1216,0.1210,116384
+clang++,suma,-O3,safe_stack,0,1,0.3721,0.3383,114324
+rustc,suma,-C opt-level=3,execstack,0,1,0.1207,0.1203,114980
+g++,suma,-O3,no_pie,0,1,0.2564,0.2561,48780
+rustc,suma,-C opt-level=3,asan,1,1,0.1527,0.1523,114316
+g++,suma,-O3,stack_protector,1,1,0.2587,0.2583,48880
+g++,suma,-O3,stack_protector_all,1,1,0.2584,0.2580,49456
+g++,suma,-O3,no_pie,1,1,0.2573,0.2571,48756
+rustc,suma,-C opt-level=3,panic_abort,1,1,0.1201,0.1197,116740
+g++,suma,-O3,fortify2,1,1,0.2622,0.2618,49120
+g++,suma,-O3,noexecstack,1,1,0.2609,0.2606,48932
+clang++,suma,-O3,fortify2,1,1,0.3456,0.3453,114412
+g++,suma,-O3,pie,1,1,0.2583,0.2580,48864
+rustc,suma,-C opt-level=3,execstack,1,1,0.1220,0.1215,113780
+rustc,suma,-C opt-level=3,no_pie,1,1,0.1221,0.1215,116304
+g++,suma,-O3,no_plt,1,1,0.2604,0.2600,48940
+g++,suma,-O3,fortify_off,1,1,0.2572,0.2570,48904
+rustc,suma,-C opt-level=3,stack_protector_none,1,1,0.1219,0.1215,113748
+clang++,suma,-O3,msan,1,1,0.5237,0.5213,114740
+rustc,suma,-C opt-level=3,msan,1,0,0.0344,0.0340,91300
+rustc,suma,-C opt-level=3,pie,1,1,0.1219,0.1215,116188
+g++,suma,-O3,stack_protector_strong,1,1,0.2617,0.2614,48876
+rustc,suma,-C opt-level=3,stack_protector_strong,1,1,0.1230,0.1225,115256
+clang++,suma,-O3,ubsan,1,1,0.4527,0.4523,114464
+rustc,suma,-C opt-level=3,stack_protector,1,1,0.1229,0.1224,113796
+clang++,suma,-O3,noexecstack,1,1,0.3365,0.3361,114488
+clang++,suma,-O3,execstack,1,1,0.3361,0.3359,114184
+clang++,suma,-O3,lto,1,1,0.3676,0.3673,110712
+clang++,suma,-O3,relro_full,1,1,0.3368,0.3365,114284
+clang++,suma,-O3,no_pie,1,1,0.3344,0.3341,113852
+clang++,suma,-O3,stack_protector,1,1,0.3366,0.3363,114276
+clang++,suma,-O3,stack_protector_all,1,1,0.3353,0.3350,114472
+rustc,suma,-C opt-level=3,debug_assertions,1,1,0.1290,0.1284,112632
+rustc,suma,-C opt-level=3,noexecstack,1,1,0.1220,0.1215,116372
+clang++,suma,-O3,hardening_baseline,1,1,0.3460,0.3457,114900
+rustc,suma,-C opt-level=3,hardening_baseline,1,1,0.1229,0.1223,115092
+clang++,suma,-O3,baseline,1,1,0.3373,0.3370,114212
+clang++,suma,-O3,fortify1,1,1,0.3428,0.3397,113916
+clang++,suma,-O3,safe_stack,1,1,0.3381,0.3378,114520
+g++,suma,-O3,no_stack_protector,1,1,0.2593,0.2590,48884
+g++,suma,-O3,relro_full,1,1,0.2578,0.2575,48880
+rustc,suma,-C opt-level=3,lto,1,1,3.5569,3.5561,192660
+g++,suma,-O3,asan,1,1,0.2818,0.2815,50064
+rustc,suma,-C opt-level=3,overflow_checks,1,1,0.1220,0.1216,118492
+g++,suma,-O3,execstack,1,1,0.2633,0.2603,48908
+clang++,suma,-O3,pie,1,1,0.3368,0.3365,114036
+g++,suma,-O3,hardening_baseline,1,1,0.2639,0.2636,49244
+clang++,suma,-O3,fortify_off,1,1,0.3385,0.3382,114632
+rustc,suma,-C opt-level=3,lsan,1,1,0.1310,0.1306,117796
+rustc,suma,-C opt-level=3,lto_thin,1,1,4.5395,4.5384,186644
+clang++,suma,-O3,asan,1,1,0.5465,0.5461,114744
+g++,suma,-O3,fortify1,1,1,0.2621,0.2618,49096
+clang++,suma,-O3,stack_protector_strong,1,1,0.3375,0.3372,114280
+clang++,suma,-O3,no_stack_protector,1,1,0.3370,0.3366,114472
+g++,suma,-O3,ubsan,1,1,0.2855,0.2852,50636
+g++,suma,-O3,baseline,1,1,0.2579,0.2577,48796
+rustc,suma,-C opt-level=3,relro_full,1,1,0.1218,0.1213,116212
+clang++,suma,-O3,no_plt,1,1,0.3357,0.3354,113700
+rustc,suma,-C opt-level=3,baseline,1,1,0.1219,0.1214,116200
+rustc,suma,-C opt-level=3,execstack,2,1,0.1220,0.1215,113684
+g++,suma,-O3,stack_protector_strong,2,1,0.2616,0.2613,48844
+g++,suma,-O3,fortify2,2,1,0.2742,0.2739,49240
+clang++,suma,-O3,safe_stack,2,1,0.3394,0.3391,114760
+clang++,suma,-O3,hardening_baseline,2,1,0.3701,0.3480,115320
+clang++,suma,-O3,fortify2,2,1,0.3754,0.3549,114472
+g++,suma,-O3,no_stack_protector,2,1,0.2656,0.2652,48860
+g++,suma,-O3,asan,2,1,0.2935,0.2932,50004
+clang++,suma,-O3,relro_full,2,1,0.3404,0.3400,114116
+rustc,suma,-C opt-level=3,debug_assertions,2,1,0.1282,0.1278,114968
+rustc,suma,-C opt-level=3,asan,2,1,0.1530,0.1525,114240
+clang++,suma,-O3,fortify1,2,1,0.3420,0.3417,114752
+rustc,suma,-C opt-level=3,stack_protector_strong,2,1,0.1233,0.1228,119160
+g++,suma,-O3,no_pie,2,1,0.2566,0.2563,48728
+rustc,suma,-C opt-level=3,noexecstack,2,1,0.1212,0.1208,117528
+rustc,suma,-C opt-level=3,hardening_baseline,2,1,0.1231,0.1226,117284
+rustc,suma,-C opt-level=3,stack_protector,2,1,0.1234,0.1229,119456
+clang++,suma,-O3,ubsan,2,1,0.4538,0.4534,113956
+g++,suma,-O3,stack_protector_all,2,1,0.2584,0.2580,49472
+g++,suma,-O3,stack_protector,2,1,0.2608,0.2605,48836
+g++,suma,-O3,noexecstack,2,1,0.2588,0.2585,48928
+rustc,suma,-C opt-level=3,overflow_checks,2,1,0.1210,0.1206,115140
+clang++,suma,-O3,asan,2,1,0.5486,0.5482,115116
+g++,suma,-O3,hardening_baseline,2,1,0.2631,0.2628,49248
+rustc,suma,-C opt-level=3,relro_full,2,1,0.1225,0.1221,119172
+rustc,suma,-C opt-level=3,stack_protector_none,2,1,0.1224,0.1219,115016
+clang++,suma,-O3,baseline,2,1,0.3727,0.3379,114584
+clang++,suma,-O3,execstack,2,1,0.3369,0.3366,113668
+g++,suma,-O3,baseline,2,1,0.2637,0.2635,48872
+clang++,suma,-O3,no_pie,2,1,0.3357,0.3354,114044
+clang++,suma,-O3,noexecstack,2,1,0.3357,0.3355,114760
+clang++,suma,-O3,no_plt,2,1,0.3386,0.3383,114236
+rustc,suma,-C opt-level=3,msan,2,0,0.0347,0.0343,90184
+clang++,suma,-O3,pie,2,1,0.3377,0.3374,114464
+g++,suma,-O3,ubsan,2,1,0.2845,0.2842,50728
+g++,suma,-O3,fortify_off,2,1,0.2576,0.2573,48880
+rustc,suma,-C opt-level=3,pie,2,1,0.1221,0.1216,116196
+g++,suma,-O3,relro_full,2,1,0.2599,0.2596,48840
+clang++,suma,-O3,fortify_off,2,1,0.3382,0.3379,114516
+rustc,suma,-C opt-level=3,lto,2,1,3.5427,3.5419,192384
+rustc,suma,-C opt-level=3,no_pie,2,1,0.1226,0.1219,114988
+clang++,suma,-O3,no_stack_protector,2,1,0.3358,0.3355,114216
+rustc,suma,-C opt-level=3,lto_thin,2,1,4.5312,4.5301,186240
+rustc,suma,-C opt-level=3,baseline,2,1,0.1219,0.1214,116372
+g++,suma,-O3,fortify1,2,1,0.2627,0.2623,49216
+g++,suma,-O3,no_plt,2,1,0.2586,0.2583,48932
+clang++,suma,-O3,stack_protector_all,2,1,0.3373,0.3370,114488
+g++,suma,-O3,execstack,2,1,0.2588,0.2585,48820
+rustc,suma,-C opt-level=3,lsan,2,1,0.1303,0.1298,116412
+g++,suma,-O3,pie,2,1,0.2581,0.2577,48840
+clang++,suma,-O3,stack_protector_strong,2,1,0.3376,0.3373,113684
+rustc,suma,-C opt-level=3,panic_abort,2,1,0.1202,0.1198,117808
+clang++,suma,-O3,msan,2,1,0.5216,0.5213,115224
+clang++,suma,-O3,stack_protector,2,1,0.3365,0.3362,114460
+clang++,suma,-O3,lto,2,1,0.3685,0.3682,110508
+rustc,suma,-C opt-level=3,msan,3,0,0.0344,0.0341,91480
+clang++,suma,-O3,safe_stack,3,1,0.3366,0.3363,114328
+g++,suma,-O3,asan,3,1,0.2824,0.2820,50016
+clang++,suma,-O3,execstack,3,1,0.3367,0.3364,114760
+g++,suma,-O3,stack_protector_all,3,1,0.2617,0.2614,49408
+rustc,suma,-C opt-level=3,noexecstack,3,1,0.1219,0.1215,116572
+g++,suma,-O3,hardening_baseline,3,1,0.2624,0.2621,49212
+clang++,suma,-O3,no_pie,3,1,0.3352,0.3349,114324
+g++,suma,-O3,stack_protector,3,1,0.2572,0.2569,48916
+clang++,suma,-O3,no_stack_protector,3,1,0.3365,0.3363,115052
+g++,suma,-O3,fortify1,3,1,0.2625,0.2622,49100
+clang++,suma,-O3,stack_protector_strong,3,1,0.3383,0.3380,115100
+clang++,suma,-O3,msan,3,1,0.5176,0.5173,114152
+g++,suma,-O3,execstack,3,1,0.2605,0.2602,48804
+clang++,suma,-O3,noexecstack,3,1,0.3362,0.3360,114276
+clang++,suma,-O3,ubsan,3,1,0.4533,0.4530,113952
+rustc,suma,-C opt-level=3,stack_protector_strong,3,1,0.1231,0.1225,116392
+g++,suma,-O3,fortify_off,3,1,0.2613,0.2609,48932
+clang++,suma,-O3,stack_protector_all,3,1,0.3453,0.3450,114216
+clang++,suma,-O3,stack_protector,3,1,0.3553,0.3416,114040
+g++,suma,-O3,ubsan,3,1,0.2930,0.2913,50660
+rustc,suma,-C opt-level=3,stack_protector_none,3,1,0.1251,0.1246,117792
+clang++,suma,-O3,hardening_baseline,3,1,0.3541,0.3537,113968
+rustc,suma,-C opt-level=3,asan,3,1,0.1550,0.1545,114776
+rustc,suma,-C opt-level=3,relro_full,3,1,0.1238,0.1233,116204
+clang++,suma,-O3,lto,3,1,0.3707,0.3703,110320
+rustc,suma,-C opt-level=3,execstack,3,1,0.1222,0.1218,113624
+g++,suma,-O3,noexecstack,3,1,0.2584,0.2580,48840
+rustc,suma,-C opt-level=3,overflow_checks,3,1,0.1207,0.1203,116460
+clang++,suma,-O3,relro_full,3,1,0.3383,0.3380,114048
+clang++,suma,-O3,fortify2,3,1,0.3448,0.3445,114376
+g++,suma,-O3,no_plt,3,1,0.2579,0.2575,48848
+rustc,suma,-C opt-level=3,lto,3,1,3.5523,3.5518,194728
+rustc,suma,-C opt-level=3,hardening_baseline,3,1,0.1230,0.1223,113792
+g++,suma,-O3,no_pie,3,1,0.2563,0.2559,48964
+clang++,suma,-O3,baseline,3,1,0.3359,0.3355,114616
+rustc,suma,-C opt-level=3,baseline,3,1,0.1219,0.1215,113716
+g++,suma,-O3,baseline,3,1,0.2578,0.2575,48908
+rustc,suma,-C opt-level=3,debug_assertions,3,1,0.1285,0.1279,115048
+clang++,suma,-O3,fortify1,3,1,0.3382,0.3379,113880
+rustc,suma,-C opt-level=3,stack_protector,3,1,0.1229,0.1224,113832
+clang++,suma,-O3,fortify_off,3,1,0.3385,0.3381,113744
+rustc,suma,-C opt-level=3,lsan,3,1,0.1306,0.1302,116608
+g++,suma,-O3,relro_full,3,1,0.2576,0.2573,48856
+rustc,suma,-C opt-level=3,lto_thin,3,1,4.5333,4.5322,189752
+g++,suma,-O3,pie,3,1,0.2616,0.2612,48804
+clang++,suma,-O3,no_plt,3,1,0.3397,0.3366,115116
+clang++,suma,-O3,asan,3,1,0.5456,0.5453,114188
+g++,suma,-O3,fortify2,3,1,0.2662,0.2659,49176
+g++,suma,-O3,stack_protector_strong,3,1,0.2585,0.2582,48744
+rustc,suma,-C opt-level=3,pie,3,1,0.1221,0.1216,113812
+rustc,suma,-C opt-level=3,panic_abort,3,1,0.1204,0.1199,117820
+g++,suma,-O3,no_stack_protector,3,1,0.2588,0.2585,48824
+clang++,suma,-O3,pie,3,1,0.3371,0.3368,114224
+rustc,suma,-C opt-level=3,no_pie,3,1,0.1220,0.1215,114940
+clang++,suma,-O3,baseline,4,1,0.3359,0.3355,114516
+rustc,suma,-C opt-level=3,overflow_checks,4,1,0.1208,0.1204,116640
+g++,suma,-O3,asan,4,1,0.2818,0.2814,50008
+clang++,suma,-O3,ubsan,4,1,0.4521,0.4517,114236
+clang++,suma,-O3,noexecstack,4,1,0.3368,0.3365,114700
+g++,suma,-O3,stack_protector_all,4,1,0.2595,0.2592,49500
+clang++,suma,-O3,relro_full,4,1,0.3356,0.3353,114468
+clang++,suma,-O3,lto,4,1,0.3687,0.3683,110320
+clang++,suma,-O3,safe_stack,4,1,0.3370,0.3367,114480
+rustc,suma,-C opt-level=3,lto,4,1,3.5616,3.5608,193252
+rustc,suma,-C opt-level=3,stack_protector_strong,4,1,0.1230,0.1225,117640
+rustc,suma,-C opt-level=3,msan,4,0,0.0346,0.0343,94892
+g++,suma,-O3,stack_protector_strong,4,1,0.2574,0.2570,48816
+rustc,suma,-C opt-level=3,hardening_baseline,4,1,0.1233,0.1229,118460
+rustc,suma,-C opt-level=3,baseline,4,1,0.1220,0.1216,116140
+clang++,suma,-O3,stack_protector_strong,4,1,0.3374,0.3371,114116
+rustc,suma,-C opt-level=3,panic_abort,4,1,0.1203,0.1199,116764
+g++,suma,-O3,stack_protector,4,1,0.2587,0.2584,48984
+clang++,suma,-O3,asan,4,1,0.5467,0.5464,114728
+rustc,suma,-C opt-level=3,relro_full,4,1,0.1219,0.1215,116276
+rustc,suma,-C opt-level=3,stack_protector,4,1,0.1221,0.1217,116428
+clang++,suma,-O3,no_stack_protector,4,1,0.3373,0.3369,114220
+clang++,suma,-O3,fortify1,4,1,0.3426,0.3423,114752
+clang++,suma,-O3,pie,4,1,0.3373,0.3370,113680
+rustc,suma,-C opt-level=3,debug_assertions,4,1,0.1283,0.1279,114960
+rustc,suma,-C opt-level=3,stack_protector_none,4,1,0.1230,0.1224,116276
+g++,suma,-O3,no_stack_protector,4,1,0.2679,0.2675,48820
+clang++,suma,-O3,fortify_off,4,1,0.3478,0.3400,113784
+g++,suma,-O3,baseline,4,1,0.2705,0.2689,48860
+clang++,suma,-O3,stack_protector_all,4,1,0.3455,0.3451,114752
+rustc,suma,-C opt-level=3,noexecstack,4,1,0.1233,0.1229,116168
+clang++,suma,-O3,msan,4,1,0.5334,0.5330,114232
+g++,suma,-O3,fortify1,4,1,0.2635,0.2632,49080
+clang++,suma,-O3,no_pie,4,1,0.3358,0.3355,114324
+clang++,suma,-O3,execstack,4,1,0.3363,0.3360,114456
+g++,suma,-O3,hardening_baseline,4,1,0.2631,0.2628,49208
+g++,suma,-O3,execstack,4,1,0.2608,0.2606,48944
+g++,suma,-O3,fortify2,4,1,0.2639,0.2636,49184
+g++,suma,-O3,no_plt,4,1,0.2585,0.2582,48896
+clang++,suma,-O3,stack_protector,4,1,0.3414,0.3411,113856
+g++,suma,-O3,fortify_off,4,1,0.2590,0.2587,48840
+clang++,suma,-O3,fortify2,4,1,0.3445,0.3443,114744
+rustc,suma,-C opt-level=3,no_pie,4,1,0.1223,0.1218,113800
+rustc,suma,-C opt-level=3,lsan,4,1,0.1312,0.1306,116592
+rustc,suma,-C opt-level=3,asan,4,1,0.1526,0.1522,114700
+g++,suma,-O3,ubsan,4,1,0.2852,0.2848,50652
+g++,suma,-O3,noexecstack,4,1,0.2584,0.2581,48804
+rustc,suma,-C opt-level=3,execstack,4,1,0.1217,0.1213,117572
+rustc,suma,-C opt-level=3,lto_thin,4,1,4.5451,4.5438,190252
+clang++,suma,-O3,hardening_baseline,4,1,0.3455,0.3451,115324
+rustc,suma,-C opt-level=3,pie,4,1,0.1226,0.1222,118856
+g++,suma,-O3,no_pie,4,1,0.2579,0.2575,48772
+clang++,suma,-O3,no_plt,4,1,0.3373,0.3370,114240
+g++,suma,-O3,relro_full,4,1,0.2590,0.2587,48972
+g++,suma,-O3,pie,4,1,0.2587,0.2584,48996
+g++,suma,-O3,baseline,5,1,0.2596,0.2593,48924
+rustc,suma,-C opt-level=3,execstack,5,1,0.1217,0.1213,116372
+clang++,suma,-O3,msan,5,1,0.5211,0.5208,114676
+clang++,suma,-O3,execstack,5,1,0.3357,0.3354,113688
+clang++,suma,-O3,stack_protector,5,1,0.3401,0.3398,114048
+clang++,suma,-O3,no_stack_protector,5,1,0.3370,0.3366,114508
+clang++,suma,-O3,pie,5,1,0.3388,0.3385,114088
+g++,suma,-O3,stack_protector_strong,5,1,0.2627,0.2624,48848
+clang++,suma,-O3,fortify1,5,1,0.3391,0.3388,114724
+g++,suma,-O3,stack_protector,5,1,0.2590,0.2587,48824
+g++,suma,-O3,execstack,5,1,0.2585,0.2582,48844
+rustc,suma,-C opt-level=3,debug_assertions,5,1,0.1285,0.1281,115120
+rustc,suma,-C opt-level=3,stack_protector_none,5,1,0.1225,0.1219,116160
+rustc,suma,-C opt-level=3,stack_protector_strong,5,1,0.1227,0.1222,116392
+rustc,suma,-C opt-level=3,lsan,5,1,0.1305,0.1300,116660
+rustc,suma,-C opt-level=3,pie,5,1,0.1223,0.1219,119500
+clang++,suma,-O3,lto,5,1,0.3702,0.3687,110944
+g++,suma,-O3,ubsan,5,1,0.2864,0.2861,50784
+rustc,suma,-C opt-level=3,asan,5,1,0.1532,0.1527,114212
+clang++,suma,-O3,fortify_off,5,1,0.3372,0.3368,114320
+clang++,suma,-O3,asan,5,1,0.5503,0.5500,115120
+clang++,suma,-O3,ubsan,5,1,0.4533,0.4530,114580
+g++,suma,-O3,hardening_baseline,5,1,0.2630,0.2627,49264
+g++,suma,-O3,relro_full,5,1,0.2589,0.2586,48920
+rustc,suma,-C opt-level=3,lto_thin,5,1,4.5337,4.5326,188592
+clang++,suma,-O3,safe_stack,5,1,0.3375,0.3371,114492
+g++,suma,-O3,asan,5,1,0.2852,0.2849,50060
+clang++,suma,-O3,noexecstack,5,1,0.3373,0.3370,114332
+rustc,suma,-C opt-level=3,hardening_baseline,5,1,0.1230,0.1225,113860
+rustc,suma,-C opt-level=3,lto,5,1,3.5782,3.5759,192944
+clang++,suma,-O3,fortify2,5,1,0.3560,0.3556,115328
+clang++,suma,-O3,no_plt,5,1,0.3370,0.3367,114456
+clang++,suma,-O3,hardening_baseline,5,1,0.3461,0.3458,114888
+clang++,suma,-O3,baseline,5,1,0.3381,0.3378,114212
+rustc,suma,-C opt-level=3,no_pie,5,1,0.1226,0.1221,117684
+g++,suma,-O3,fortify1,5,1,0.2647,0.2644,49156
+g++,suma,-O3,no_plt,5,1,0.2576,0.2573,48892
+rustc,suma,-C opt-level=3,msan,5,0,0.0344,0.0340,91468
+clang++,suma,-O3,stack_protector_strong,5,1,0.3359,0.3356,113744
+rustc,suma,-C opt-level=3,baseline,5,1,0.1224,0.1219,113736
+clang++,suma,-O3,relro_full,5,1,0.3359,0.3355,113860
+g++,suma,-O3,fortify2,5,1,0.2668,0.2665,49284
+g++,suma,-O3,no_pie,5,1,0.2578,0.2575,48964
+rustc,suma,-C opt-level=3,overflow_checks,5,1,0.1212,0.1207,113920
+clang++,suma,-O3,stack_protector_all,5,1,0.3379,0.3374,114040
+g++,suma,-O3,fortify_off,5,1,0.2600,0.2597,48876
+g++,suma,-O3,pie,5,1,0.2611,0.2608,48960
+g++,suma,-O3,no_stack_protector,5,1,0.2577,0.2574,48920
+rustc,suma,-C opt-level=3,panic_abort,5,1,0.1210,0.1205,114124
+g++,suma,-O3,stack_protector_all,5,1,0.2588,0.2584,49440
+rustc,suma,-C opt-level=3,stack_protector,5,1,0.1225,0.1221,116480
+rustc,suma,-C opt-level=3,noexecstack,5,1,0.1227,0.1222,113720
+rustc,suma,-C opt-level=3,relro_full,5,1,0.1221,0.1216,113660
+g++,suma,-O3,noexecstack,5,1,0.2581,0.2578,48904
+clang++,suma,-O3,no_pie,5,1,0.3352,0.3348,113852
+g++,suma,-O3,execstack,6,1,0.2577,0.2574,48740
+rustc,suma,-C opt-level=3,debug_assertions,6,1,0.1290,0.1286,112676
+clang++,suma,-O3,stack_protector_strong,6,1,0.3385,0.3381,113680
+rustc,suma,-C opt-level=3,baseline,6,1,0.1216,0.1212,116224
+clang++,suma,-O3,asan,6,1,0.5492,0.5489,114688
+clang++,suma,-O3,safe_stack,6,1,0.3370,0.3367,114120
+g++,suma,-O3,fortify_off,6,1,0.2603,0.2600,48852
+g++,suma,-O3,no_stack_protector,6,1,0.2600,0.2597,48840
+g++,suma,-O3,no_plt,6,1,0.2608,0.2605,48928
+g++,suma,-O3,noexecstack,6,1,0.2562,0.2559,48892
+rustc,suma,-C opt-level=3,lsan,6,1,0.1306,0.1302,116800
+clang++,suma,-O3,stack_protector_all,6,1,0.3380,0.3376,114228
+rustc,suma,-C opt-level=3,panic_abort,6,1,0.1206,0.1202,116788
+g++,suma,-O3,fortify1,6,1,0.2624,0.2620,49264
+clang++,suma,-O3,lto,6,1,0.3670,0.3667,110932
+clang++,suma,-O3,fortify1,6,1,0.3414,0.3410,115332
+clang++,suma,-O3,msan,6,1,0.5193,0.5190,114700
+rustc,suma,-C opt-level=3,execstack,6,1,0.1219,0.1215,114744
+rustc,suma,-C opt-level=3,relro_full,6,1,0.1228,0.1222,116260
+rustc,suma,-C opt-level=3,lto,6,1,3.5498,3.5484,191852
+rustc,suma,-C opt-level=3,no_pie,6,1,0.1225,0.1220,113868
+clang++,suma,-O3,baseline,6,1,0.3362,0.3359,114616
+clang++,suma,-O3,no_pie,6,1,0.3343,0.3339,113728
+rustc,suma,-C opt-level=3,noexecstack,6,1,0.1227,0.1222,113684
+g++,suma,-O3,stack_protector_strong,6,1,0.2611,0.2607,48864
+g++,suma,-O3,relro_full,6,1,0.2607,0.2604,48924
+rustc,suma,-C opt-level=3,lto_thin,6,1,4.5341,4.5329,188376
+g++,suma,-O3,ubsan,6,1,0.2851,0.2847,50740
+clang++,suma,-O3,no_stack_protector,6,1,0.3374,0.3369,114732
+rustc,suma,-C opt-level=3,pie,6,1,0.1219,0.1214,114796
+rustc,suma,-C opt-level=3,stack_protector_strong,6,1,0.1226,0.1222,116252
+rustc,suma,-C opt-level=3,stack_protector_none,6,1,0.1224,0.1219,116276
+clang++,suma,-O3,execstack,6,1,0.3389,0.3386,113740
+clang++,suma,-O3,relro_full,6,1,0.3362,0.3359,114620
+g++,suma,-O3,stack_protector,6,1,0.2587,0.2585,48932
+rustc,suma,-C opt-level=3,msan,6,0,0.0344,0.0341,93040
+rustc,suma,-C opt-level=3,stack_protector,6,1,0.1223,0.1218,116368
+g++,suma,-O3,stack_protector_all,6,1,0.2617,0.2613,49492
+g++,suma,-O3,no_pie,6,1,0.2573,0.2570,48924
+g++,suma,-O3,baseline,6,1,0.2584,0.2581,48836
+clang++,suma,-O3,no_plt,6,1,0.3367,0.3364,114768
+clang++,suma,-O3,fortify_off,6,1,0.3374,0.3372,114616
+clang++,suma,-O3,ubsan,6,1,0.4533,0.4530,114104
+clang++,suma,-O3,hardening_baseline,6,1,0.3489,0.3477,115308
+g++,suma,-O3,hardening_baseline,6,1,0.2678,0.2674,49204
+clang++,suma,-O3,pie,6,1,0.3423,0.3414,114436
+rustc,suma,-C opt-level=3,hardening_baseline,6,1,0.1353,0.1230,116376
+g++,suma,-O3,fortify2,6,1,0.2724,0.2706,49256
+g++,suma,-O3,pie,6,1,0.2641,0.2637,48892
+clang++,suma,-O3,stack_protector,6,1,0.3479,0.3476,114752
+clang++,suma,-O3,fortify2,6,1,0.3485,0.3482,114908
+rustc,suma,-C opt-level=3,overflow_checks,6,1,0.1209,0.1205,113984
+clang++,suma,-O3,noexecstack,6,1,0.3375,0.3371,114576
+g++,suma,-O3,asan,6,1,0.2818,0.2815,50100
+rustc,suma,-C opt-level=3,asan,6,1,0.1539,0.1532,113352
+rustc,suma,-C opt-level=3,lto_thin,7,1,4.5392,4.5379,188516
+g++,suma,-O3,fortify2,7,1,0.2627,0.2623,49256
+rustc,suma,-C opt-level=3,lto,7,1,3.5429,3.5422,192864
+rustc,suma,-C opt-level=3,lsan,7,1,0.1308,0.1304,116556
+clang++,suma,-O3,hardening_baseline,7,1,0.3460,0.3457,114512
+clang++,suma,-O3,pie,7,1,0.3375,0.3372,115096
+clang++,suma,-O3,ubsan,7,1,0.4537,0.4534,114240
+g++,suma,-O3,execstack,7,1,0.2585,0.2583,48968
+g++,suma,-O3,pie,7,1,0.2598,0.2595,48888
+g++,suma,-O3,stack_protector_strong,7,1,0.2592,0.2589,48812
+rustc,suma,-C opt-level=3,stack_protector_none,7,1,0.1225,0.1220,116340
+clang++,suma,-O3,msan,7,1,0.5196,0.5193,114732
+clang++,suma,-O3,noexecstack,7,1,0.3359,0.3357,114520
+rustc,suma,-C opt-level=3,baseline,7,1,0.1222,0.1216,115004
+g++,suma,-O3,fortify_off,7,1,0.2611,0.2608,48836
+g++,suma,-O3,no_plt,7,1,0.2608,0.2605,48888
+rustc,suma,-C opt-level=3,overflow_checks,7,1,0.1213,0.1209,113984
+clang++,suma,-O3,stack_protector_all,7,1,0.3370,0.3366,114516
+rustc,suma,-C opt-level=3,hardening_baseline,7,1,0.1220,0.1216,116324
+rustc,suma,-C opt-level=3,relro_full,7,1,0.1223,0.1219,116268
+clang++,suma,-O3,stack_protector_strong,7,1,0.3363,0.3360,114232
+clang++,suma,-O3,asan,7,1,0.5502,0.5499,114920
+clang++,suma,-O3,fortify1,7,1,0.3412,0.3409,114556
+g++,suma,-O3,asan,7,1,0.2814,0.2812,50028
+clang++,suma,-O3,lto,7,1,0.3670,0.3667,110208
+clang++,suma,-O3,execstack,7,1,0.3359,0.3356,113684
+clang++,suma,-O3,fortify2,7,1,0.3437,0.3434,114516
+clang++,suma,-O3,baseline,7,1,0.3367,0.3364,114220
+rustc,suma,-C opt-level=3,noexecstack,7,1,0.1224,0.1219,113764
+rustc,suma,-C opt-level=3,stack_protector,7,1,0.1220,0.1216,116392
+clang++,suma,-O3,fortify_off,7,1,0.3370,0.3367,114088
+g++,suma,-O3,no_pie,7,1,0.2559,0.2556,48908
+g++,suma,-O3,fortify1,7,1,0.2632,0.2629,49120
+clang++,suma,-O3,no_pie,7,1,0.3354,0.3352,114480
+clang++,suma,-O3,relro_full,7,1,0.3374,0.3371,114752
+clang++,suma,-O3,safe_stack,7,1,0.3384,0.3381,114220
+rustc,suma,-C opt-level=3,panic_abort,7,1,0.1203,0.1199,116660
+rustc,suma,-C opt-level=3,msan,7,0,0.0344,0.0340,90184
+rustc,suma,-C opt-level=3,stack_protector_strong,7,1,0.1227,0.1221,115108
+rustc,suma,-C opt-level=3,asan,7,1,0.1531,0.1525,114212
+rustc,suma,-C opt-level=3,no_pie,7,1,0.1213,0.1209,116240
+g++,suma,-O3,relro_full,7,1,0.2583,0.2580,48840
+g++,suma,-O3,ubsan,7,1,0.2847,0.2845,50728
+g++,suma,-O3,no_stack_protector,7,1,0.2618,0.2615,48840
+g++,suma,-O3,noexecstack,7,1,0.2613,0.2610,48924
+rustc,suma,-C opt-level=3,execstack,7,1,0.1223,0.1219,113788
+rustc,suma,-C opt-level=3,pie,7,1,0.1221,0.1215,114968
+g++,suma,-O3,stack_protector_all,7,1,0.2585,0.2582,49556
+clang++,suma,-O3,no_plt,7,1,0.3362,0.3358,114128
+g++,suma,-O3,hardening_baseline,7,1,0.2624,0.2621,49192
+clang++,suma,-O3,no_stack_protector,7,1,0.3364,0.3361,114508
+g++,suma,-O3,baseline,7,1,0.2607,0.2605,48776
+g++,suma,-O3,stack_protector,7,1,0.2578,0.2575,48936
+rustc,suma,-C opt-level=3,debug_assertions,7,1,0.1283,0.1279,114872
+clang++,suma,-O3,stack_protector,7,1,0.3363,0.3359,114036
+clang++,suma,-O3,safe_stack,8,1,0.3377,0.3374,115092
+clang++,suma,-O3,noexecstack,8,1,0.3360,0.3357,114512
+clang++,suma,-O3,execstack,8,1,0.3366,0.3363,114324
+g++,suma,-O3,no_stack_protector,8,1,0.2606,0.2603,48880
+clang++,suma,-O3,no_stack_protector,8,1,0.3378,0.3375,113632
+g++,suma,-O3,no_plt,8,1,0.2685,0.2682,48880
+rustc,suma,-C opt-level=3,lto_thin,8,1,4.5656,4.5631,184252
+rustc,suma,-C opt-level=3,stack_protector_none,8,1,0.1225,0.1218,113600
+rustc,suma,-C opt-level=3,no_pie,8,1,0.1218,0.1214,116236
+g++,suma,-O3,relro_full,8,1,0.2581,0.2578,48852
+clang++,suma,-O3,ubsan,8,1,0.4546,0.4543,115284
+rustc,suma,-C opt-level=3,panic_abort,8,1,0.1208,0.1203,116780
+g++,suma,-O3,fortify_off,8,1,0.2767,0.2575,48940
+g++,suma,-O3,baseline,8,1,0.2580,0.2577,48892
+clang++,suma,-O3,stack_protector_all,8,1,0.3384,0.3381,114316
+rustc,suma,-C opt-level=3,stack_protector,8,1,0.1231,0.1226,116460
+rustc,suma,-C opt-level=3,noexecstack,8,1,0.1223,0.1218,113744
+rustc,suma,-C opt-level=3,debug_assertions,8,1,0.1286,0.1281,114844
+g++,suma,-O3,fortify1,8,1,0.2619,0.2615,49204
+g++,suma,-O3,stack_protector_strong,8,1,0.2588,0.2585,48896
+clang++,suma,-O3,no_pie,8,1,0.3349,0.3346,114616
+clang++,suma,-O3,stack_protector,8,1,0.3369,0.3366,113684
+clang++,suma,-O3,stack_protector_strong,8,1,0.3394,0.3391,114472
+g++,suma,-O3,pie,8,1,0.2610,0.2607,48852
+clang++,suma,-O3,msan,8,1,0.5205,0.5202,114712
+rustc,suma,-C opt-level=3,asan,8,1,0.1536,0.1531,113944
+g++,suma,-O3,fortify2,8,1,0.2625,0.2622,49156
+rustc,suma,-C opt-level=3,overflow_checks,8,1,0.1211,0.1207,116472
+rustc,suma,-C opt-level=3,lsan,8,1,0.1311,0.1306,116616
+rustc,suma,-C opt-level=3,baseline,8,1,0.1223,0.1218,119196
+rustc,suma,-C opt-level=3,msan,8,0,0.0344,0.0341,90200
+clang++,suma,-O3,pie,8,1,0.3382,0.3379,113728
+clang++,suma,-O3,fortify1,8,1,0.3417,0.3414,113968
+g++,suma,-O3,noexecstack,8,1,0.2625,0.2611,48928
+g++,suma,-O3,hardening_baseline,8,1,0.2632,0.2630,49172
+clang++,suma,-O3,asan,8,1,0.5470,0.5467,114472
+clang++,suma,-O3,fortify_off,8,1,0.3372,0.3369,114468
+rustc,suma,-C opt-level=3,lto,8,1,3.5649,3.5642,187464
+g++,suma,-O3,stack_protector_all,8,1,0.2597,0.2592,49580
+rustc,suma,-C opt-level=3,execstack,8,1,0.1218,0.1214,116308
+rustc,suma,-C opt-level=3,hardening_baseline,8,1,0.1226,0.1222,116372
+g++,suma,-O3,stack_protector,8,1,0.2578,0.2574,48828
+clang++,suma,-O3,lto,8,1,0.3679,0.3675,110740
+rustc,suma,-C opt-level=3,stack_protector_strong,8,1,0.1230,0.1226,115056
+g++,suma,-O3,execstack,8,1,0.2589,0.2586,48760
+clang++,suma,-O3,baseline,8,1,0.3385,0.3383,114524
+g++,suma,-O3,asan,8,1,0.2829,0.2826,50128
+rustc,suma,-C opt-level=3,pie,8,1,0.1221,0.1216,116288
+clang++,suma,-O3,hardening_baseline,8,1,0.3453,0.3450,115328
+clang++,suma,-O3,fortify2,8,1,0.3455,0.3452,114808
+g++,suma,-O3,ubsan,8,1,0.2848,0.2845,50704
+clang++,suma,-O3,relro_full,8,1,0.3361,0.3359,114116
+clang++,suma,-O3,no_plt,8,1,0.3389,0.3386,114236
+g++,suma,-O3,no_pie,8,1,0.2575,0.2573,48844
+rustc,suma,-C opt-level=3,relro_full,8,1,0.1221,0.1216,116224
+clang++,suma,-O3,relro_full,9,1,0.3370,0.3366,114760
+g++,suma,-O3,pie,9,1,0.2605,0.2602,48856
+rustc,suma,-C opt-level=3,debug_assertions,9,1,0.1305,0.1299,112788
+g++,suma,-O3,noexecstack,9,1,0.2608,0.2604,48824
+clang++,suma,-O3,baseline,9,1,0.3371,0.3368,114600
+rustc,suma,-C opt-level=3,asan,9,1,0.1529,0.1525,117592
+g++,suma,-O3,fortify1,9,1,0.2673,0.2670,49204
+clang++,suma,-O3,fortify2,9,1,0.3467,0.3464,114400
+clang++,suma,-O3,msan,9,1,0.5202,0.5199,114360
+clang++,suma,-O3,no_plt,9,1,0.3364,0.3361,115120
+clang++,suma,-O3,pie,9,1,0.3365,0.3362,114112
+rustc,suma,-C opt-level=3,stack_protector_strong,9,1,0.1233,0.1229,113856
+g++,suma,-O3,no_pie,9,1,0.2588,0.2584,48876
+rustc,suma,-C opt-level=3,lto_thin,9,1,4.5826,4.5801,190348
+g++,suma,-O3,fortify_off,9,1,0.2605,0.2601,48832
+clang++,suma,-O3,stack_protector_all,9,1,0.3376,0.3373,114476
+rustc,suma,-C opt-level=3,no_pie,9,1,0.1222,0.1217,116368
+g++,suma,-O3,stack_protector_all,9,1,0.2595,0.2591,49484
+clang++,suma,-O3,noexecstack,9,1,0.3375,0.3372,114468
+clang++,suma,-O3,fortify_off,9,1,0.3361,0.3358,113732
+g++,suma,-O3,ubsan,9,1,0.2845,0.2842,50744
+g++,suma,-O3,fortify2,9,1,0.2644,0.2642,49172
+clang++,suma,-O3,asan,9,1,0.5480,0.5476,115068
+rustc,suma,-C opt-level=3,panic_abort,9,1,0.1208,0.1203,116748
+rustc,suma,-C opt-level=3,relro_full,9,1,0.1222,0.1218,116292
+rustc,suma,-C opt-level=3,msan,9,0,0.0344,0.0341,90116
+g++,suma,-O3,relro_full,9,1,0.2611,0.2608,48924
+rustc,suma,-C opt-level=3,hardening_baseline,9,1,0.1227,0.1222,113852
+rustc,suma,-C opt-level=3,overflow_checks,9,1,0.1211,0.1206,116372
+rustc,suma,-C opt-level=3,noexecstack,9,1,0.1219,0.1214,116200
+rustc,suma,-C opt-level=3,pie,9,1,0.1224,0.1219,116152
+g++,suma,-O3,execstack,9,1,0.2609,0.2605,48948
+clang++,suma,-O3,hardening_baseline,9,1,0.3452,0.3449,114320
+g++,suma,-O3,no_plt,9,1,0.2586,0.2583,48872
+rustc,suma,-C opt-level=3,baseline,9,1,0.1221,0.1217,113820
+rustc,suma,-C opt-level=3,lsan,9,1,0.1324,0.1317,115216
+g++,suma,-O3,hardening_baseline,9,1,0.2623,0.2620,49128
+rustc,suma,-C opt-level=3,stack_protector_none,9,1,0.1220,0.1215,114868
+clang++,suma,-O3,stack_protector_strong,9,1,0.3367,0.3363,114516
+g++,suma,-O3,stack_protector,9,1,0.2622,0.2618,48984
+clang++,suma,-O3,fortify1,9,1,0.3409,0.3406,114716
+clang++,suma,-O3,stack_protector,9,1,0.3371,0.3368,114476
+rustc,suma,-C opt-level=3,execstack,9,1,0.1222,0.1217,113732
+g++,suma,-O3,asan,9,1,0.2833,0.2830,50012
+rustc,suma,-C opt-level=3,stack_protector,9,1,0.1226,0.1222,116396
+clang++,suma,-O3,execstack,9,1,0.3358,0.3355,113684
+g++,suma,-O3,baseline,9,1,0.2624,0.2621,48888
+g++,suma,-O3,no_stack_protector,9,1,0.2582,0.2579,48832
+g++,suma,-O3,stack_protector_strong,9,1,0.2566,0.2562,48904
+clang++,suma,-O3,ubsan,9,1,0.4535,0.4532,114692
+clang++,suma,-O3,no_stack_protector,9,1,0.3374,0.3370,114476
+clang++,suma,-O3,safe_stack,9,1,0.3368,0.3365,114764
+clang++,suma,-O3,no_pie,9,1,0.3358,0.3355,114472
+clang++,suma,-O3,lto,9,1,0.3690,0.3687,110608
+rustc,suma,-C opt-level=3,lto,9,1,3.5516,3.5507,192064

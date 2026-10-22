@@ -1,0 +1,37 @@
+state,round,compiler,program,opt,flag_id,compile_cmd,sha256
+offline,1,g++,final,-O3,baseline,g++ /app/programs/final.cpp -O3 -o /tmp/tmpplx_vu3t/g++__final__O3__baseline,c0a2ba50524d3ce823dc606e127a09402d4826bfed3f5ea0d62d83c8c9b4914b
+offline,1,g++,final,-O3,fortify2,g++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpplx_vu3t/g++__final__O3__fortify2,fb140e8230a81bf4f1ba5fd6ddead7aea8af27c81d680685849cf26b1a8a8004
+offline,1,clang++,final,-O3,baseline,clang++ /app/programs/final.cpp -O3 -o /tmp/tmpplx_vu3t/clang++__final__O3__baseline,db193efac912bc28c74bfc13e8ed30014f199a0d4d31c0905a4298b95b5360d1
+offline,1,clang++,final,-O3,fortify2,clang++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpplx_vu3t/clang++__final__O3__fortify2,f281281f650051100fc791dfc7a352e6e6c7138eec60127da49bc7eeaaf31f25
+offline,1,g++,suma,-O3,baseline,g++ /app/programs/suma.cpp -O3 -o /tmp/tmpplx_vu3t/g++__suma__O3__baseline,192f8d0036b9b4edd8dfc89aa0afcded6ee4ec496178b0236aff823e5fb1ce98
+offline,1,clang++,suma,-O3,baseline,clang++ /app/programs/suma.cpp -O3 -o /tmp/tmpplx_vu3t/clang++__suma__O3__baseline,e3b38e562c5a4c124e52f25d6028f8f6f2b9fb3a9dac7e151996c2e623252c64
+online,1,g++,final,-O3,baseline,g++ /app/programs/final.cpp -O3 -o /tmp/tmpasyu0f3v/g++__final__O3__baseline,c0a2ba50524d3ce823dc606e127a09402d4826bfed3f5ea0d62d83c8c9b4914b
+online,1,g++,final,-O3,fortify2,g++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpasyu0f3v/g++__final__O3__fortify2,fb140e8230a81bf4f1ba5fd6ddead7aea8af27c81d680685849cf26b1a8a8004
+online,1,clang++,final,-O3,baseline,clang++ /app/programs/final.cpp -O3 -o /tmp/tmpasyu0f3v/clang++__final__O3__baseline,db193efac912bc28c74bfc13e8ed30014f199a0d4d31c0905a4298b95b5360d1
+online,1,clang++,final,-O3,fortify2,clang++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpasyu0f3v/clang++__final__O3__fortify2,f281281f650051100fc791dfc7a352e6e6c7138eec60127da49bc7eeaaf31f25
+online,1,g++,suma,-O3,baseline,g++ /app/programs/suma.cpp -O3 -o /tmp/tmpasyu0f3v/g++__suma__O3__baseline,192f8d0036b9b4edd8dfc89aa0afcded6ee4ec496178b0236aff823e5fb1ce98
+online,1,clang++,suma,-O3,baseline,clang++ /app/programs/suma.cpp -O3 -o /tmp/tmpasyu0f3v/clang++__suma__O3__baseline,e3b38e562c5a4c124e52f25d6028f8f6f2b9fb3a9dac7e151996c2e623252c64
+offline,2,g++,final,-O3,baseline,g++ /app/programs/final.cpp -O3 -o /tmp/tmpabeoahvv/g++__final__O3__baseline,c0a2ba50524d3ce823dc606e127a09402d4826bfed3f5ea0d62d83c8c9b4914b
+offline,2,g++,final,-O3,fortify2,g++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpabeoahvv/g++__final__O3__fortify2,fb140e8230a81bf4f1ba5fd6ddead7aea8af27c81d680685849cf26b1a8a8004
+offline,2,clang++,final,-O3,baseline,clang++ /app/programs/final.cpp -O3 -o /tmp/tmpabeoahvv/clang++__final__O3__baseline,db193efac912bc28c74bfc13e8ed30014f199a0d4d31c0905a4298b95b5360d1
+offline,2,clang++,final,-O3,fortify2,clang++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpabeoahvv/clang++__final__O3__fortify2,f281281f650051100fc791dfc7a352e6e6c7138eec60127da49bc7eeaaf31f25
+offline,2,g++,suma,-O3,baseline,g++ /app/programs/suma.cpp -O3 -o /tmp/tmpabeoahvv/g++__suma__O3__baseline,192f8d0036b9b4edd8dfc89aa0afcded6ee4ec496178b0236aff823e5fb1ce98
+offline,2,clang++,suma,-O3,baseline,clang++ /app/programs/suma.cpp -O3 -o /tmp/tmpabeoahvv/clang++__suma__O3__baseline,e3b38e562c5a4c124e52f25d6028f8f6f2b9fb3a9dac7e151996c2e623252c64
+online,2,g++,final,-O3,baseline,g++ /app/programs/final.cpp -O3 -o /tmp/tmp_t8acau_/g++__final__O3__baseline,c0a2ba50524d3ce823dc606e127a09402d4826bfed3f5ea0d62d83c8c9b4914b
+online,2,g++,final,-O3,fortify2,g++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmp_t8acau_/g++__final__O3__fortify2,fb140e8230a81bf4f1ba5fd6ddead7aea8af27c81d680685849cf26b1a8a8004
+online,2,clang++,final,-O3,baseline,clang++ /app/programs/final.cpp -O3 -o /tmp/tmp_t8acau_/clang++__final__O3__baseline,db193efac912bc28c74bfc13e8ed30014f199a0d4d31c0905a4298b95b5360d1
+online,2,clang++,final,-O3,fortify2,clang++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmp_t8acau_/clang++__final__O3__fortify2,f281281f650051100fc791dfc7a352e6e6c7138eec60127da49bc7eeaaf31f25
+online,2,g++,suma,-O3,baseline,g++ /app/programs/suma.cpp -O3 -o /tmp/tmp_t8acau_/g++__suma__O3__baseline,192f8d0036b9b4edd8dfc89aa0afcded6ee4ec496178b0236aff823e5fb1ce98
+online,2,clang++,suma,-O3,baseline,clang++ /app/programs/suma.cpp -O3 -o /tmp/tmp_t8acau_/clang++__suma__O3__baseline,e3b38e562c5a4c124e52f25d6028f8f6f2b9fb3a9dac7e151996c2e623252c64
+offline,3,g++,final,-O3,baseline,g++ /app/programs/final.cpp -O3 -o /tmp/tmpdy_9yze6/g++__final__O3__baseline,c0a2ba50524d3ce823dc606e127a09402d4826bfed3f5ea0d62d83c8c9b4914b
+offline,3,g++,final,-O3,fortify2,g++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpdy_9yze6/g++__final__O3__fortify2,fb140e8230a81bf4f1ba5fd6ddead7aea8af27c81d680685849cf26b1a8a8004
+offline,3,clang++,final,-O3,baseline,clang++ /app/programs/final.cpp -O3 -o /tmp/tmpdy_9yze6/clang++__final__O3__baseline,db193efac912bc28c74bfc13e8ed30014f199a0d4d31c0905a4298b95b5360d1
+offline,3,clang++,final,-O3,fortify2,clang++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpdy_9yze6/clang++__final__O3__fortify2,f281281f650051100fc791dfc7a352e6e6c7138eec60127da49bc7eeaaf31f25
+offline,3,g++,suma,-O3,baseline,g++ /app/programs/suma.cpp -O3 -o /tmp/tmpdy_9yze6/g++__suma__O3__baseline,192f8d0036b9b4edd8dfc89aa0afcded6ee4ec496178b0236aff823e5fb1ce98
+offline,3,clang++,suma,-O3,baseline,clang++ /app/programs/suma.cpp -O3 -o /tmp/tmpdy_9yze6/clang++__suma__O3__baseline,e3b38e562c5a4c124e52f25d6028f8f6f2b9fb3a9dac7e151996c2e623252c64
+online,3,g++,final,-O3,baseline,g++ /app/programs/final.cpp -O3 -o /tmp/tmpaew1_fot/g++__final__O3__baseline,c0a2ba50524d3ce823dc606e127a09402d4826bfed3f5ea0d62d83c8c9b4914b
+online,3,g++,final,-O3,fortify2,g++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpaew1_fot/g++__final__O3__fortify2,fb140e8230a81bf4f1ba5fd6ddead7aea8af27c81d680685849cf26b1a8a8004
+online,3,clang++,final,-O3,baseline,clang++ /app/programs/final.cpp -O3 -o /tmp/tmpaew1_fot/clang++__final__O3__baseline,db193efac912bc28c74bfc13e8ed30014f199a0d4d31c0905a4298b95b5360d1
+online,3,clang++,final,-O3,fortify2,clang++ /app/programs/final.cpp -O3 -D_FORTIFY_SOURCE=2 -o /tmp/tmpaew1_fot/clang++__final__O3__fortify2,f281281f650051100fc791dfc7a352e6e6c7138eec60127da49bc7eeaaf31f25
+online,3,g++,suma,-O3,baseline,g++ /app/programs/suma.cpp -O3 -o /tmp/tmpaew1_fot/g++__suma__O3__baseline,192f8d0036b9b4edd8dfc89aa0afcded6ee4ec496178b0236aff823e5fb1ce98
+online,3,clang++,suma,-O3,baseline,clang++ /app/programs/suma.cpp -O3 -o /tmp/tmpaew1_fot/clang++__suma__O3__baseline,e3b38e562c5a4c124e52f25d6028f8f6f2b9fb3a9dac7e151996c2e623252c64

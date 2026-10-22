@@ -1,0 +1,10 @@
+date_utc: 2026-10-22T06:10:50Z
+state: online
+round: 2
+cpus_online: 0-7
+smt_control: on
+cpu_affinity: [3]
+perf_event_paranoid: 1
+events: resource_stalls_sb=0x08a2,resource_stalls_any=0x01a2
+reps: 20
+seed: 20260708

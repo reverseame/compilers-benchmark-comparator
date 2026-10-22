@@ -1,0 +1,55 @@
+compiler,program,opt,flag_id,n,cpu_s_median,cpu_s_q1,cpu_s_q3,ratio_vs_baseline
+clang++,suma,-O3,asan,10,0.5479,0.5463,0.5499,1.626
+clang++,suma,-O3,baseline,10,0.3369,0.3358,0.3380,1.000
+clang++,suma,-O3,execstack,10,0.3362,0.3356,0.3366,0.998
+clang++,suma,-O3,fortify1,10,0.3409,0.3395,0.3417,1.012
+clang++,suma,-O3,fortify2,10,0.3458,0.3444,0.3506,1.027
+clang++,suma,-O3,fortify_off,10,0.3376,0.3368,0.3382,1.002
+clang++,suma,-O3,hardening_baseline,10,0.3458,0.3451,0.3478,1.026
+clang++,suma,-O3,lto,10,0.3680,0.3672,0.3687,1.092
+clang++,suma,-O3,msan,10,0.5205,0.5192,0.5213,1.545
+clang++,suma,-O3,no_pie,10,0.3350,0.3345,0.3355,0.995
+clang++,suma,-O3,no_plt,10,0.3367,0.3360,0.3377,0.999
+clang++,suma,-O3,no_stack_protector,10,0.3367,0.3362,0.3371,1.000
+clang++,suma,-O3,noexecstack,10,0.3363,0.3357,0.3371,0.998
+clang++,suma,-O3,pie,10,0.3373,0.3367,0.3381,1.001
+clang++,suma,-O3,relro_full,10,0.3366,0.3358,0.3385,0.999
+clang++,suma,-O3,safe_stack,10,0.3372,0.3367,0.3382,1.001
+clang++,suma,-O3,stack_protector,10,0.3377,0.3363,0.3412,1.002
+clang++,suma,-O3,stack_protector_all,10,0.3375,0.3369,0.3402,1.002
+clang++,suma,-O3,stack_protector_strong,10,0.3372,0.3360,0.3380,1.001
+clang++,suma,-O3,ubsan,10,0.4531,0.4528,0.4536,1.345
+g++,suma,-O3,asan,10,0.2823,0.2815,0.2839,1.086
+g++,suma,-O3,baseline,10,0.2599,0.2577,0.2648,1.000
+g++,suma,-O3,execstack,10,0.2592,0.2583,0.2603,0.997
+g++,suma,-O3,fortify1,10,0.2622,0.2618,0.2635,1.009
+g++,suma,-O3,fortify2,10,0.2640,0.2623,0.2675,1.016
+g++,suma,-O3,fortify_off,10,0.2592,0.2574,0.2603,0.997
+g++,suma,-O3,hardening_baseline,10,0.2628,0.2621,0.2639,1.011
+g++,suma,-O3,no_pie,10,0.2571,0.2560,0.2575,0.989
+g++,suma,-O3,no_plt,10,0.2591,0.2580,0.2605,0.997
+g++,suma,-O3,no_stack_protector,10,0.2593,0.2583,0.2624,0.998
+g++,suma,-O3,noexecstack,10,0.2585,0.2580,0.2607,0.994
+g++,suma,-O3,pie,10,0.2604,0.2583,0.2617,1.002
+g++,suma,-O3,relro_full,10,0.2586,0.2577,0.2598,0.995
+g++,suma,-O3,stack_protector,10,0.2585,0.2575,0.2594,0.994
+g++,suma,-O3,stack_protector_all,10,0.2591,0.2581,0.2613,0.997
+g++,suma,-O3,stack_protector_strong,10,0.2587,0.2573,0.2613,0.995
+g++,suma,-O3,ubsan,10,0.2848,0.2844,0.2854,1.096
+rustc,suma,-C opt-level=3,asan,10,0.1526,0.1525,0.1535,1.255
+rustc,suma,-C opt-level=3,baseline,10,0.1215,0.1213,0.1217,1.000
+rustc,suma,-C opt-level=3,debug_assertions,10,0.1280,0.1279,0.1285,1.053
+rustc,suma,-C opt-level=3,execstack,10,0.1215,0.1213,0.1217,1.000
+rustc,suma,-C opt-level=3,hardening_baseline,10,0.1223,0.1221,0.1227,1.006
+rustc,suma,-C opt-level=3,lsan,10,0.1303,0.1302,0.1306,1.072
+rustc,suma,-C opt-level=3,lto,10,3.5539,3.5468,3.5671,29.239
+rustc,suma,-C opt-level=3,lto_thin,10,4.5381,4.5325,4.5486,37.336
+rustc,suma,-C opt-level=3,no_pie,10,0.1217,0.1215,0.1220,1.002
+rustc,suma,-C opt-level=3,noexecstack,10,0.1217,0.1212,0.1222,1.001
+rustc,suma,-C opt-level=3,overflow_checks,10,0.1206,0.1204,0.1207,0.992
+rustc,suma,-C opt-level=3,panic_abort,10,0.1201,0.1199,0.1203,0.988
+rustc,suma,-C opt-level=3,pie,10,0.1216,0.1215,0.1219,1.000
+rustc,suma,-C opt-level=3,relro_full,10,0.1217,0.1215,0.1221,1.001
+rustc,suma,-C opt-level=3,stack_protector,10,0.1223,0.1218,0.1227,1.006
+rustc,suma,-C opt-level=3,stack_protector_none,10,0.1219,0.1215,0.1221,1.003
+rustc,suma,-C opt-level=3,stack_protector_strong,10,0.1225,0.1222,0.1227,1.008
