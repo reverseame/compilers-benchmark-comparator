@@ -287,9 +287,13 @@ other microarchitectures.
 The article's campaign used the image
 `ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163`,
 built before the RAPL change to `measure_exec.c` and the `strip --version`
-entry in `campaign.py`. Rebuilding `Dockerfile.measure` from a later commit
+entry in `campaign.py`. Its built-in `config/matrix.yaml` also predates the
+campaign's, which adds Rustc's `stack_protector_all` cells; the campaign
+mounted the repository's matrix over it
+(`-v "$PWD/config/matrix.yaml:/app/config/matrix.yaml:ro"`), and so should
+any run with this image. Rebuilding `Dockerfile.measure` from a later commit
 produces a different digest; use the digest above to reproduce the published
-data, and mount the newer scripts into it as shown above.
+data, and mount the newer scripts and the matrix into it as shown above.
 
 ## Technologies
 

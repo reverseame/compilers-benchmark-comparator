@@ -40,6 +40,7 @@ for round in $(seq "$ROUNDS"); do
             --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
             -v "$PWD/scripts/smt_stalls.py:/app/scripts/smt_stalls.py:ro" \
             -v "$PWD/scripts/count_events.c:/app/scripts/count_events.c:ro" \
+            -v "$PWD/config/matrix.yaml:/app/config/matrix.yaml:ro" \
             -v "$PWD/$OUT:/app/out" \
             --entrypoint python3 "$IMAGE" \
             scripts/smt_stalls.py --state "$state" --round "$round" \

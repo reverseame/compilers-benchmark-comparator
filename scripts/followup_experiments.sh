@@ -136,10 +136,13 @@ docker pull -q "$IMAGE"
          "ORDER_REPS=$ORDER_REPS SMT_ROUNDS=$SMT_ROUNDS SMT_REPS=$SMT_REPS"
 } > "results_csv/followup-$TS-host.txt"
 
-# Same container options as the published campaign.
+# Same container options as the published campaign. The image's built-in
+# config/matrix.yaml predates the campaign's (it lacks Rustc's
+# stack_protector_all), so the repository's matrix is mounted over it.
 DOCKER=(docker run --rm --cpuset-cpus="$CPU" --cap-add PERFMON
         --security-opt seccomp=unconfined --security-opt apparmor=unconfined
-        -v /sys/devices/virtual/powercap:/rapl:ro)
+        -v /sys/devices/virtual/powercap:/rapl:ro
+        -v "$PWD/config/matrix.yaml:/app/config/matrix.yaml:ro")
 
 has_step() { case " $STEPS " in *" $1 "*) return 0 ;; esac; return 1; }
 
