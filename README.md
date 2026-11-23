@@ -225,7 +225,7 @@ only; about 100 s on the campaign host, an i7-6700 with Python 3.11, for the
 definitive campaign); it does not need the container:
 
 ```sh
-python3 scripts/paired_stats.py results_csv/20260720-114151-definitive
+python3 scripts/paired_stats.py results_csv/20261123-110853-complete
 ```
 
 It resamples each flag cell and its baseline together by sweep (5000
@@ -274,12 +274,12 @@ Results go to `results_csv/<timestamp>-build/` (`builds.csv`,
 
 ## Energy window
 
-In the published campaign, `measure_exec.c` read RAPL before `fork` and after
-`wait4`, so the energy window was slightly longer than the wall-clock window.
-`rapl_window_check.c` is that wrapper instrumented to report the difference;
-its header gives the exact `docker run` invocation. The current
-`measure_exec.c` reads RAPL right before starting the clock, so the two
-windows coincide in future campaigns.
+In the July 2026 campaigns, `measure_exec.c` read RAPL before `fork` and
+after `wait4`, so the energy window was slightly longer than the wall-clock
+window. `rapl_window_check.c` is that wrapper instrumented to report the
+difference; its header gives the exact `docker run` invocation. The current
+`measure_exec.c`, used by the reported campaign, reads RAPL right before
+starting the clock, so the two windows coincide.
 
 ## SMT state and store-buffer stalls
 
@@ -324,7 +324,7 @@ There are three levels of reproduction, with different requirements.
 
    ```sh
    pip3 install -r requirements.txt
-   D=results_csv/20260720-114151-definitive
+   D=results_csv/20261123-110853-complete
    python3 scripts/analyze.py $D
    python3 scripts/plot_results.py $D
    python3 scripts/paired_stats.py $D
@@ -335,14 +335,14 @@ There are three levels of reproduction, with different requirements.
    `ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163`
    (rustc 1.98.0-nightly 096694416 2026-06-29, GCC 14.2.0-19, Clang 19.1.7,
    glibc 2.41). Its built-in `config/matrix.yaml` predates the campaign's,
-   which adds Rustc's `stack_protector_all` cells, so the campaign mounted
-   its own matrix over it, and so should any run with this image. To
-   rebuild the binaries of a given campaign, mount the `matrix.yaml` stored
-   in that campaign's results directory (the repository's
-   `config/matrix.yaml` may have grown since):
+   which adds Rustc's `stack_protector_all` and g++'s `-Oz`/`-Ofast` cells,
+   so the campaign mounted its own matrix over it, and so should any run with
+   this image. To rebuild the binaries of a given campaign, mount the
+   `matrix.yaml` stored in that campaign's results directory (the
+   repository's `config/matrix.yaml` may have grown since):
 
    ```sh
-   M=results_csv/20260720-114151-definitive/matrix.yaml
+   M=results_csv/20261123-110853-complete/matrix.yaml
    docker run --rm --cpuset-cpus=3 --cap-add PERFMON \
      --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
      -v /sys/devices/virtual/powercap:/rapl:ro \
@@ -363,29 +363,31 @@ There are three levels of reproduction, with different requirements.
    are host-dependent; on other hardware, expect the classification of the
    options to hold rather than the exact numbers.
 
-The scripts in this commit are not byte-identical to those that produced
-the July 2026 campaigns. The image contains the scripts of that time; the
-later commits added the `--order` option and the `position` column to
-`campaign.py`, moved the RAPL reads in `measure_exec.c` to coincide with
-the wall clock (see "Energy window"), recorded `strip --version`, and added
-the post-processing and follow-up scripts. Mount the newer scripts over the
-image, as in the commands above, only for the follow-up experiments.
+The article's campaign (`20261123-110853-complete`) ran the image's
+toolchains with the scripts of commit 32e29e4 mounted over the image's own
+(`followup_experiments.sh full`): `campaign.py` with `--order random` and the
+`position` column, and `measure_exec.c` reading RAPL at the same points as
+the wall clock. The earlier July 2026 campaigns used the scripts built into
+the image, with a fixed order and the older RAPL window (see "Energy
+window"). The 999 binaries common to both are byte-identical.
 
 ### Published data
 
 | Directory under `results_csv/` | Role in the article |
 |---|---|
-| `20260720-114151-definitive` | Reported campaign: every number of the article unless stated otherwise (SMT sibling offline, 50 reps, counters and energy) |
+| `20261123-110853-complete` | Reported campaign: every number of the article unless stated otherwise (1,119 cells including g++ `-Oz`/`-Ofast`, order shuffled in every sweep, SMT sibling offline, 50 reps, counters and energy, host kernel 6.1.0-54) |
+| `20261123-110847-followup` | Log, host capture and per-minute load average of that run |
+| `20260720-114151-definitive` | July 2026 campaign with a fixed order (1,017 cells), reported in earlier versions of the article; its binaries are byte-identical to the reported campaign's, so it serves as the between-campaign reproducibility check |
 | `20260708-165104-server` | Control sweep with the SMT sibling online (10 reps, loop programs). GCC and Clang binaries are byte-identical to the definitive campaign's; Rustc used a different nightly (f46ec5218 2026-06-30, not 096694416 2026-06-29), so its binaries differ |
 | `20260709-100937-final`, `20260709-181237-final-perf`, `20260711-061031-final-energy` | Earlier full campaigns, used for the between-campaign reproducibility and memory-portability checks |
 | `20260719-210130-rustc-canary` | Supplementary Rustc `-Z stack-protector` sweep, superseded by the definitive campaign |
 | `20261021-093518-build` | Isolated build cost on a second host (i7-9700K) |
 | `20261022-060156-build` | Isolated build cost on the campaign host |
-| `20261022-060542-random-order` | `startup` with the order shuffled in every sweep (host kernel 6.1.0-53, newer wrapper) |
+| `20261022-060542-random-order` | `startup` with the order shuffled in every sweep (host kernel 6.1.0-53, newer wrapper); superseded by the reported campaign, which shuffles the whole matrix |
 | `20261022-060910-smt-stalls` | Store-buffer stall counters, sibling offline and online |
 | `20261022-060149-rapl-window` | Extra RAPL interval of the published wrapper |
 | `20261022-060149-followup` | Log and host capture of the October follow-up runs |
-| `20261123-065138-gcc-oz-ofast` | Supplementary campaign: g++ at `-Oz` and `-Ofast` (`config/matrix-gcc-oz-ofast.yaml`, 102 cells, 50 reps, sibling offline, host kernel 6.1.0-54), run with `followup_experiments.sh gccopt`. No figures, because `plot_results.py` draws them at `-O3`; the `independent` A/A counts in `paired_stats.txt` are 0 for the same reason (they read `figures/cell_stats.csv`) |
+| `20261123-065138-gcc-oz-ofast` | Supplementary campaign: g++ at `-Oz` and `-Ofast` (102 cells, fixed order, image's own scripts); superseded by the reported campaign |
 | `20261123-065132-followup` | Log and host capture of that run |
 
 ## Technologies

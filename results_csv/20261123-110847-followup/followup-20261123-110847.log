@@ -1,0 +1,90 @@
+[followup 11:08:47] steps: full
+[followup 11:08:53] governor=performance no_turbo=1 cpus_online=0-6 perf_event_paranoid=1
+[followup 11:08:53] load average (1 min): 0.14
+scripts/followup_experiments.sh: línea 139: has_step: orden no encontrada
+[followup 11:08:53] pulling ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163
+ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163
+[followup 11:08:53] full: complete matrix, order=random seed=20260708, 50 reps
+[campaign] 1119 cells, 1 warmup + 50 timed reps each
+[campaign] compiled 1101/1119 cells in 530s; 18 compile failures
+  COMPILE FAIL rustc suma -C opt-level=0 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc suma -C opt-level=1 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc suma -C opt-level=2 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc suma -C opt-level=3 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc suma -C opt-level=s msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc suma -C opt-level=z msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc final -C opt-level=0 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc final -C opt-level=1 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc final -C opt-level=2 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc final -C opt-level=3 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc final -C opt-level=s msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc final -C opt-level=z msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc startup -C opt-level=0 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc startup -C opt-level=1 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc startup -C opt-level=2 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc startup -C opt-level=3 msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc startup -C opt-level=s msan: error: aborting due to 19 previous errors
+  COMPILE FAIL rustc startup -C opt-level=z msan: error: aborting due to 19 previous errors
+[campaign] sweep 1/51 (warmup)
+[campaign] sweep 2/51 (rep 1/50)
+[campaign] sweep 3/51 (rep 2/50)
+[campaign] sweep 4/51 (rep 3/50)
+[campaign] sweep 5/51 (rep 4/50)
+[campaign] sweep 6/51 (rep 5/50)
+[campaign] sweep 7/51 (rep 6/50)
+[campaign] sweep 8/51 (rep 7/50)
+[campaign] sweep 9/51 (rep 8/50)
+[campaign] sweep 10/51 (rep 9/50)
+[campaign] sweep 11/51 (rep 10/50)
+[campaign] sweep 12/51 (rep 11/50)
+[campaign] sweep 13/51 (rep 12/50)
+[campaign] sweep 14/51 (rep 13/50)
+[campaign] sweep 15/51 (rep 14/50)
+[campaign] sweep 16/51 (rep 15/50)
+[campaign] sweep 17/51 (rep 16/50)
+[campaign] sweep 18/51 (rep 17/50)
+[campaign] sweep 19/51 (rep 18/50)
+[campaign] sweep 20/51 (rep 19/50)
+[campaign] sweep 21/51 (rep 20/50)
+[campaign] sweep 22/51 (rep 21/50)
+[campaign] sweep 23/51 (rep 22/50)
+[campaign] sweep 24/51 (rep 23/50)
+[campaign] sweep 25/51 (rep 24/50)
+[campaign] sweep 26/51 (rep 25/50)
+[campaign] sweep 27/51 (rep 26/50)
+[campaign] sweep 28/51 (rep 27/50)
+[campaign] sweep 29/51 (rep 28/50)
+[campaign] sweep 30/51 (rep 29/50)
+[campaign] sweep 31/51 (rep 30/50)
+[campaign] sweep 32/51 (rep 31/50)
+[campaign] sweep 33/51 (rep 32/50)
+[campaign] sweep 34/51 (rep 33/50)
+[campaign] sweep 35/51 (rep 34/50)
+[campaign] sweep 36/51 (rep 35/50)
+[campaign] sweep 37/51 (rep 36/50)
+[campaign] sweep 38/51 (rep 37/50)
+[campaign] sweep 39/51 (rep 38/50)
+[campaign] sweep 40/51 (rep 39/50)
+[campaign] sweep 41/51 (rep 40/50)
+[campaign] sweep 42/51 (rep 41/50)
+[campaign] sweep 43/51 (rep 42/50)
+[campaign] sweep 44/51 (rep 43/50)
+[campaign] sweep 45/51 (rep 44/50)
+[campaign] sweep 46/51 (rep 45/50)
+[campaign] sweep 47/51 (rep 46/50)
+[campaign] sweep 48/51 (rep 47/50)
+[campaign] sweep 49/51 (rep 48/50)
+[campaign] sweep 50/51 (rep 49/50)
+[campaign] sweep 51/51 (rep 50/50)
+[campaign] done. Results in results_csv/20261123-110853
+[campaign] WARNING: 18 cells failed to compile (see binaries.csv, compile_ok=0)
+[campaign] all timed executions exited 0 with expected output
+[followup 16:50:26] full: results in results_csv/20261123-110853; load log in results_csv/followup-20261123-110847-load.txt
+[followup 16:50:26] full: highest 1-minute load during the run: 2026-11-23T11:16:53Z 9.04 7.14 4.83
+[followup 16:50:26] host settings restored
+[followup 16:50:26] full: analyze.py, plot_results.py and paired_stats.py
+[followup 16:54:55] done. New result directories:
+  results_csv/20261123-110853
+  results_csv/followup-20261123-110847-host.txt
+  results_csv/followup-20261123-110847-load.txt
+  results_csv/followup-20261123-110847.log
