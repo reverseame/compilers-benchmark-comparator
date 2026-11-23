@@ -1,0 +1,51 @@
+# Supplementary campaign: g++ at -Oz and -Ofast, the two GCC 14 levels that
+# the canonical matrix (config/matrix.yaml) evaluates on clang++ but not on
+# g++. Same programs and flags as the canonical g++ entry; each level is
+# measured together with its own baseline, so ratios are computed within
+# this campaign (frequency-ramp rule; see the article, Section 6).
+#
+# Same protocol as the canonical campaign: SMT sibling of the pinned core
+# offline, governor performance, turbo off, --reps 50, image pinned by
+# digest. Run with: sudo scripts/followup_experiments.sh gccopt
+
+defaults:
+  reps: 50
+  warmup: 1
+
+programs:
+  suma:
+    description: "1M-element vector reduction, 200 iterations"
+    expected_output: "13800000000"
+  final:
+    description: "31-byte strcpy into 32-byte buffer, 10M iterations (no overflow)"
+    expected_output: "310000000"
+  startup:
+    description: "empty main; measures process startup/teardown, where PIE and full RELRO pay their real cost"
+    expected_output: "ok"
+
+compilers:
+  g++:
+    source_ext: cpp
+    command: "g++ {src} {opt} {flags} -o {out}"
+    opt_levels: ["-Oz", "-Ofast"]
+    security_flags:
+      baseline: ""
+      pie: "-fPIE -pie"
+      no_pie: "-no-pie"
+      fortify1: "-D_FORTIFY_SOURCE=1"
+      fortify2: "-D_FORTIFY_SOURCE=2"
+      fortify_off: "-U_FORTIFY_SOURCE"
+      noexecstack: "-z noexecstack"
+      execstack: "-z execstack"
+      relro_full: "-Wl,-z,relro,-z,now"
+      no_stack_protector: "-fno-stack-protector"
+      stack_protector: "-fstack-protector"
+      stack_protector_strong: "-fstack-protector-strong"
+      stack_protector_all: "-fstack-protector-all"
+      no_plt: "-fno-plt"
+      asan: "-fsanitize=address"
+      ubsan: "-fsanitize=undefined"
+      # Multi-flag cell: the paper's recommended hardening baseline for
+      # performance-critical builds, measured as a combination so the
+      # recommendation does not rest on summing single-flag costs.
+      hardening_baseline: "-fstack-protector-strong -D_FORTIFY_SOURCE=2 -Wl,-z,relro,-z,now -z noexecstack -fPIE -pie"

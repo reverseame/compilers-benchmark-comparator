@@ -5,23 +5,29 @@
 # the measurement CPU offline, perf counters and RAPL available, and the
 # container image pinned by digest.
 #
-# Steps (all by default, or any subset given as arguments, in this order):
-#   build  isolated, repeated build cost (scripts/build_cost.py)
-#   rapl   RAPL / wall-clock window mismatch (scripts/rapl_window_check.c)
-#   order  campaign with randomized run order (campaign.py --order random),
-#          followed by plot_results.py and paired_stats.py
-#   smt    store-buffer stalls with the sibling offline and online
-#          (scripts/smt_stalls.sh)
+# Steps (build, rapl, order and smt by default, or any subset given as
+# arguments, run in this order):
+#   build   isolated, repeated build cost (scripts/build_cost.py)
+#   rapl    RAPL / wall-clock window mismatch (scripts/rapl_window_check.c)
+#   order   campaign with randomized run order (campaign.py --order random),
+#           followed by plot_results.py and paired_stats.py
+#   gccopt  supplementary campaign of g++ at -Oz and -Ofast
+#           (config/matrix-gcc-oz-ofast.yaml, about 40 min) with the image's
+#           own scripts, as in the published campaign, followed by
+#           analyze.py and paired_stats.py; only when named
+#   smt     store-buffer stalls with the sibling offline and online
+#           (scripts/smt_stalls.sh)
 #
 # Usage, from the repository root on an otherwise idle machine:
-#   sudo scripts/followup_experiments.sh                # all steps
+#   sudo scripts/followup_experiments.sh                # default steps
 #   sudo scripts/followup_experiments.sh rapl smt       # a subset
+#   sudo scripts/followup_experiments.sh gccopt         # GCC -Oz/-Ofast
 #
 # Settings (environment variables, defaults in parentheses):
 #   CPU (3), SIBLING (7), IMAGE (the article's digest), BUILD_REPS (10),
 #   RAPL_RUNS (300), ORDER_PROGRAMS (startup; empty = full matrix, ~2.5 h),
-#   ORDER_REPS (50), SMT_ROUNDS (3), SMT_REPS (20), FORCE (0: refuse to run
-#   on a CPU other than the i7-6700).
+#   ORDER_REPS (50), GCCOPT_REPS (50), SMT_ROUNDS (3), SMT_REPS (20), FORCE
+#   (0: refuse to run on a CPU other than the i7-6700).
 #
 # The host settings changed here (governors, turbo, sibling state,
 # perf_event_paranoid) are restored on exit; the intel_rapl_msr module is
@@ -38,6 +44,7 @@ ORDER_PROGRAMS=${ORDER_PROGRAMS-startup}
 ORDER_REPS=${ORDER_REPS:-50}
 SMT_ROUNDS=${SMT_ROUNDS:-3}
 SMT_REPS=${SMT_REPS:-20}
+GCCOPT_REPS=${GCCOPT_REPS:-50}
 FORCE=${FORCE:-0}
 STEPS=${*:-build rapl order smt}
 
@@ -59,7 +66,7 @@ as_user() {   # post-processing and git run as the invoking user
     || die "run from the repository root"
 command -v docker >/dev/null || die "docker not found"
 for s in $STEPS; do
-    case $s in build|rapl|order|smt) ;; *) die "unknown step: $s" ;; esac
+    case $s in build|rapl|order|gccopt|smt) ;; *) die "unknown step: $s" ;; esac
 done
 if ! grep -q "i7-6700 " /proc/cpuinfo && [ "$FORCE" != 1 ]; then
     die "this is not the i7-6700 of the campaign (FORCE=1 to run anyway)"
@@ -133,7 +140,8 @@ docker pull -q "$IMAGE"
     echo "repo_dirty: $(as_user git status --short | wc -l) files"
     echo "settings: CPU=$CPU SIBLING=$SIBLING BUILD_REPS=$BUILD_REPS" \
          "RAPL_RUNS=$RAPL_RUNS ORDER_PROGRAMS=$ORDER_PROGRAMS" \
-         "ORDER_REPS=$ORDER_REPS SMT_ROUNDS=$SMT_ROUNDS SMT_REPS=$SMT_REPS"
+         "ORDER_REPS=$ORDER_REPS GCCOPT_REPS=$GCCOPT_REPS" \
+         "SMT_ROUNDS=$SMT_ROUNDS SMT_REPS=$SMT_REPS"
 } > "results_csv/followup-$TS-host.txt"
 
 # Same container options as the published campaign. The image's built-in
@@ -215,7 +223,25 @@ if has_step order; then
     log "order: results in results_csv/$order_dir"
 fi
 
-# ---- 4. SMT store-buffer stalls -------------------------------------------
+# ---- 4. g++ at -Oz and -Ofast ---------------------------------------------
+# The image's own campaign.py and measure_exec.c, as in the published
+# campaign, so the numbers are comparable with it; only the matrix is mounted.
+gccopt_dir=""
+if has_step gccopt; then
+    log "gccopt: g++ -Oz/-Ofast, all programs, $GCCOPT_REPS reps"
+    "${DOCKER[@]}" \
+        -v "$PWD/config/matrix-gcc-oz-ofast.yaml:/app/config/matrix-gcc-oz-ofast.yaml:ro" \
+        -v "$PWD/results_csv:/app/results_csv" \
+        "$IMAGE" --matrix config/matrix-gcc-oz-ofast.yaml \
+        --reps "$GCCOPT_REPS" --keep-binaries | tee "results_csv/.gccopt-$TS"
+    gccopt_dir=$(sed -n 's/.*Results in results_csv\/\([^ ]*\).*/\1/p' \
+        "results_csv/.gccopt-$TS" | tail -1)
+    rm -f "results_csv/.gccopt-$TS"
+    [ -n "$gccopt_dir" ] || die "gccopt: cannot find the campaign directory"
+    log "gccopt: results in results_csv/$gccopt_dir"
+fi
+
+# ---- 5. SMT store-buffer stalls -------------------------------------------
 if has_step smt; then
     log "smt: $SMT_ROUNDS rounds x (offline, online), $SMT_REPS reps"
     CPU=$CPU SIBLING=$SIBLING ROUNDS=$SMT_ROUNDS REPS=$SMT_REPS \
@@ -226,17 +252,30 @@ fi
 # ---- post-processing (as the invoking user, after the timed work) ---------
 restore
 trap - EXIT
-if [ -n "$order_dir" ]; then
+if [ -n "$order_dir$gccopt_dir" ]; then
     if as_user python3 -c "import matplotlib" 2>/dev/null; then
-        log "order: plot_results.py and paired_stats.py"
-        as_user python3 scripts/plot_results.py "results_csv/$order_dir" >/dev/null
-        as_user python3 scripts/paired_stats.py "results_csv/$order_dir" \
-            | sed -n '/== A\/A control/,$p'
+        if [ -n "$order_dir" ]; then
+            log "order: plot_results.py and paired_stats.py"
+            as_user python3 scripts/plot_results.py "results_csv/$order_dir" >/dev/null
+            as_user python3 scripts/paired_stats.py "results_csv/$order_dir" \
+                | sed -n '/== A\/A control/,$p'
+        fi
+        if [ -n "$gccopt_dir" ]; then
+            # The figures of plot_results.py are drawn at -O3, which this
+            # campaign does not have, so only the tables and the paired
+            # statistics are produced; failures here do not lose the data.
+            log "gccopt: analyze.py and paired_stats.py"
+            as_user python3 scripts/analyze.py "results_csv/$gccopt_dir" >/dev/null \
+                || log "gccopt: analyze.py failed"
+            as_user python3 scripts/paired_stats.py "results_csv/$gccopt_dir" >/dev/null \
+                || log "gccopt: paired_stats.py failed"
+        fi
     else
-        log "order: matplotlib not available; run later:"
+        log "matplotlib not available; for each new campaign directory, run:"
         log "  pip3 install -r requirements.txt"
-        log "  python3 scripts/plot_results.py results_csv/$order_dir"
-        log "  python3 scripts/paired_stats.py results_csv/$order_dir"
+        log "  python3 scripts/analyze.py results_csv/<dir>"
+        log "  python3 scripts/plot_results.py results_csv/<dir>"
+        log "  python3 scripts/paired_stats.py results_csv/<dir>"
     fi
 fi
 
