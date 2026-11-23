@@ -106,15 +106,22 @@ The measurement campaign runs through `scripts/campaign.py`:
 
 ### Running on a server
 
+This is the configuration of the article's campaign (Intel Core i7-6700,
+4 cores / 8 threads, measurement on CPU 3, whose SMT sibling is CPU 7). To
+repeat the published campaign exactly, use the image pinned by digest (see
+"Reproducing the article") instead of building one.
+
 ```sh
 # 1. Prepare the host (outside the container):
 sudo cpupower frequency-set -g performance      # governor
 echo 1 | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo  # turbo off
+echo 0 | sudo tee /sys/devices/system/cpu/cpu7/online  # sibling of CPU 3 offline
 
-# 2. Build the lean image (GCC 14.2 / Clang 19 from Debian trixie).
-#    Pin the Rust nightly for reproducibility:
+# 2. Build the lean image (GCC 14.2 / Clang 19 from Debian trixie). The
+#    default toolchain, nightly-2026-06-30, installs the article's
+#    rustc 1.98.0-nightly (096694416 2026-06-29):
 docker build -f Dockerfile.measure \
-  --build-arg RUST_TOOLCHAIN=nightly-2026-07-01 \
+  --build-arg RUST_TOOLCHAIN=nightly-2026-06-30 \
   -t compiler-benchmark-measure .
 
 # 3. Optional, for hardware counters and RAPL energy (see the metrics
@@ -122,13 +129,20 @@ docker build -f Dockerfile.measure \
 sudo sysctl kernel.perf_event_paranoid=1
 sudo modprobe intel_rapl_msr
 
-# 4. Launch the campaign pinned to isolated cores, with no CPU limits:
-docker run --rm --cpuset-cpus=2,3 --cap-add PERFMON \
+# 4. Launch the campaign pinned to the single measurement core, with no
+#    CPU limits:
+docker run --rm --cpuset-cpus=3 --cap-add PERFMON \
   --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
   -v /sys/devices/virtual/powercap:/rapl:ro \
   -v "$PWD/results_csv:/app/results_csv" \
-  compiler-benchmark-measure --reps 50
+  compiler-benchmark-measure --reps 50 --keep-binaries
+
+# 5. Restore the host afterwards:
+echo 1 | sudo tee /sys/devices/system/cpu/cpu7/online
 ```
+
+On another CPU, pick the measurement core and its sibling from
+`/sys/devices/system/cpu/cpu<N>/topology/thread_siblings_list`.
 
 Useful options: `--programs suma,final`, `--compilers g++,clang++,rustc`,
 `--reps N`, `--order random --seed N`, `--keep-binaries` (keeps the
@@ -137,39 +151,38 @@ compiled binaries next to the CSVs so they can be archived as an artifact).
 Results are written to
 `results_csv/<timestamp>/{runs.csv,binaries.csv,environment.txt,matrix.yaml}`.
 
-If the machine has SMT (hyper-threading), take the pinned core's sibling
-thread offline for the campaign (`echo 0 | sudo tee
-/sys/devices/system/cpu/cpu7/online` for core 3 on a 4-core/8-thread CPU,
-re-enable with `echo 1` afterwards): a busy sibling shows up as outlier
-repetitions.
-
 **Warning — SMT state changes more than noise.** On benchmarks with a
 store-heavy hot loop (e.g. a `strcpy` loop inside libc) we measured
 **~2.8x** runtime differences between otherwise identical campaigns
-depending solely on whether the pinned core's sibling was online — with
+depending solely on whether the pinned core's sibling was online, with
 byte-identical binaries and glibc's `ld.so --list-diagnostics` output
-identical in both states, i.e. a hardware effect (the core appears to keep
-its execution resources statically partitioned when the sibling is
-hot-unplugged), not a software one. Pick one SMT state, keep it for every
+identical in both states. The sign of `_FORTIFY_SOURCE`'s effect on `copy`
+flips with it, and the magnitude of other cells changes too (Clang's ASan
+on `copy`: 2.94x offline, 3.97x online). The mechanism is unknown: the
+store-buffer hypothesis we first proposed was refuted by stall counters (see
+"SMT state and store-buffer stalls"). Pick one SMT state, keep it for every
 campaign you intend to compare, and check it is recorded in
-`environment.txt` (`smt_control` / `cpus_online`).
+`environment.txt` (`smt_control` / `cpus_online`; with per-CPU hotplug,
+`smt_control` stays `on` and `cpus_online` reads `0-6`).
 
 ### How many repetitions?
 
-One full sweep over the 618 binaries takes about 3 minutes on the reference
-server, so the campaign scales linearly at roughly `3 min × (reps + 1)`:
+The article's matrix has 1,017 cells, of which 999 compile (Rustc cannot
+build its MSan cells). One sweep over the 999 binaries took about 6.3
+minutes on the reference server, so a campaign takes roughly
+`6.3 min × (reps + 1)`; the article's 50 repetitions took 5.3 hours.
 
 | `--reps` | duration | note |
 |---------:|---------:|------|
-| 10       | ~30 min  | enough for smoke tests |
-| 50       | ~2.5 h   | **recommended for the article**: CI half-width ≈ 0.3% of the median |
-| 100      | ~5 h     | diminishing returns |
+| 10       | ~1.2 h   | enough for smoke tests |
+| 50       | ~5.3 h   | the article's campaign |
+| 100      | ~10.6 h  | diminishing returns |
 
-Measurement noise is ~1.5% (coefficient of variation), so the confidence
-interval of the median shrinks below any effect of interest well before 100
-repetitions; past that point you are measuring the machine, not the flags.
-Statistics are computed downstream from the raw rows, so the choice of
-`--reps` never changes the analysis code.
+The median coefficient of variation is 0.8% on the loop benchmarks and
+3.2% on `startup`, so the confidence interval of the median shrinks below
+any effect of interest well before 100 repetitions. Statistics are computed
+downstream from the raw rows, so the choice of `--reps` never changes the
+analysis code.
 
 ## Post-processing
 
@@ -258,16 +271,16 @@ windows coincide in future campaigns.
 
 ## SMT state and store-buffer stalls
 
-The article attributes the copy workload's slowdown with the pinned core's
-SMT sibling offline to a statically partitioned store buffer, as a
-hypothesis. `smt_stalls.sh` tests it: it alternates the sibling between
-offline and online over several rounds and, in each state, runs
-`smt_stalls.py` inside the image. That script compiles the selected cells
-with `campaign.py`'s own code (the binaries are byte-identical to the
-campaign's) and runs each one through `count_events.c`, which reads cycles,
-instructions, `RESOURCE_STALLS.SB` and `RESOURCE_STALLS.ANY` as one counter
-group. By default it measures `copy` (`final`) with and without
-`_FORTIFY_SOURCE=2` and `sum` as the control, on g++ and clang++ at `-O3`.
+We first attributed the copy workload's slowdown with the pinned core's SMT
+sibling offline to a statically partitioned store buffer. `smt_stalls.sh`
+tests that hypothesis: it alternates the sibling between offline and online
+over several rounds and, in each state, runs `smt_stalls.py` inside the
+image. That script compiles the selected cells with `campaign.py`'s own code
+(the binaries are byte-identical to the campaign's) and runs each one
+through `count_events.c`, which reads cycles, instructions,
+`RESOURCE_STALLS.SB` and `RESOURCE_STALLS.ANY` as one counter group. By
+default it measures `copy` (`final`) with and without `_FORTIFY_SOURCE=2`
+and `sum` as the control, on g++ and clang++ at `-O3`.
 
 ```sh
 sudo sysctl kernel.perf_event_paranoid=1      # restore afterwards
@@ -277,23 +290,85 @@ sudo CPU=3 SIBLING=7 ROUNDS=3 REPS=20 scripts/smt_stalls.sh
 It must run as root (CPU hotplug) and restores the sibling's state on exit.
 Results go to `results_csv/<timestamp>-smt-stalls/` (`stalls.csv`,
 `binaries.csv`, one `environment-<state>-<round>.txt` per container).
-The hypothesis predicts many more store-buffer stalls per cycle on `copy`
-with the sibling offline, and no comparable change on `sum`. The default
-event encodings are for Skylake; pass `--events` to `smt_stalls.py` for
-other microarchitectures.
+The default event encodings are for Skylake; pass `--events` to
+`smt_stalls.py` for other microarchitectures.
 
-## Image used in the article
+The published run (`results_csv/20261022-060910-smt-stalls`) reproduced the
+effect (copy baselines 2.8x slower offline at the same instruction count)
+but **refuted the hypothesis**: `RESOURCE_STALLS.SB` recorded only a few
+hundred cycles per execution of `copy` in either state, and all
+resource-related allocation stalls together account for less than 8% of
+the cycles the offline state adds. The mechanism remains open.
 
-The article's campaign used the image
-`ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163`,
-built before the RAPL change to `measure_exec.c` and the `strip --version`
-entry in `campaign.py`. Its built-in `config/matrix.yaml` also predates the
-campaign's, which adds Rustc's `stack_protector_all` cells; the campaign
-mounted the repository's matrix over it
-(`-v "$PWD/config/matrix.yaml:/app/config/matrix.yaml:ro"`), and so should
-any run with this image. Rebuilding `Dockerfile.measure` from a later commit
-produces a different digest; use the digest above to reproduce the published
-data, and mount the newer scripts and the matrix into it as shown above.
+## Reproducing the article
+
+There are three levels of reproduction, with different requirements.
+
+1. **Re-running the analysis** on the published data needs only Python and
+   regenerates the article's tables, per-cell statistics
+   (`figures/cell_stats.csv`), and paired statistics. The figures render
+   identically; their PDF files are byte-identical only with the same
+   matplotlib version (3.7.1) and creation date, which are embedded in them:
+
+   ```sh
+   pip3 install -r requirements.txt
+   D=results_csv/20260720-114151-definitive
+   python3 scripts/analyze.py $D
+   python3 scripts/plot_results.py $D
+   python3 scripts/paired_stats.py $D
+   ```
+
+2. **Rebuilding the binaries** needs the image pinned by digest. The
+   article's campaign used
+   `ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163`
+   (rustc 1.98.0-nightly 096694416 2026-06-29, GCC 14.2.0-19, Clang 19.1.7,
+   glibc 2.41). Its built-in `config/matrix.yaml` predates the campaign's,
+   which adds Rustc's `stack_protector_all` cells, so the campaign mounted
+   the repository's matrix over it, and so should any run with this image:
+
+   ```sh
+   docker run --rm --cpuset-cpus=3 --cap-add PERFMON \
+     --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
+     -v /sys/devices/virtual/powercap:/rapl:ro \
+     -v "$PWD/config/matrix.yaml:/app/config/matrix.yaml:ro" \
+     -v "$PWD/results_csv:/app/results_csv" \
+     ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163 \
+     --reps 50 --keep-binaries
+   ```
+
+   Compare the `sha256` column of the new `binaries.csv` with the published
+   one. Rebuilding `Dockerfile.measure` from a later commit produces a
+   different image digest and may install a different nightly.
+
+3. **Repeating the timings** additionally needs the same machine
+   configuration: an i7-6700 (Skylake), governor `performance`, turbo off,
+   the container pinned to CPU 3, and CPU 7 (its SMT sibling) offline, as in
+   "Running on a server". Absolute times, IPC, energy, and some flag ratios
+   are host-dependent; on other hardware, expect the classification of the
+   options to hold rather than the exact numbers.
+
+The scripts in this commit are not byte-identical to those that produced
+the July 2026 campaigns. The image contains the scripts of that time; the
+later commits added the `--order` option and the `position` column to
+`campaign.py`, moved the RAPL reads in `measure_exec.c` to coincide with
+the wall clock (see "Energy window"), recorded `strip --version`, and added
+the post-processing and follow-up scripts. Mount the newer scripts over the
+image, as in the commands above, only for the follow-up experiments.
+
+### Published data
+
+| Directory under `results_csv/` | Role in the article |
+|---|---|
+| `20260720-114151-definitive` | Reported campaign: every number of the article unless stated otherwise (SMT sibling offline, 50 reps, counters and energy) |
+| `20260708-165104-server` | Control sweep with the SMT sibling online (10 reps, loop programs). GCC and Clang binaries are byte-identical to the definitive campaign's; Rustc used a different nightly (f46ec5218 2026-06-30, not 096694416 2026-06-29), so its binaries differ |
+| `20260709-100937-final`, `20260709-181237-final-perf`, `20260711-061031-final-energy` | Earlier full campaigns, used for the between-campaign reproducibility and memory-portability checks |
+| `20260719-210130-rustc-canary` | Supplementary Rustc `-Z stack-protector` sweep, superseded by the definitive campaign |
+| `20261021-093518-build` | Isolated build cost on a second host (i7-9700K) |
+| `20261022-060156-build` | Isolated build cost on the campaign host |
+| `20261022-060542-random-order` | `startup` with the order shuffled in every sweep (host kernel 6.1.0-53, newer wrapper) |
+| `20261022-060910-smt-stalls` | Store-buffer stall counters, sibling offline and online |
+| `20261022-060149-rapl-window` | Extra RAPL interval of the published wrapper |
+| `20261022-060149-followup` | Log and host capture of the October follow-up runs |
 
 ## Technologies
 
