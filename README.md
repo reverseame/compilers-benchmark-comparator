@@ -210,7 +210,8 @@ RSS), which is the numeric source behind every figure.
 ### Paired statistics and A/A control
 
 `paired_stats.py` re-analyzes `runs.csv` and `binaries.csv` (standard library
-only, about 90 s); it does not need the container:
+only; about 100 s on the campaign host, an i7-6700 with Python 3.11, for the
+definitive campaign); it does not need the container:
 
 ```sh
 python3 scripts/paired_stats.py results_csv/20260720-114151-definitive
