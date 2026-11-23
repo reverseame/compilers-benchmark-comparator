@@ -1,0 +1,10 @@
+valid timed executions: 5100
+cells with measurements: 102
+EXCLUDED executions (crash/wrong output): 0
+compile failures: 0
+
+== final ==
+
+== startup ==
+
+== suma ==

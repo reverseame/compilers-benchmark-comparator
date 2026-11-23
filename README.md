@@ -370,6 +370,8 @@ image, as in the commands above, only for the follow-up experiments.
 | `20261022-060910-smt-stalls` | Store-buffer stall counters, sibling offline and online |
 | `20261022-060149-rapl-window` | Extra RAPL interval of the published wrapper |
 | `20261022-060149-followup` | Log and host capture of the October follow-up runs |
+| `20261123-065138-gcc-oz-ofast` | Supplementary campaign: g++ at `-Oz` and `-Ofast` (`config/matrix-gcc-oz-ofast.yaml`, 102 cells, 50 reps, sibling offline, host kernel 6.1.0-54), run with `followup_experiments.sh gccopt`. No figures, because `plot_results.py` draws them at `-O3`; the `independent` A/A counts in `paired_stats.txt` are 0 for the same reason (they read `figures/cell_stats.csv`) |
+| `20261123-065132-followup` | Log and host capture of that run |
 
 ## Technologies
 

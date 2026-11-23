@@ -1,0 +1,13 @@
+date_utc: 20261123-065132
+steps: gccopt
+uname: Linux crono 6.1.0-54-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.190-1 (2026-10-16) x86_64 GNU/Linux
+cpu_model:  Intel(R) Core(TM) i7-6700 CPU @ 3.40GHz
+governor: performance
+no_turbo: 1
+cpus_online: 0-6
+perf_event_paranoid: 1
+docker: 29.9.3
+image: ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163
+repo_commit: 64ab682de1add015f3344e277d4adacf3ef63d48
+repo_dirty: 1 files
+settings: CPU=3 SIBLING=7 BUILD_REPS=10 RAPL_RUNS=300 ORDER_PROGRAMS=startup ORDER_REPS=50 GCCOPT_REPS=50 SMT_ROUNDS=3 SMT_REPS=20

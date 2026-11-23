@@ -1,0 +1,26 @@
+== ELF properties of the empty-flag baselines (checksec)
+g++      pie=yes nx=yes relro=partial canary=no fortified=0  (6 binaries)
+
+== Cells byte-identical to their same-level baseline
+g++      fortify1                   4/6
+g++      fortify2                   2/6
+g++      fortify_off                6/6
+g++      no_stack_protector         6/6
+g++      noexecstack                6/6
+g++      pie                        6/6
+g++      stack_protector            4/6
+g++      stack_protector_strong     3/6
+
+== Classical defenses, release levels, loop programs: 18 cells (8 byte-identical to baseline, 10 different binaries)
+ratio of medians: [0.9835, 1.0003]
+max pointwise paired 95% upper limit, all cells: 1.0089 ('g++', 'suma', '-Ofast', 'no_pie')
+max pointwise paired 95% upper limit, different binaries: 1.0089 ('g++', 'suma', '-Ofast', 'no_pie')
+Bonferroni one-sided simultaneous 95% upper limit over the 10 different binaries (quantile 0.99500, 40000 resamples): 1.0132 ('g++', 'suma', '-Ofast', 'no_pie')
+
+== A/A control: byte-identical cells, all levels
+suma     n= 13 ratio [0.9970, 1.0003] delta_us [-286, 12] CI95 excludes 1: paired 6, independent 0
+         release levels only: n=7 delta_us [-46, 12]
+final    n=  8 ratio [1.0000, 1.0000] delta_us [-9, 10] CI95 excludes 1: paired 0, independent 0
+         release levels only: n=4 delta_us [-9, 9]
+startup  n= 16 ratio [0.9625, 1.0038] delta_us [-20, 2] CI95 excludes 1: paired 8, independent 0
+         release levels only: n=8 delta_us [-1, 2]
