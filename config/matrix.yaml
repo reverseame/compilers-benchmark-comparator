@@ -22,7 +22,7 @@ compilers:
   g++:
     source_ext: cpp
     command: "g++ {src} {opt} {flags} -o {out}"
-    opt_levels: ["-O0", "-O1", "-O2", "-O3", "-Os"]
+    opt_levels: ["-O0", "-O1", "-O2", "-O3", "-Os", "-Oz", "-Ofast"]
     security_flags:
       baseline: ""
       pie: "-fPIE -pie"

@@ -15,6 +15,12 @@
 #           (config/matrix-gcc-oz-ofast.yaml, about 40 min) with the image's
 #           own scripts, as in the published campaign, followed by
 #           analyze.py and paired_stats.py; only when named
+#   full    the complete campaign of config/matrix.yaml (all compilers and
+#           levels, including g++ -Oz/-Ofast) with the current campaign.py
+#           and measure_exec.c, the order shuffled in every sweep, and the
+#           binaries kept, followed by analyze.py, plot_results.py and
+#           paired_stats.py; about 6 h; only when named. It refuses to start
+#           if the machine is busy and logs the load average every minute
 #   smt     store-buffer stalls with the sibling offline and online
 #           (scripts/smt_stalls.sh)
 #
@@ -22,12 +28,15 @@
 #   sudo scripts/followup_experiments.sh                # default steps
 #   sudo scripts/followup_experiments.sh rapl smt       # a subset
 #   sudo scripts/followup_experiments.sh gccopt         # GCC -Oz/-Ofast
+#   sudo scripts/followup_experiments.sh full           # complete campaign
 #
 # Settings (environment variables, defaults in parentheses):
 #   CPU (3), SIBLING (7), IMAGE (the article's digest), BUILD_REPS (10),
 #   RAPL_RUNS (300), ORDER_PROGRAMS (startup; empty = full matrix, ~2.5 h),
-#   ORDER_REPS (50), GCCOPT_REPS (50), SMT_ROUNDS (3), SMT_REPS (20), FORCE
-#   (0: refuse to run on a CPU other than the i7-6700).
+#   ORDER_REPS (50), GCCOPT_REPS (50), FULL_REPS (50), FULL_ORDER (random),
+#   FULL_SEED (20260708), ALLOW_BUSY (0: refuse to start the full campaign
+#   if the 1-minute load average exceeds 0.5), SMT_ROUNDS (3), SMT_REPS (20),
+#   FORCE (0: refuse to run on a CPU other than the i7-6700).
 #
 # The host settings changed here (governors, turbo, sibling state,
 # perf_event_paranoid) are restored on exit; the intel_rapl_msr module is
@@ -45,6 +54,10 @@ ORDER_REPS=${ORDER_REPS:-50}
 SMT_ROUNDS=${SMT_ROUNDS:-3}
 SMT_REPS=${SMT_REPS:-20}
 GCCOPT_REPS=${GCCOPT_REPS:-50}
+FULL_REPS=${FULL_REPS:-50}
+FULL_ORDER=${FULL_ORDER:-random}
+FULL_SEED=${FULL_SEED:-20260708}
+ALLOW_BUSY=${ALLOW_BUSY:-0}
 FORCE=${FORCE:-0}
 STEPS=${*:-build rapl order smt}
 
@@ -66,7 +79,7 @@ as_user() {   # post-processing and git run as the invoking user
     || die "run from the repository root"
 command -v docker >/dev/null || die "docker not found"
 for s in $STEPS; do
-    case $s in build|rapl|order|gccopt|smt) ;; *) die "unknown step: $s" ;; esac
+    case $s in build|rapl|order|gccopt|full|smt) ;; *) die "unknown step: $s" ;; esac
 done
 if ! grep -q "i7-6700 " /proc/cpuinfo && [ "$FORCE" != 1 ]; then
     die "this is not the i7-6700 of the campaign (FORCE=1 to run anyway)"
@@ -88,6 +101,7 @@ for g in $SYS/cpu[0-9]*/cpufreq/scaling_governor; do orig_gov[$g]=$(cat "$g"); d
 
 restore() {
     set +e
+    [ -n "${loadmon:-}" ] && kill "$loadmon" 2>/dev/null
     echo 1 > "$ONLINE"
     for g in "${!orig_gov[@]}"; do echo "${orig_gov[$g]}" > "$g"; done
     echo "$orig_online" > "$ONLINE"
@@ -120,7 +134,12 @@ log "governor=$(cat $SYS/cpu$CPU/cpufreq/scaling_governor)" \
 read -r load1 _ < /proc/loadavg
 log "load average (1 min): $load1"
 awk -v l="$load1" 'BEGIN { exit !(l > 0.5) }' \
-    && log "WARNING: the machine does not look idle"
+    && log "WARNING: the machine does not look idle" \
+    && ps -eo user,pid,pcpu,etime,comm --sort=-pcpu | head -6
+if has_step full && [ "$ALLOW_BUSY" != 1 ] \
+    && awk -v l="$load1" 'BEGIN { exit !(l > 0.5) }'; then
+    die "full: the machine is busy (load $load1); other processes share the L3 cache and memory bandwidth and can migrate to cpu$CPU. Wait until it is idle, or set ALLOW_BUSY=1"
+fi
 
 log "pulling $IMAGE"
 docker pull -q "$IMAGE"
@@ -140,7 +159,8 @@ docker pull -q "$IMAGE"
     echo "repo_dirty: $(as_user git status --short | wc -l) files"
     echo "settings: CPU=$CPU SIBLING=$SIBLING BUILD_REPS=$BUILD_REPS" \
          "RAPL_RUNS=$RAPL_RUNS ORDER_PROGRAMS=$ORDER_PROGRAMS" \
-         "ORDER_REPS=$ORDER_REPS GCCOPT_REPS=$GCCOPT_REPS" \
+         "ORDER_REPS=$ORDER_REPS GCCOPT_REPS=$GCCOPT_REPS FULL_REPS=$FULL_REPS" \
+         "FULL_ORDER=$FULL_ORDER FULL_SEED=$FULL_SEED" \
          "SMT_ROUNDS=$SMT_ROUNDS SMT_REPS=$SMT_REPS"
 } > "results_csv/followup-$TS-host.txt"
 
@@ -241,7 +261,37 @@ if has_step gccopt; then
     log "gccopt: results in results_csv/$gccopt_dir"
 fi
 
-# ---- 5. SMT store-buffer stalls -------------------------------------------
+# ---- 5. complete campaign -------------------------------------------------
+# Current campaign.py (--order, position column) and measure_exec.c (RAPL
+# read at the same points as the wall clock) mounted over the image's; the
+# toolchains are the image's. The load average is logged every minute.
+full_dir=""
+if has_step full; then
+    log "full: complete matrix, order=$FULL_ORDER seed=$FULL_SEED," \
+        "$FULL_REPS reps"
+    LOADLOG=results_csv/followup-$TS-load.txt
+    ( while sleep 60; do
+        echo "$(date -u +%FT%TZ) $(cut -d' ' -f1-3 /proc/loadavg)"
+      done ) > "$LOADLOG" &
+    loadmon=$!
+    "${DOCKER[@]}" \
+        -v "$PWD/scripts/campaign.py:/app/scripts/campaign.py:ro" \
+        -v "$PWD/scripts/measure_exec.c:/app/scripts/measure_exec.c:ro" \
+        -v "$PWD/results_csv:/app/results_csv" \
+        "$IMAGE" --matrix config/matrix.yaml --reps "$FULL_REPS" \
+        --order "$FULL_ORDER" --seed "$FULL_SEED" --keep-binaries \
+        | tee "results_csv/.full-$TS"
+    kill "$loadmon" 2>/dev/null || true
+    full_dir=$(sed -n 's/.*Results in results_csv\/\([^ ]*\).*/\1/p' \
+        "results_csv/.full-$TS" | tail -1)
+    rm -f "results_csv/.full-$TS"
+    [ -n "$full_dir" ] || die "full: cannot find the campaign directory"
+    log "full: results in results_csv/$full_dir; load log in $LOADLOG"
+    log "full: highest 1-minute load during the run:" \
+        "$(sort -k2 -g "$LOADLOG" | tail -1)"
+fi
+
+# ---- 6. SMT store-buffer stalls -------------------------------------------
 if has_step smt; then
     log "smt: $SMT_ROUNDS rounds x (offline, online), $SMT_REPS reps"
     CPU=$CPU SIBLING=$SIBLING ROUNDS=$SMT_ROUNDS REPS=$SMT_REPS \
@@ -252,7 +302,7 @@ fi
 # ---- post-processing (as the invoking user, after the timed work) ---------
 restore
 trap - EXIT
-if [ -n "$order_dir$gccopt_dir" ]; then
+if [ -n "$order_dir$gccopt_dir$full_dir" ]; then
     if as_user python3 -c "import matplotlib" 2>/dev/null; then
         if [ -n "$order_dir" ]; then
             log "order: plot_results.py and paired_stats.py"
@@ -269,6 +319,13 @@ if [ -n "$order_dir$gccopt_dir" ]; then
                 || log "gccopt: analyze.py failed"
             as_user python3 scripts/paired_stats.py "results_csv/$gccopt_dir" >/dev/null \
                 || log "gccopt: paired_stats.py failed"
+        fi
+        if [ -n "$full_dir" ]; then
+            log "full: analyze.py, plot_results.py and paired_stats.py"
+            for s in analyze.py plot_results.py paired_stats.py; do
+                as_user python3 "scripts/$s" "results_csv/$full_dir" >/dev/null \
+                    || log "full: $s failed"
+            done
         fi
     else
         log "matplotlib not available; for each new campaign directory, run:"

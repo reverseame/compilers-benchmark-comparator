@@ -148,6 +148,14 @@ Useful options: `--programs suma,final`, `--compilers g++,clang++,rustc`,
 `--reps N`, `--order random --seed N`, `--keep-binaries` (keeps the
 compiled binaries next to the CSVs so they can be archived as an artifact).
 
+On the campaign host, `sudo scripts/followup_experiments.sh full` runs the
+complete matrix with this configuration in one go: it sets and restores the
+host state, mounts the current `campaign.py` and `measure_exec.c` over the
+image pinned by digest, shuffles the order in every sweep (`--order random`),
+keeps the binaries, logs the load average every minute, and refuses to
+start while the machine is busy (other processes share the L3 cache and
+memory bandwidth even when they do not run on the measurement core).
+
 Results are written to
 `results_csv/<timestamp>/{runs.csv,binaries.csv,environment.txt,matrix.yaml}`.
 
@@ -167,16 +175,19 @@ campaign you intend to compare, and check it is recorded in
 
 ### How many repetitions?
 
-The article's matrix has 1,017 cells, of which 999 compile (Rustc cannot
-build its MSan cells). One sweep over the 999 binaries took about 6.3
-minutes on the reference server, so a campaign takes roughly
-`6.3 min × (reps + 1)`; the article's 50 repetitions took 5.3 hours.
+`config/matrix.yaml` has 1,119 cells, of which 1,101 compile (Rustc cannot
+build its MSan cells); it includes g++ at `-Oz` and `-Ofast`, which the
+July 2026 campaign did not (its 1,017-cell matrix is kept in its results
+directory). One sweep over that campaign's 999 binaries took about 6.3
+minutes on the reference server, and the 102 g++ `-Oz`/`-Ofast` binaries
+add about 0.25 minutes, so a complete campaign takes roughly
+`6.6 min × (reps + 1)`.
 
 | `--reps` | duration | note |
 |---------:|---------:|------|
 | 10       | ~1.2 h   | enough for smoke tests |
-| 50       | ~5.3 h   | the article's campaign |
-| 100      | ~10.6 h  | diminishing returns |
+| 50       | ~5.6 h   | the article's protocol |
+| 100      | ~11 h    | diminishing returns |
 
 The median coefficient of variation is 0.8% on the loop benchmarks and
 3.2% on `startup`, so the confidence interval of the median shrinks below
@@ -325,13 +336,17 @@ There are three levels of reproduction, with different requirements.
    (rustc 1.98.0-nightly 096694416 2026-06-29, GCC 14.2.0-19, Clang 19.1.7,
    glibc 2.41). Its built-in `config/matrix.yaml` predates the campaign's,
    which adds Rustc's `stack_protector_all` cells, so the campaign mounted
-   the repository's matrix over it, and so should any run with this image:
+   its own matrix over it, and so should any run with this image. To
+   rebuild the binaries of a given campaign, mount the `matrix.yaml` stored
+   in that campaign's results directory (the repository's
+   `config/matrix.yaml` may have grown since):
 
    ```sh
+   M=results_csv/20260720-114151-definitive/matrix.yaml
    docker run --rm --cpuset-cpus=3 --cap-add PERFMON \
      --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
      -v /sys/devices/virtual/powercap:/rapl:ro \
-     -v "$PWD/config/matrix.yaml:/app/config/matrix.yaml:ro" \
+     -v "$PWD/$M:/app/config/matrix.yaml:ro" \
      -v "$PWD/results_csv:/app/results_csv" \
      ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163 \
      --reps 50 --keep-binaries
