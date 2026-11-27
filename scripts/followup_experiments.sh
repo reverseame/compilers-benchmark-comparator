@@ -72,6 +72,7 @@ log() { echo "[followup $(date -u +%H:%M:%S)] $*"; }
 as_user() {   # post-processing and git run as the invoking user
     if [ -n "${SUDO_USER:-}" ]; then sudo -u "$SUDO_USER" -H "$@"; else "$@"; fi
 }
+has_step() { case " $STEPS " in *" $1 "*) return 0 ;; esac; return 1; }
 
 # ---- preflight ------------------------------------------------------------
 [ "$(id -u)" = 0 ] || die "run as root (sudo): CPU hotplug and sysctl"
@@ -171,8 +172,6 @@ DOCKER=(docker run --rm --cpuset-cpus="$CPU" --cap-add PERFMON
         --security-opt seccomp=unconfined --security-opt apparmor=unconfined
         -v /sys/devices/virtual/powercap:/rapl:ro
         -v "$PWD/config/matrix.yaml:/app/config/matrix.yaml:ro")
-
-has_step() { case " $STEPS " in *" $1 "*) return 0 ;; esac; return 1; }
 
 # ---- 1. build cost --------------------------------------------------------
 if has_step build; then

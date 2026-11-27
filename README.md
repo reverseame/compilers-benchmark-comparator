@@ -51,8 +51,9 @@ The measurement campaign runs through `scripts/campaign.py`:
   are strictly sequential** and sweep-major (one full pass over all binaries
   per repetition, so slow drift affects all cells equally).
 - Within each sweep the cells run in a fixed order by default (as in the
-  article's campaign). `--order rotate` shifts the starting cell evenly
-  across sweeps; `--order random` shuffles the cells in every sweep (seeded
+  July 2026 campaigns; the article's campaign used `--order random`).
+  `--order rotate` shifts the starting cell evenly across sweeps;
+  `--order random` shuffles the cells in every sweep (seeded
   with `--seed`). Each row of `runs.csv` records its `position` within the
   sweep, so run-order effects can be estimated (see `paired_stats.py`).
   `rotate` changes a cell's absolute position but keeps its neighbors;
@@ -130,12 +131,12 @@ sudo sysctl kernel.perf_event_paranoid=1
 sudo modprobe intel_rapl_msr
 
 # 4. Launch the campaign pinned to the single measurement core, with no
-#    CPU limits:
+#    CPU limits and the order shuffled in every sweep, as in the article:
 docker run --rm --cpuset-cpus=3 --cap-add PERFMON \
   --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
   -v /sys/devices/virtual/powercap:/rapl:ro \
   -v "$PWD/results_csv:/app/results_csv" \
-  compiler-benchmark-measure --reps 50 --keep-binaries
+  compiler-benchmark-measure --reps 50 --order random --keep-binaries
 
 # 5. Restore the host afterwards:
 echo 1 | sudo tee /sys/devices/system/cpu/cpu7/online
@@ -337,9 +338,13 @@ There are three levels of reproduction, with different requirements.
    glibc 2.41). Its built-in `config/matrix.yaml` predates the campaign's,
    which adds Rustc's `stack_protector_all` and g++'s `-Oz`/`-Ofast` cells,
    so the campaign mounted its own matrix over it, and so should any run with
-   this image. To rebuild the binaries of a given campaign, mount the
-   `matrix.yaml` stored in that campaign's results directory (the
-   repository's `config/matrix.yaml` may have grown since):
+   this image. The campaign also mounted this repository's `campaign.py`
+   and `measure_exec.c` (unchanged since commit 32e29e4) over the image's
+   own and shuffled the order in every sweep. The command below repeats it
+   exactly: same toolchains, matrix, scripts, order, and seed. To rebuild the
+   binaries of a given campaign, mount the `matrix.yaml` stored in that
+   campaign's results directory (the repository's `config/matrix.yaml` may
+   have grown since):
 
    ```sh
    M=results_csv/20261123-110853-complete/matrix.yaml
@@ -347,9 +352,12 @@ There are three levels of reproduction, with different requirements.
      --security-opt seccomp=unconfined --security-opt apparmor=unconfined \
      -v /sys/devices/virtual/powercap:/rapl:ro \
      -v "$PWD/$M:/app/config/matrix.yaml:ro" \
+     -v "$PWD/scripts/campaign.py:/app/scripts/campaign.py:ro" \
+     -v "$PWD/scripts/measure_exec.c:/app/scripts/measure_exec.c:ro" \
      -v "$PWD/results_csv:/app/results_csv" \
      ghcr.io/reverseame/compilers-benchmark-comparator@sha256:1840aca51f5ac12438438e429215f8e90f7a1c68d52b5dbf37bffcb6dd049163 \
-     --reps 50 --keep-binaries
+     --matrix config/matrix.yaml --reps 50 \
+     --order random --seed 20260708 --keep-binaries
    ```
 
    Compare the `sha256` column of the new `binaries.csv` with the published
@@ -359,17 +367,27 @@ There are three levels of reproduction, with different requirements.
 3. **Repeating the timings** additionally needs the same machine
    configuration: an i7-6700 (Skylake), governor `performance`, turbo off,
    the container pinned to CPU 3, and CPU 7 (its SMT sibling) offline, as in
-   "Running on a server". Absolute times, IPC, energy, and some flag ratios
-   are host-dependent; on other hardware, expect the classification of the
-   options to hold rather than the exact numbers.
+   "Running on a server". On that host, `sudo scripts/followup_experiments.sh
+   full` sets this configuration, runs the command above with the
+   repository's `config/matrix.yaml` (identical to the campaign's), refuses
+   to start while the 1-minute load average exceeds 0.5, logs it every
+   minute, and restores the host afterwards. Absolute
+   times, IPC, energy, and some flag ratios are host-dependent; on other
+   hardware, expect the classification of the options to hold rather than
+   the exact numbers.
 
 The article's campaign (`20261123-110853-complete`) ran the image's
 toolchains with the scripts of commit 32e29e4 mounted over the image's own
 (`followup_experiments.sh full`): `campaign.py` with `--order random` and the
 `position` column, and `measure_exec.c` reading RAPL at the same points as
-the wall clock. The earlier July 2026 campaigns used the scripts built into
-the image, with a fixed order and the older RAPL window (see "Energy
-window"). The 999 binaries common to both are byte-identical.
+the wall clock. In that run the script's busy-machine check did not take
+effect: it called `has_step` before the function was defined, and the log
+records the error (`has_step: orden no encontrada`). The 1-minute load
+average was 0.14 when the campaign started, and the per-minute load log is
+in `20261123-110847-followup`. The check has been fixed since. The earlier
+July 2026 campaigns used the scripts built into the image, with a fixed
+order and the older RAPL window (see "Energy window"). The 999 binaries
+common to both are byte-identical.
 
 ### Published data
 
