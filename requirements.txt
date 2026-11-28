@@ -1,4 +1,5 @@
 # Only needed for post-processing on your workstation (scripts/plot_results.py).
 # The measurement container itself (Dockerfile.measure) has no Python
 # dependencies beyond python3-yaml, installed via apt.
-matplotlib>=3.8
+# The published figures were produced with matplotlib 3.6.3 (Debian 12).
+matplotlib>=3.6

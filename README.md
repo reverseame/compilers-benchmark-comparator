@@ -319,9 +319,16 @@ There are three levels of reproduction, with different requirements.
 
 1. **Re-running the analysis** on the published data needs only Python and
    regenerates the article's tables, per-cell statistics
-   (`figures/cell_stats.csv`), and paired statistics. The figures render
-   identically; their PDF files are byte-identical only with the same
-   matplotlib version (3.7.1) and creation date, which are embedded in them:
+   (`figures/cell_stats.csv`), and paired statistics; their values do not
+   depend on the plotting environment. The published figures were drawn on
+   the campaign host (Debian 12, Python 3.11.2, the distribution's
+   matplotlib 3.6.3) without a LaTeX installation, so `plot_results.py`
+   used matplotlib's bundled STIX fonts. With `latex` on the `PATH` it
+   renders the text through LaTeX with STIX Two instead, which changes the
+   glyphs but not the plotted data; remove `latex` from the `PATH` to
+   reproduce the published appearance. The PDF files are byte-identical
+   only with the same matplotlib version and creation date, which are
+   embedded in them:
 
    ```sh
    pip3 install -r requirements.txt
